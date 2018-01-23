@@ -11,6 +11,10 @@ Based on the awesome [eleventy-base-blog](https://github.com/11ty/eleventy-base-
 - [Netlify Demo](https://eleventy-high-performance-blog-sample.industrialempathy.com/)
 - [Original site this template was based on](https://www.industrialempathy.com/)
 
+[![Build Status](https://travis-ci.org/11ty/eleventy-base-blog.svg?branch=master)](https://travis-ci.org/11ty/eleventy-base-blog)
+
+## [Live Demo](https://11ty.github.io/eleventy-base-blog/)
+
 ## Getting Started
 
 ### 1. Generate a new repository from this repository template
