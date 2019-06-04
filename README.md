@@ -17,6 +17,7 @@ Based on the awesome [eleventy-base-blog](https://github.com/11ty/eleventy-base-
 
 * [Netlify](https://eleventy-base-blog.netlify.com/)
 * [GitHub Pages](https://11ty.github.io/eleventy-base-blog/)
+* [Remix on Glitch](https://glitch.com/~11ty-eleventy-base-blog)
 
 ## Deploy this to your own site
 
