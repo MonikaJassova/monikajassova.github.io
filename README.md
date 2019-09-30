@@ -17,6 +17,7 @@ Based on the awesome [eleventy-base-blog](https://github.com/11ty/eleventy-base-
 
 * [Netlify](https://eleventy-base-blog.netlify.com/)
 * [Get your own Eleventy web site on Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/11ty/eleventy-base-blog)—seriously, just click OK a few times and it’s live—Netlify is amazing.
+* [Get your own Eleventy web site on ZEIT Now](https://zeit.co/new/project?template=11ty/eleventy-base-blog)—seriously, just click OK a few times and it’s live—ZEIT Now is amazing.
 * [GitHub Pages](https://11ty.github.io/eleventy-base-blog/)
 
 ## Getting Started
