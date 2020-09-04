@@ -84,7 +84,7 @@ npm run build
 
 #### Analytics
 
-- Supports locally serving Google Analytics's JS and proxying it's hit requests to a Netlify proxy (other proxies could be easily added)
+- Supports locally serving Google Analytics's JS and proxying it's hit requests to a Netlify proxy (other proxies could be easily added).
 - Support for noscript hit requests.
 - Avoids blocking onload on analytics requests.
 
