@@ -33,6 +33,11 @@ describe("check build output for a generic post", () => {
       return;
     }
 
+    if (!existsSync(POST_FILENAME)) {
+      it("WARNING skipping tests because POST_FILENAME does not exist", () => {});
+      return;
+    }
+
     let dom;
     let html;
     let doc;
