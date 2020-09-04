@@ -1,6 +1,5 @@
 ---
-# Metadata comes from _data/metadata.json
-permalink: "{{ metadata.feed.path | url }}"
+permalink: feed/feed.xml
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
@@ -16,7 +15,7 @@ eleventyExcludeFromCollections: true
 		<name>{{ metadata.author.name }}</name>
 		<email>{{ metadata.author.email }}</email>
 	</author>
-	{%- for post in collections.posts | reverse %}
+	{%- for post in collections.posts %}
 	{% set absolutePostUrl %}{{ post.url | url | absoluteUrl(metadata.url) }}{% endset %}
 	<entry>
 		<title>{{ post.data.title }}</title>

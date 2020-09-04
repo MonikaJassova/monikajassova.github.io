@@ -156,8 +156,8 @@ module.exports = function (eleventyConfig) {
   });
 
   // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
-  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
+  eleventyConfig.addFilter("htmlDateString", (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
   });
 
   // Get the first `n` elements of a collection.
@@ -237,24 +237,35 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("css");
+  eleventyConfig.addPassthroughCopy("js");
+  eleventyConfig.addPassthroughCopy("fonts");
+  eleventyConfig.addPassthroughCopy("_headers");
+
+  // We need to rebuild upon JS change to update the CSP.
+  eleventyConfig.addWatchTarget("./js/");
+  // We need to rebuild on CSS change to inline it.
+  eleventyConfig.addWatchTarget("./css/");
+  // Unfortunately this means .eleventyignore needs to be maintained redundantly.
+  // But without this the JS build artefacts doesn't trigger a build.
+  eleventyConfig.setUseGitIgnore(false);
 
   /* Markdown Overrides */
   let markdownLibrary = markdownIt({
     html: true,
     breaks: true,
-    linkify: true
+    linkify: true,
   }).use(markdownItAnchor, {
     permalink: true,
     permalinkClass: "direct-link",
-    permalinkSymbol: "#"
+    permalinkSymbol: "#",
   });
   eleventyConfig.setLibrary("md", markdownLibrary);
 
   // Browsersync Overrides
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
-      ready: function(err, browserSync) {
-        const content_404 = fs.readFileSync('_site/404.html');
+      ready: function (err, browserSync) {
+        const content_404 = fs.readFileSync("_site/404.html");
 
         browserSync.addMiddleware("*", (req, res) => {
           // Provides the 404 content without redirect.
@@ -264,7 +275,7 @@ module.exports = function (eleventyConfig) {
       },
     },
     ui: false,
-    ghostMode: false
+    ghostMode: false,
   });
 
   return {
@@ -275,7 +286,7 @@ module.exports = function (eleventyConfig) {
 
     // If you don’t have a subdirectory, use "" or "/" (they do the same thing)
     // This is only used for link URLs (it does not affect your file structure)
-    // Best paired with the `url` filter: https://www.11ty.dev/docs/filters/url/
+    // Best paired with the `url` filter: https://www.11ty.io/docs/filters/url/
 
     // You can also pass this in on the command line using `--pathprefix`
     // pathPrefix: "/",

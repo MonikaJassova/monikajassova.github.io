@@ -310,11 +310,11 @@ function toggleColorscheme(_) {
 expose("colorscheme-toggle", toggleColorscheme);
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener(
-  "change", 
+  "change",
   e => e.matches && setColorscheme(colorscheme_dark)
 );
 
 window.matchMedia("(prefers-color-scheme: light)").addEventListener(
-  "change", 
+  "change",
   e => e.matches && setColorscheme(colorscheme_light)
-); 
+);

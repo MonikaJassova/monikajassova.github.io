@@ -41,13 +41,73 @@ git clone https://github.com/YOUR_REPO
 ### 3. Navigate to the directory
 
 ```
-cd my-blog-name
+npm run build
 ```
 
 ### 4. Install dependencies
 
-```
-npm install
+### Performance optimizations
+
+#### Images
+
+- Immutable URLs.
+- Downloads remote images and stores/serves them locally.
+- Generates multiple sizes of each image and uses them in **`srcset`**.
+- Generates a **blurry placeholder** for each image (without adding an HTML element or using JS).
+- **Lazy loads** images (using [native `loading=lazy`](https://web.dev/native-lazy-loading/)).
+- **Async decodes** images (using `decoding=async`).
+- **Avoids CLS impact** of images by inferring and providing width and height (Supported in Chrome, Firefox and Safari 14+).
+
+#### CSS
+
+- Defaults to the compact "classless" [Bahunya CSS framework](https://kimeiga.github.io/bahunya/).
+- Inlines CSS.
+- Dead-code-eliminates / tree-shakes / purges (pick your favorite word) unused CSS on a per-page basis with [PurgeCSS](https://purgecss.com/).
+- Minified CSS with [csso](https://www.npmjs.com/package/csso).
+
+#### Miscellaneous
+
+- Immutable URLs for JS.
+- Sets immutable caching headers for images, fonts, and JS (CSS is inlined). Currently implements for Netflify `_headers` file.
+- Minifies HTML and optimizes it for compression. Uses [html-minifier](https://www.npmjs.com/package/html-minifier) with aggressive options.
+- Uses [rollup](https://rollupjs.org/) to bundle JS and minifies it with [terser](https://terser.org/).
+- Prefetches same-origin navigations when a navigation is likely.
+- If an AMP files is present, [optimizes it](https://amp.dev/documentation/guides-and-tutorials/optimize-and-measure/optimize_amp/).
+
+#### Fonts
+
+- Serves fonts from same origin.
+- Preloads fonts.
+- Makes fonts `display:swap`.
+
+#### Analytics
+
+- Supports locally serving Google Analytics's JS and proxying it's hit requests to a Netlify proxy (other proxies could be easily added)
+- Support for noscript hit requests.
+- Avoids blocking onload on analytics requests.
+
+#### Opportunities (not-yet-implemented)
+
+- Transcode images to webp.
+- Transcode images to avif.
+
+### DX features
+
+- Uses 🚨 as favicon during local development.
+- Supports a range of default tests.
+- Runs build and tests on `git push`.
+- Sourcemap generated for JS.
+
+### Customization
+
+- Knock yourself out. This is a template repository.
+- For a simple color override, adjust these CSS variables at the top of `css/main.css`.
+
+```css
+:root {
+  --primary: #E7BF60;
+  --primary-dark: #f9c412;
+}
 ```
 
 ### 5. Build, serve, watch and test
