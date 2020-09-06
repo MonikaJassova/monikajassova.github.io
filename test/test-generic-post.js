@@ -176,9 +176,9 @@ describe("check build output for a generic post", () => {
         expect(webp.srcset).to.match(
           /\/img\/remote\/\w+-1920w.webp 1920w, \/img\/remote\/\w+-1280w.webp 1280w, \/img\/remote\/\w+-640w.webp 640w, \/img\/remote\/\w+-320w.webp 320w/
         );
-        expect(avif.srcset).to.match(
-          /\/img\/remote\/\w+-1920w.avif 1920w, \/img\/remote\/\w+-1280w.avif 1280w, \/img\/remote\/\w+-640w.avif 640w, \/img\/remote\/\w+-320w.avif 320w/
-        );
+        //expect(avif.srcset).to.match(
+        //  /\/img\/remote\/\w+-1920w.avif 1920w, \/img\/remote\/\w+-1280w.avif 1280w, \/img\/remote\/\w+-640w.avif 640w, \/img\/remote\/\w+-320w.avif 320w/
+        //);
         expect(jpg.type).to.equal("image/jpeg");
         expect(webp.type).to.equal("image/webp");
         //expect(avif.type).to.equal("image/avif");
