@@ -27,8 +27,6 @@ const srcset = require("./srcset");
 const path = require("path");
 const { gif2mp4 } = require("./video-gif");
 
-const ACTIVATE_AVIF = false;
-
 /**
  * Sets `width` and `height` on each image, adds blurry placeholder
  * and generates a srcset if none present.
@@ -110,9 +108,7 @@ const processImage = async (img, outputPath) => {
     const avif = doc.createElement("source");
     const webp = doc.createElement("source");
     const jpeg = doc.createElement("source");
-    if (ACTIVATE_AVIF) {
-      await setSrcset(avif, src, "avif");
-    }
+    await setSrcset(avif, src, "avif");
     avif.setAttribute("type", "image/avif");
     await setSrcset(webp, src, "webp");
     webp.setAttribute("type", "image/webp");

@@ -22,7 +22,6 @@
 const { promisify } = require("util");
 const exists = promisify(require("fs").exists);
 const sharp = require("sharp");
-const avif = require("./avif");
 
 /**
  * Generates sensible sizes for each image for use in a srcset.
