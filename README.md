@@ -81,7 +81,7 @@ npm run build
 #### Fonts
 
 - Serves fonts from same origin.
-- Makes fonts `display:swap`.
+- Makes fonts `display:optional`.
 
 #### Analytics
 
