@@ -41,6 +41,11 @@ const quality = {
   default: 60,
 };
 
+const quality = {
+  avif: 40,
+  default: 60,
+};
+
 module.exports = async function srcset(filename, format) {
   const names = await Promise.all(
     widths.map((w) => resize(filename, w, format))
