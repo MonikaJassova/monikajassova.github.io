@@ -112,6 +112,7 @@ const addCspHash = async (rawContent, outputPath) => {
     }
   }
 
+
   return content;
 };
 
