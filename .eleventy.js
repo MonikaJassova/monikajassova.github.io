@@ -300,7 +300,7 @@ module.exports = function (eleventyConfig) {
   });
 
   // Run me before the build starts
-  eleventyConfig.on('beforeBuild', () => {
+  eleventyConfig.on("beforeBuild", () => {
     // Copy _header to dist
     // Don't use addPassthroughCopy to prevent apply-csp from running before the _header file has been copied
     try {
@@ -308,7 +308,10 @@ module.exports = function (eleventyConfig) {
       fs.mkdirSync("./_site", { recursive: true });
       fs.writeFileSync("_site/_headers", headers);
     } catch (error) {
-      console.log("[beforeBuild] Something went wrong with the _headers file\n", error);
+      console.log(
+        "[beforeBuild] Something went wrong with the _headers file\n",
+        error
+      );
     }
   });
 
