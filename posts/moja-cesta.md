@@ -8,9 +8,9 @@ image: /img/journey.jpg
 layout: layouts/post.njk
 ---
 
-*V prvom príspevku svojho blogu začínam zľahka a osobnejšie* 
+*V prvom príspevku svojho blogu začínam zľahka a osobnejšie*
 
-Pracujem ako softvérový tester a tento vzrušujúci a pestrý svet milujem. Do IT som sa však dostala okľukou. Keď som si na strednej v Turbo Pascale naprogramovala "Matrix" (rozumej vypisovanie náhodných reťazcov v zelenej farbe na čiernom pozadí), cítila som sa ako majster sveta 😄. Pre zaujímavosť, zhruba v tom čase vznikol YouTube a prvé videá sme pozerali práve na hodine informatiky. Keď prišlo na rozhodovanie čo po gymnáziu, zvažovala som aj informatiku, no pred elektrotechnikou a fyzikou som mala priveľký rešpekt. V mojom okolí sa nenašiel nikto, kto by tento smer schvaľoval a navrhol aspoň to skúsiť. Vybrala som si teda bežnejšiu a istejšiu cestu a išla na ekonómiu. 
+Pracujem ako softvérový tester a tento vzrušujúci a pestrý svet milujem. Do IT som sa však dostala okľukou. Keď som si na strednej v Turbo Pascale naprogramovala "Matrix" (rozumej vypisovanie náhodných reťazcov v zelenej farbe na čiernom pozadí), cítila som sa ako majster sveta 😄. Pre zaujímavosť, zhruba v tom čase vznikol YouTube a prvé videá sme pozerali práve na hodine informatiky. Keď prišlo na rozhodovanie čo po gymnáziu, zvažovala som aj informatiku, no pred elektrotechnikou a fyzikou som mala priveľký rešpekt. V mojom okolí sa nenašiel nikto, kto by tento smer schvaľoval a navrhol aspoň to skúsiť. Vybrala som si teda bežnejšiu a istejšiu cestu a išla na ekonómiu.
 
 Po vysokej škole som sa zamestnala ako účtovníčka a keď sa vrátila pani, ktorú som zastupovala počas materskej dovolenky, musela som sa porúčať. Dlho sa mi nedarilo nájsť nové zamestnanie, dokonca ani magentové Téčko, kam vraj berú každého, kto ovláda angličtinu, ma nikdy nepozvalo na pohovor. Až mi raz Facebook ukázal príspevok spolužiaka, že IT firma, v ktorej pracuje, otvára v spolupráci s SOŠ trojročné nadstavbové štúdium s garantovaným pracovným miestom pre absolventov. Tak som si povedala, že kedy, keď nie teraz a prihlásila sa.
 
