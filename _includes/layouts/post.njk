@@ -9,7 +9,7 @@ templateClass: tmpl-post
    {% set wc = content | striptags | wordcount %}
    {% set wPerMinute = (wc / 240) + 1 %}
    <aside>
-     {{ wPerMinute | round }} min read.
+     čítanie na {{ wPerMinute | round }} min
    </aside>
 {% endblock %}
 
@@ -18,11 +18,10 @@ templateClass: tmpl-post
 {% block article %}
 {{ content | safe }}
 
-<h1>🙏🙏🙏</h1>
+<center><h3>🙏 🙏 🙏</h3></center>
 <p>
-  Since you've made it this far, <a href="{{ shareUrl | safe }}" on-click="share">sharing</a> this article on your favorite social media network 
-  would be highly appreciated 💖! For feedback, please 
-  <a href="https://twitter.com/{{ metadata.author.twitterHandle }}" target="_blank" rel="noopener">ping me on Twitter.</a>
+  Ak ste sa dostali až sem a príspevok sa Vám páčil, jeho <a href="{{ shareUrl | safe }}" on-click="share">zdieľanie</a> na Vašej obľúbenej sociálnej sieti 
+  ma veľmi poteší 💖! Pre spätnú väzbu ma kontaktujte, prosím, na emailovej adrese jassova.mon zavináč gmail.com.
 </p>
 
 <share-widget>
