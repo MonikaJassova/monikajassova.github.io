@@ -1,26 +1,26 @@
 {
-  "title": "Title of the website. Update me.",
-  "url": "https://update-me.com",
-  "domain": "update-me.com",
-  "description": "Description of the website. Update me.",
-  "genre": "Insert a schema.org genre",
-  "googleAnalyticsId": "GA ID. Update me. Note, that this is not compatible with the not-yet-commonly used version 4 of Google Analytics",
+  "title": "Domov",
+  "url": "https://monikajassova.github.io",
+  "domain": "github.io",
+  "description": "Monikin ITinerár",
+  "genre": "Blog",
+  "googleAnalyticsId": "",
   "sendWebVitals": false,
   "feed": {
-    "subtitle": "Subtitle. Update me.",
+    "subtitle": "Monikin ITinerár",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://update-me.com"
+    "id": "https://monikajassova.github.io"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
-    "url": "https://update-me.com/feed/feed.json"
+    "url": "https://monikajassova.github.io/feed/feed.json"
   },
   "author": {
-    "name": "Author Name. Update me.",
+    "name": "Monika Jaššová",
     "twitterHandle": "update_me"
   },
   "publisher": {
-    "name": "Publisher name. Update me."
+    "name": "Monika Jaššová"
   }
 }

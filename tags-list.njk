@@ -1,8 +1,11 @@
 ---
 permalink: /tags/
 layout: layouts/home.njk
+eleventyNavigation:
+  key: Tagy
+  order: 2
 ---
-<h1>Tags</h1>
+<h1>Tagy</h1>
 
 {% for tag in collections.tagList %}
   {% set tagUrl %}/tags/{{ tag | slug }}/{% endset %}
