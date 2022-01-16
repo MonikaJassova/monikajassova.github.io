@@ -47,7 +47,7 @@ function share(anchor) {
     });
   } else if (navigator.clipboard) {
     navigator.clipboard.writeText(url);
-    message("Article URL copied to clipboard.");
+    message("URL adresa článku skopírovaná do schránky.");
   } else {
     tweet_(url);
   }
@@ -274,3 +274,47 @@ for (let img of document.querySelectorAll("img")) {
     removeBlurredImage(img);
   }
 }
+
+const [colorscheme_light, colorscheme_dark] = ["light", "dark"];
+const colorscheme_mode_key = "colorscheme-mode";
+
+function setColorscheme(mode) {
+  document.documentElement.setAttribute(colorscheme_mode_key, mode);
+
+  if ("supportsLocalStorage" in setColorscheme) {
+    if (setColorscheme.supportsLocalStorage) {
+      localStorage.setItem(colorscheme_mode_key, mode);
+    }
+  } else {
+    let storage = undefined;
+    let fail = undefined;
+    const uid = "test";
+    try {
+      (storage = window.localStorage).setItem(uid, uid);
+      fail = storage.getItem(uid) != uid;
+      storage.removeItem(uid);
+      fail && (storage = false);
+    } catch (exception) {}
+    setColorscheme.supportsLocalStorage = setColorscheme.supportsLocalStorage || storage;
+    if (storage) {
+      storage.setItem(colorscheme_mode_key, mode);
+    }
+  }
+}
+
+function toggleColorscheme(_) {
+  const mode_curr = document.documentElement.getAttribute(colorscheme_mode_key);
+  const mode_next = (mode_curr && mode_curr === colorscheme_light) ? colorscheme_dark : colorscheme_light;
+  setColorscheme(mode_next);
+}
+expose("colorscheme-toggle", toggleColorscheme);
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener(
+  "change", 
+  e => e.matches && setColorscheme(colorscheme_dark)
+);
+
+window.matchMedia("(prefers-color-scheme: light)").addEventListener(
+  "change", 
+  e => e.matches && setColorscheme(colorscheme_light)
+); 

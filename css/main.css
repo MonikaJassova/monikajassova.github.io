@@ -1,7 +1,98 @@
 /* Color customization */
 :root {
-  --primary: #f9c412;
+  --switch-shadow-color: #f7f7f7;
+  --switch-icon: "🌚";
+  --switch-text: "Tmavý režim?";
+  --text-color: #222222;
+  --bg-color: #f7f7f7;
+  --theme-color: #79b473;
+
+  --primary: var(--theme-color);
+  --primary-dark: #89b485;
+}
+
+:root[colorscheme-mode="dark"] {
+  --switch-shadow-color: #0e0d0c;
+  --switch-icon: "🌝";
+  --switch-text: "Svetlý režim?";
+  --text-color: #e5e5e5;
+  --bg-color: #181818;
+  --theme-color: #f9c412;
+
+  --primary: var(--theme-color);
   --primary-dark: #e7bf60;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([colorscheme-mode="dark"]) {
+    --switch-shadow-color: #f7f7f7;
+    --switch-icon: "🌚";
+    --switch-text: "Tmavý režim?";
+    --text-color: #222222;
+    --bg-color: #f7f7f7;
+    --theme-color: #79b473;
+
+    --primary: var(--theme-color);
+    --primary-dark: #89b485;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([colorscheme-mode="light"]) {
+    --switch-shadow-color: #0e0d0c;
+    --switch-icon: "🌝";
+    --switch-text: "Svetlý režim?";
+    --text-color: #e5e5e5;
+    --bg-color: #181818;
+    --theme-color: #f9c412;
+
+    --primary: var(--theme-color);
+    --primary-dark: #e7bf60;
+  }
+}
+
+.no-js .colorscheme-toggle-label {
+  display: none;
+}
+
+.colorscheme-toggle-label {
+  --transition-time: 0.3s;
+  cursor: pointer;
+  display: inline-block;
+  transition: all var(--transition-time) ease-in-out;
+  transform: scale(1.20);
+}
+
+.colorscheme-toggle-label::before {
+  content: var(--switch-icon);
+  transition: text-shadow var(--transition-time);
+  text-shadow: 0 0 10px var(--switch-shadow-color);
+}
+
+.colorscheme-toggle-label::after {
+  align-self: center;
+  vertical-align: baseline;
+  content: var(--switch-text);
+  color: #222222;
+  font-weight: lighter;
+  font-size: 0.75em;
+  text-align: center;
+  opacity: 0;
+  padding-left: 15x;
+  margin-left: 10px;
+  transition: opacity var(--transition-time);
+}
+
+/* .colorscheme-toggle-label:hover {
+  transform: scale(1.4);
+} */
+
+.colorscheme-toggle-label:hover::before {
+  text-shadow: 0 0 10px var(--switch-shadow-color);
+}
+
+.colorscheme-toggle-label:hover::after {
+  opacity: 1;
 }
 
 .test-dead-code-elimination-sentinel {
@@ -70,7 +161,7 @@ share-widget button:active {
 }
 
 dialog {
-  background-color: #8dff80;
+  background-color: #AB7390;
   position: fixed;
   opacity: 0.9;
   z-index: 1000;
@@ -269,6 +360,7 @@ html {
 }
 body {
   margin: 0;
+  transition: all 300ms ease-in-out 0s;
 }
 h1 {
   font-size: 2em;
@@ -834,8 +926,8 @@ video {
 }
 body {
   font-family: var(--font-family);
-  background: #181818;
-  color: #eee;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 section {
   margin-left: auto;
