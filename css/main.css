@@ -2,7 +2,7 @@
 :root {
   --switch-shadow-color: #f7f7f7;
   --switch-icon: "🌚";
-  --switch-text: "Tmavý režim?";
+  --switch-text: "Tmavý?";
   --text-color: #222222;
   --bg-color: #f7f7f7;
   --theme-color: #79b473;
@@ -14,7 +14,7 @@
 :root[colorscheme-mode="dark"] {
   --switch-shadow-color: #0e0d0c;
   --switch-icon: "🌝";
-  --switch-text: "Svetlý režim?";
+  --switch-text: "Svetlý?";
   --text-color: #e5e5e5;
   --bg-color: #181818;
   --theme-color: #f9c412;
@@ -27,7 +27,7 @@
   :root:not([colorscheme-mode="dark"]) {
     --switch-shadow-color: #f7f7f7;
     --switch-icon: "🌚";
-    --switch-text: "Tmavý režim?";
+    --switch-text: "Tmavý?";
     --text-color: #222222;
     --bg-color: #f7f7f7;
     --theme-color: #79b473;
@@ -41,7 +41,7 @@
   :root:not([colorscheme-mode="light"]) {
     --switch-shadow-color: #0e0d0c;
     --switch-icon: "🌝";
-    --switch-text: "Svetlý režim?";
+    --switch-text: "Svetlý?";
     --text-color: #e5e5e5;
     --bg-color: #181818;
     --theme-color: #f9c412;
