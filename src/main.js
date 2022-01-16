@@ -47,7 +47,7 @@ function share(anchor) {
     });
   } else if (navigator.clipboard) {
     navigator.clipboard.writeText(url);
-    message("URL článku skopírovaná do schránky.");
+    message("URL adresa článku skopírovaná do schránky.");
   } else {
     tweet_(url);
   }
