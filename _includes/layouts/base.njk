@@ -48,7 +48,7 @@
       <script async defer src="{{ "/js/cached.js" | addHash }}"></script>
     {% endif %} #}
     <script data-goatcounter="https://miti.goatcounter.com/count"
-        async defer src="https://gc.zgo.at/count.js"></script>
+        async defer src="/js/goatCounter.js"></script>
     <script csp-hash> (function (){const docElm=document.documentElement; const modeKey="colorscheme-mode"; let mode=undefined; try{mode=window.localStorage.getItem(modeKey); if (mode){docElm.setAttribute(modeKey, mode);}else{mode=((window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? "light" : "dark"); docElm.setAttribute(modeKey, mode); window.localStorage.setItem(modeKey, mode);}}catch (exception){mode=((window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? "light" : "dark"); docElm.setAttribute(modeKey, mode);}})()</script>
     <!-- Notably iOS UAs also contain Mac OS X -->
     <script csp-hash>if (/Mac OS X/.test(navigator.userAgent))document.documentElement.classList.add('apple')
