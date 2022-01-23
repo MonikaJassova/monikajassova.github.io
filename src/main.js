@@ -40,7 +40,7 @@ expose("tweet", tweet);
 
 function share(anchor) {
   var url = anchor.getAttribute("href");
-  event.preventDefault();
+  // event.preventDefault();
   if (navigator.share) {
     navigator.share({
       url: url,
