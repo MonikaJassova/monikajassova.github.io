@@ -6,51 +6,14 @@
   
   
   
-  
     
-  
-  <url>
-    <loc>https://monikajassova.github.io/posts/firstpost/</loc>
-    <lastmod>2022-01-17T23:21:37.000Z</lastmod>
-  </url>
-  
-  
-  
-  
-  
   
   
     
   
   <url>
-    <loc>https://monikajassova.github.io/posts/secondpost/</loc>
-    <lastmod>2022-01-17T23:21:37.000Z</lastmod>
-  </url>
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  <url>
-    <loc>https://monikajassova.github.io/posts/thirdpost/</loc>
-    <lastmod>2022-01-17T23:21:37.000Z</lastmod>
-  </url>
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  <url>
-    <loc>https://monikajassova.github.io/posts/fourthpost/</loc>
-    <lastmod>2022-01-17T23:21:37.000Z</lastmod>
+    <loc>https://monikajassova.github.io/posts/moja-cesta/</loc>
+    <lastmod>2022-02-02T14:38:02.000Z</lastmod>
   </url>
   
   
@@ -63,7 +26,7 @@
   
   <url>
     <loc>https://monikajassova.github.io/about/</loc>
-    <lastmod>2022-01-17T23:22:16.913Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.963Z</lastmod>
   </url>
   
   
@@ -76,7 +39,7 @@
   
   <url>
     <loc>https://monikajassova.github.io/posts/</loc>
-    <lastmod>2022-01-17T23:22:16.913Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.963Z</lastmod>
   </url>
   
   
@@ -89,7 +52,7 @@
   
   <url>
     <loc>https://monikajassova.github.io/</loc>
-    <lastmod>2022-01-17T23:22:16.933Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.983Z</lastmod>
   </url>
   
   
@@ -102,7 +65,7 @@
   
   <url>
     <loc>https://monikajassova.github.io/page-list/</loc>
-    <lastmod>2022-01-17T23:22:16.937Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.983Z</lastmod>
   </url>
   
   
@@ -115,7 +78,7 @@
   
   <url>
     <loc>https://monikajassova.github.io/tags/</loc>
-    <lastmod>2022-01-17T23:22:16.937Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.987Z</lastmod>
   </url>
   
   
@@ -128,7 +91,7 @@
   
   <url>
     <loc>https://monikajassova.github.io/tags/another-tag/</loc>
-    <lastmod>2022-01-17T23:22:16.937Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.987Z</lastmod>
   </url>
   
   
@@ -141,7 +104,20 @@
   
   <url>
     <loc>https://monikajassova.github.io/tags/second-tag/</loc>
-    <lastmod>2022-01-17T23:22:16.937Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.987Z</lastmod>
+  </url>
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <url>
+    <loc>https://monikajassova.github.io/tags/osobne/</loc>
+    <lastmod>2022-02-02T14:38:18.987Z</lastmod>
   </url>
   
   
@@ -154,6 +130,6 @@
   
   <url>
     <loc>https://monikajassova.github.io/tags/number-2/</loc>
-    <lastmod>2022-01-17T23:22:16.937Z</lastmod>
+    <lastmod>2022-02-02T14:38:18.987Z</lastmod>
   </url>
 </urlset>
