@@ -21,7 +21,7 @@ Spočiatku sa Spark využíval na firmou vlastnených a spravovaných Hadoop clu
 ### Spark Core
 Je rozhranie pre programovanie aplikácií sústredené okolo abstrakcie nazývanej RDD. Medzivýsledky jednotlivých operácií sa držia v distribuovanej pamäti, neukladajú sa na disk (len ak sa nevojdú do RAM), preto sú omnoho rýchlejšie.
 Keď sa spustí Spark aplikácia, Spark cluster naštartuje 2 procesy:
-— driver je hlavný, riadiaci proces zodpovedný za vytvorenie Spark contextu, postúpenie Spark jobov a preklad kódu Spark aplikácie na výpočtové jednotky — úlohy, ktoré môžu byť distribuované medzi pracovné uzly (worker nodes). Taktiež koordinuje rozvrhnutie úloh a orchestráciu na každom exekútore.
+- driver je hlavný, riadiaci proces zodpovedný za vytvorenie Spark contextu, postúpenie Spark jobov a preklad kódu Spark aplikácie na výpočtové jednotky, úlohy, ktoré môžu byť distribuované medzi pracovné uzly (worker nodes). Taktiež koordinuje rozvrhnutie úloh a orchestráciu na každom exekútore.
 - exekútory bežia na pracovných uzloch clustra a sú zodpovedné za výkon im pridelených výpočtových úloh, vrátenie výsledkov driveru a tiež poskytnutie úložiska pre RDD.
 Práve pre sprostredkovanie medzi týmito procesmi je potrebná nejaká forma cluster manažéra - okrem spomínaného YARNu sa novšie používa [Kubernetes](https://kubernetes.io).
 
