@@ -35,5 +35,5 @@ https://www.cwjobs.co.uk/salary-checker/salary-calculator Štatistiky o platoch 
 
 Bonusový tip: veľa užitočného sa dozvedám prostredníctvom LinkedInu. Sledujte hashtagy, ktoré Vás zaujímajú, zapojte sa do skupín, nájdite si ľudí, ktorí tvoria dobrý obsah. Za mňa napr.:
 [Zdenko Vrabel](https://sk.linkedin.com/in/zdenkovrabel) - infrastructure engineer, píše o kóde, cloude a (samozrejme) infraštruktúre
-[Juraj Bednár](https://sk.linkedin.com/in/jbednar) - etický hacker, autor kurzov a kníh, venuje  sa najmä slobode, kryptomenám, biohackingu a lepšiemu životu
+[Juraj Bednár](https://sk.linkedin.com/in/jbednar) - etický hacker, autor kurzov a kníh, venuje sa najmä slobode, kryptomenám, biohackingu a lepšiemu životu
 [Filip Hric](https://sk.linkedin.com/in/filip-hric-11a5b1126) - ambasádor Cypress (testovacieho frameworku pre weby) na Slovensku a autor kurzov
