@@ -5,7 +5,7 @@
 	
 	<link href="https://monikajassova.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://monikajassova.github.io"/>
-	<updated>2022-02-02T00:00:00-00:00</updated>
+	<updated>2022-04-04T00:00:00-00:00</updated>
 	<id>https://monikajassova.github.io</id>
 	<author>
 		<name>Monika Jaššová</name>
@@ -42,6 +42,34 @@ Vo firme som bola pridelená na projekty, kde sa manuálne testovali webstránky
 &lt;li&gt;nie je sranda celé dni sedieť za počítačom (z fyzického ani psychického hľadiska), oplatí sa dbať na ergonómiu, psychohygienu a kompenzovať sedenie pohybom a cvičením, zdravie máme len jedno&lt;/li&gt;
 &lt;li&gt;na záver na odľahčenie: nie všetci v IT sú kocky v nemoderných outfitoch a ponožkami v sandáloch 😄. Nájde sa pár takých, ináč sú tu normálni ľudia ako všade inde, introverti aj extroverti, veriaci aj neveriaci, metalisti, hiphoperi, športovci, umelecky založení, manuálne zruční... A že sa ajťáci nevedia baviť so ženami alebo nemajú partnerky je tiež len mýtus.&lt;/li&gt;
 &lt;/ul&gt;
+
+			
+		</content>
+	</entry>
+	
+	<entry>
+		<title>Užitočné zdroje</title>
+		<link href="https://monikajassova.github.io/posts/uzitocne-zdroje/"/>
+		<updated>2022-04-04T00:00:00-00:00</updated>
+		<id>https://monikajassova.github.io/posts/uzitocne-zdroje/</id>
+		<content type="html">
+		  &lt;p&gt;&lt;em&gt;Na tomto mieste nájdete zoznam rôznych užitočných odkazov, ktorý budem aktualizovať&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.freecodecamp.org/&quot;&gt;https://www.freecodecamp.org&lt;/a&gt; Bezplatné tutoriály rôzneho druhu vo forme článkov a videí, dajú sa nájsť aj rozsiahle do hĺbky spracované témy&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://testautomationu.applitools.com/&quot;&gt;https://testautomationu.applitools.com&lt;/a&gt; Bezplatné kurzy zamerané na automatizovaný testing, aj okrajové témy&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.baeldung.com/&quot;&gt;https://www.baeldung.com&lt;/a&gt; Jednohubky aj dlhšie návody hlavne z JVM sveta: Java, Spring, Scala, Kotlin a tiež Linux a počítačová veda&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn2code.sk/&quot;&gt;https://learn2code.sk&lt;/a&gt; Taký zlatý štandard kurzov v slovenskom jazyku - od programovania cez testing a grafiku až po marketing a iné&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://acloudguru.com/&quot;&gt;https://acloudguru.com&lt;/a&gt; Kurzy zamerané hlavne na cloudové technológie (AWS, GCP, Azure), Linux, DevOps a pár ďalších okruhov. Súčasťou sú tzv. laby v účte na študijné účely, kde si môžete prakticky vyskúšať úlohy&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://checkmarx.com/try-codebashing&quot;&gt;https://checkmarx.com/try-codebashing&lt;/a&gt; Školenie aplikačnej bezpečnosti, interaktívne lekcie pekne vysvetlia jednotlivé typy zraniteľností, ako prebiehajú ich zneužitia a útoky a ako im predísť&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.oreilly.com/&quot;&gt;https://www.oreilly.com&lt;/a&gt; Vydavateľstvo odbornej literatúry známe knihami s ohrozenými živočíšnymi druhmi na obálke, poskytuje tiež prístup k videám, interaktívnym kurzom a školeniam naživo&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://junior.guru/&quot;&gt;https://junior.guru&lt;/a&gt; Výborne spracovaný český web pre záujemcov o IT, v príručke rozoberá, čo si predstaviť pod programovaním, čo naňho potrebujete, ako sa učiť, ako zohnať prvú prácu aj ako sa posunúť od juniora ďalej&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://modernafirma.podbean.com/&quot;&gt;https://modernafirma.podbean.com&lt;/a&gt; Podcast Grishiho zo štúdia Wezeo a web inštruktora Yablka na témy v 3 oblastiach: premena na modernú firmu, budovanie digitálneho produktu, skúsenosti úspešných lídrov&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.glassdoor.com/&quot;&gt;https://www.glassdoor.com&lt;/a&gt; Anonymné recenzie firiem, informácie o platoch, hodnotenia pohovorov a otázky z nich&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.levels.fyi/&quot;&gt;https://www.levels.fyi&lt;/a&gt; Informácie o platoch v top firmách v IT odvetví&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cwjobs.co.uk/salary-checker/salary-calculator&quot;&gt;https://www.cwjobs.co.uk/salary-checker/salary-calculator&lt;/a&gt; Štatistiky o platoch v IT odvetví v UK&lt;/p&gt;
+&lt;p&gt;Bonusový tip: veľa užitočného sa dozvedám prostredníctvom LinkedInu. Sledujte hashtagy, ktoré Vás zaujímajú, zapojte sa do skupín, nájdite si ľudí, ktorí tvoria dobrý obsah. Za mňa napr.:&lt;br&gt;
+&lt;a href=&quot;https://sk.linkedin.com/in/zdenkovrabel&quot;&gt;Zdenko Vrabel&lt;/a&gt; - infrastructure engineer, píše o kóde, cloude a (samozrejme) infraštruktúre&lt;br&gt;
+&lt;a href=&quot;https://sk.linkedin.com/in/jbednar&quot;&gt;Juraj Bednár&lt;/a&gt; - etický hacker, autor kurzov a kníh, venuje sa najmä slobode, kryptomenám, biohackingu a lepšiemu životu&lt;br&gt;
+&lt;a href=&quot;https://sk.linkedin.com/in/filip-hric-11a5b1126&quot;&gt;Filip Hric&lt;/a&gt; - ambasádor Cypress (testovacieho frameworku pre weby) na Slovensku a autor kurzov&lt;/p&gt;
 
 			
 		</content>
