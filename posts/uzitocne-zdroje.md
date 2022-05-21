@@ -15,7 +15,7 @@ https://testautomationu.applitools.com Bezplatné kurzy zamerané na automatizov
 
 https://www.baeldung.com Jednohubky aj dlhšie návody hlavne z JVM sveta: Java, Spring, Scala, Kotlin a tiež Linux a počítačová veda
 
-https://learn2code.sk Taký zlatý štandard kurzov v slovenskom jazyku - od programovania cez testing a grafiku až po marketing a iné
+https://skillmea.sk Bývalý learn2code - taký zlatý štandard kurzov v slovenskom jazyku - od programovania cez testing a grafiku až po marketing a iné
 
 https://acloudguru.com Kurzy zamerané hlavne na cloudové technológie (AWS, GCP, Azure), Linux, DevOps a pár ďalších okruhov. Súčasťou sú tzv. laby v účte na študijné účely, kde si môžete prakticky vyskúšať úlohy
 

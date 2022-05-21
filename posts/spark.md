@@ -12,7 +12,7 @@ image: /img/SparkEcosystem.png
 *Zbežný prehľad fungovania Apache Spark*
 
 [Apache Spark](https://spark.apache.org) je jedným z najpoužívanejších nástrojov pre analýzu dát vo veľkej škále (big data), rieši situáciu, keď sú dáta také veľké, že ich uloženie a spracovanie nedokáže jeden počítač. Zvláda dávkové (batch) spracovávanie dát, spracovávanie dát v reálnom čase (streaming), interaktívne dotazovanie, výpočty a operácie s grafom a strojové učenie (machine learning).
-Ide o open-source framework na spracovanie dát, ktorý dokáže rýchlo vykonávať procesovacie úlohy nad veľmi veľkými množinami dát a tiež dokáže tieto úlohy distribuovať medzi viacero počítačov, ktoré ich paralelne a nezávisle od seba spracúvajú. Pre svoje fungovanie vyžaduje manažér clustera počítačov (napr. Hadoop YARN - Yet Another Resource Negotiator) a distribuovaný systém súborov (HDFS - Hadoop Distributed File System).
+Ide o open-source framework na spracovanie dát, ktorý dokáže rýchlo vykonávať procesovacie úlohy nad veľmi veľkými množinami dát a tiež dokáže tieto úlohy distribuovať medzi viacero počítačov, ktoré ich paralelne a nezávisle od seba spracúvajú. Pre svoje fungovanie vyžaduje manažér clustera počítačov (napr. Hadoop YARN - Yet Another Resource Negotiator) a distribuovaný systém súborov (napr. HDFS - Hadoop Distributed File System).
 Obrázok znázorňuje 4 knižnice pre rôzne účely a programovacie jazyky, ktoré podporuje základné API:
 
 ![Spark Ecosystem](/img/SparkEcosystem.png)
