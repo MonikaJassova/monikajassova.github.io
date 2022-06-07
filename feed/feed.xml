@@ -5,7 +5,7 @@
 	
 	<link href="https://monikajassova.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://monikajassova.github.io"/>
-	<updated>2022-05-21T00:00:00-00:00</updated>
+	<updated>2022-06-07T00:00:00-00:00</updated>
 	<id>https://monikajassova.github.io</id>
 	<author>
 		<name>Monika Jaššová</name>
@@ -143,6 +143,80 @@ Ak si chcete Spark prakticky vyskúšať na lokálnom počítači, je to možné
 &lt;p&gt;Príklady načítania dát:&lt;/p&gt;
 &lt;pre class=&quot;language-scala&quot;&gt;&lt;code class=&quot;language-scala&quot;&gt;spark&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;read&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parquet&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;/data/staged/ott/mediabi/googledfp/NetworkImpressions/dt=20201209&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br&gt;spark&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;read&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;option&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;header&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;csv&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;/data/staged/media/scv/bluekai_insights_categories/dt=20201209&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br&gt;spark&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;read&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;table&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;staged_mediabi.dfp_etl_status&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Spustenie príkladov pribalených k inštalácii Sparku a celú dokumentáciu nájdete na &lt;a href=&quot;https://spark.apache.org/docs/latest/#running-the-examples-and-shell&quot;&gt;https://spark.apache.org/docs/latest/#running-the-examples-and-shell&lt;/a&gt;&lt;/p&gt;
+
+			
+		</content>
+	</entry>
+	
+	<entry>
+		<title>Testovanie ETL</title>
+		<link href="https://monikajassova.github.io/posts/testovanie-etl/"/>
+		<updated>2022-06-07T00:00:00-00:00</updated>
+		<id>https://monikajassova.github.io/posts/testovanie-etl/</id>
+		<content type="html">
+		  &lt;p&gt;&lt;em&gt;Cieľom tohto článku je zosumarizovať postupy, ktoré som implementovala pri testovaní ETL procesov a s ktorými som sa stretla v rámci big data&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&quot;%C3%BAvod-do-big-data-a-etl&quot;&gt;Úvod do big data a ETL &lt;a class=&quot;direct-link&quot; href=&quot;#%C3%BAvod-do-big-data-a-etl&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Veľké dáta (ďalej big data) sú charakterizované troma V:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;volume - veľký objem dát,&lt;/li&gt;
+&lt;li&gt;velocity - rýchlosť s akou sú produkované (gigabajty nových dát denne),&lt;/li&gt;
+&lt;li&gt;variety - dáta prichádzajú z rôznych zdrojov a v rôznej forme.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Sú to také veľké súbory dát, že ich nie je možné uchovávať, spravovať a spracovávať bežne používanými softvérovými prostriedkami v rozumnom čase.&lt;br&gt;
+Úlohou dátových inžinierov je spracovanie big data a ich príprava do požadovanej podoby pre ďalších používateľov dát - spravidla dátových analytikov, dátových vedcov.&lt;/p&gt;
+&lt;p&gt;Jeden z procesov, ktorým sa to deje, sa nazýva &lt;mark&gt;ETL&lt;/mark&gt; (extract-transform-load).&lt;br&gt;
+V prvej fáze ETL sa dáta extrahujú zo zdrojov - sťahujú sa z FTP serverov, cloudových úložísk, dotazujú sa cez REST API a pod. Surové dáta môžu mať rôznu štruktúru - tabuľky v relačných databázach, záznamy v NoSQL databázach, súbory formátu CSV, XML, JSON atď.&lt;br&gt;
+Počas fázy transformácie sa dáta upravujú podľa požadovaných pravidiel, filtrujú, očisťujú, spájajú s inými dátami, prevádzajú sa nad nimi agregácie alebo iné výpočty. Tieto medzivýsledky sa držia v oblasti staged.&lt;br&gt;
+V záverečnej fáze sa finálne dáta publikujú na dohodnutom mieste, spravidla v dátovom sklade (data warehouse - DWH), kde ich priamo alebo cez connectory vedia používatelia dotazovať, pracovať s nimi, využiť ako podklad pre analytické a BI (business intelligence) nástroje.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://monikajassova.github.io/img/etl.png&quot; alt=&quot;ETL proces&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Novším prístupom je &lt;mark&gt;ELT&lt;/mark&gt; (extract-load-transform) proces, pri ktorom sa surové dáta nahrajú na cieľový systém a transformácie sa vykonávajú až tam, napr. s pomocou nástroja &lt;a href=&quot;https://www.getdbt.com/&quot;&gt;dbt&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;ETL procesy môžu prebiehať:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dávkovo - &lt;mark&gt;batch processing&lt;/mark&gt;, kedy sú spúšťané periodicky, riadené orchestrátorom&lt;/li&gt;
+&lt;li&gt;ako &lt;mark&gt;streaming&lt;/mark&gt;, kedy sú dáta spracúvané v reálnom čase ako prichádzajú do systému&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Na našom projekte sme uplatňovali batch processing a ako orchestrátor pre definovanie workflowow a plánovanie ich behov sme používali &lt;a href=&quot;https://oozie.apache.org/&quot;&gt;Oozie&lt;/a&gt; a neskôr aj &lt;a href=&quot;https://airflow.apache.org/&quot;&gt;Airflow&lt;/a&gt;. Ukážka ako taký workflow môže vyzerať (&lt;a href=&quot;https://www.aakashpydi.com/jetstream-architecture/&quot;&gt;zdroj obrázka&lt;/a&gt;):&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://monikajassova.github.io/img/airflow.png&quot; alt=&quot;Workflow v Airflow&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Na samotné spracúvanie dát sme používali Apache Spark, o ktorom som písala &lt;a href=&quot;https://monikajassova.github.io/posts/spark&quot;&gt;v tomto príspevku&lt;/a&gt;. Pre predstavu na akom HW Spark a Hadoop bežal, išlo o Oracle BDA/HDFS cluster o 12 uzloch (každý s procesorom Intel XEON), ktorý dokopy disponoval 1 TB RAM a 900 TB HDD.&lt;/p&gt;
+&lt;p&gt;Testovanie a zabezpečenie kvality ETL procesov bolo náplňou mojej práce v DAZN. Keď som nastúpila, big data boli pre mňa nové a netušila som, ako to budem testovať. Online zdrojov k téme testovania dát je poskromne aj teraz a keď som začínala, nachádzala som len odkazy na platené nástroje, ale máločo o konkrétnych metódach. Názvy testov v nasledujúcom texte sú interné označenia, nejde o odbornú terminológiu.&lt;/p&gt;
+&lt;h3 id=&quot;d%C3%A1tov%C3%A9-e2e-testy&quot;&gt;Dátové E2E testy &lt;a class=&quot;direct-link&quot; href=&quot;#d%C3%A1tov%C3%A9-e2e-testy&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Prvým krokom pri zavedení automatizovaného testovania jednotlivých ETL procesov bolo vytvorenie niečoho ako E2E testov nad fixnými dátami. V prostredí som vytvorila osobitné priečinky, kde som si pripravila súbory s testovacími dátami po vzore reálnych. Malú vzorku, tak aby som mala kontrolu nad tým, čo v nej je a čo sa s ňou deje. Pripravila som dáta pre rôzne testovacie prípady, tzv. happy path aj okrajové prípady, či sa do výsledku dostávajú skutočne tie dáta, ktoré majú.&lt;br&gt;
+Nad týmito dátami som púšťala workflowy, ktoré ich spracovali a na konci sa výsledné dáta porovnali s očakávaným výsledkom. Automatizovaný test alebo pomocný skript na záver všetky výsledné dáta aj medzivýsledky ETL procesu zmazal a pripravil prostredie na ďalší beh celého testovacieho workflowu.&lt;br&gt;
+Ak bol ETL proces jednoduchý a napr. zabezpečoval len, aby sa v published držala najnovšia verzia záznamu, automatizované testy bežali na produkčných dátach a porovnávali vstupné dáta s výstupnými.&lt;/p&gt;
+&lt;p&gt;E2E testy pomohli vyriešiť záhadný bug - mala som podozrenie, že občas majú niektoré záznamy isté hodnoty dvojnásobné ako by mali byť, ale nevedeli sme kedy a prečo sa tak deje. Až keď som sa dostala k nasimulovaniu celého procesu a dát, tak som zistila, že v špecifickom prípade, keď dáta spadali do dvoch kategórií, tieto sa započítali dvakrát.&lt;/p&gt;
+&lt;h3 id=&quot;testy-konzistentnosti&quot;&gt;Testy konzistentnosti &lt;a class=&quot;direct-link&quot; href=&quot;#testy-konzistentnosti&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Ďalšou skupinou automatizovaných testov boli testy, ktoré zisťovali, či sú produkčné dáta konzistentné z hľadiska logiky domény. Príklad z digitálneho marketingu: počet kliknutí na reklamu musí byť menší ako počet videní a ten zas menší ako počet požiadaviek o reklamu odoslaných serveru.&lt;/p&gt;
+&lt;p&gt;Testy konzistentnosti sme vo veľkom využili pri implementácii produktu single customer view v grafovej databáze Neo4j. Grafová databáza je koncept umožňujúci jednoducho modelovať vzťahy reálne existujúce v doméne. Ukážka vzťahov medzi rôznymi uzlami a dopytovacieho jazyka Cypher:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://monikajassova.github.io/img/cypher.png&quot; alt=&quot;Neo4j&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Testy overovali, či skutočný stav zodpovedá navrhnutému dátovému modelu grafu - či sú správne vlastnosti uzlov a vzťahov, či nie sú vzťahy duplicitné, či sa v grafe nenachádzajú entity po TTL (time-to-live). Testy konzistentnosti nám pomohli nájsť chyby v implementácii grafu, identifikovať veci, ktoré sme doposiaľ pri implementácii neošetrili a tiež skryté zlyhania workflowov.&lt;/p&gt;
+&lt;h3 id=&quot;monitoring&quot;&gt;Monitoring &lt;a class=&quot;direct-link&quot; href=&quot;#monitoring&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Tretím pilierom, ktorý nám veľmi pomohol odhaľovať problémy a anomálie a zvýšiť dôveru vo fungovanie našich ETL procesov, bolo nastavenie monitoringu metrík týkajúcich sa dát a samotných ETL procesov. Použili sme na to &lt;a href=&quot;https://www.elastic.co/kibana&quot;&gt;Kibanu&lt;/a&gt; od Elasticu (existuje veľa alternatív, napr. open-source &lt;a href=&quot;https://grafana.com/&quot;&gt;Grafana&lt;/a&gt;). Vytypovali sme metriky, ktoré sa opäť periodicky spúšťali ako Spark aplikácie (metriky týkajúce sa súborov na HDFS a tabuliek v Hive), Scala aplikácie (metriky týkajúce sa grafu v Neo4j a workflowov v Oozie) alebo bash skripty (metriky týkajúce sa tabuliek v BigQuery) a zaznamenávali hodnoty v logoch pre Kibanu.&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;https://monikajassova.github.io/img/metric.png&quot; alt=&quot;Metrika v Kibane&quot;&gt;
+&lt;/p&gt;
+&lt;p&gt;Išlo napr. o počet modifikovaných uzlov v daný deň (na obrázku vyššie); veľkosť surových dát, ktoré sa stiahli daný deň; sumy záznamov vo výsledných dátach; dĺžku trvania ETL procesu.&lt;br&gt;
+Do Kibany reportovali výsledky aj testy, ktoré kontrolovali, či sú prítomné dáta z každej hodiny dňa, či boli všetky surové dáta spracované, či všetky staged dáta boli publikované a či sa na HDFS nenachádzajú staré súbory, ktoré mali byť vymazané po uplynutí doby retencie dát. Nastavila som alerty, aby sme boli o takýchto udalostiach notifikovaní emailom.&lt;/p&gt;
+&lt;h3 id=&quot;kvalita-d%C3%A1t%2C-katal%C3%B3g-d%C3%A1t-a-spol.&quot;&gt;Kvalita dát, katalóg dát a spol. &lt;a class=&quot;direct-link&quot; href=&quot;#kvalita-d%C3%A1t%2C-katal%C3%B3g-d%C3%A1t-a-spol.&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Testy boli hotové - vyžadovali len údržbu, monitoring fičal, tak som začala rešeršovať, aké vychytávky by sa ešte dali zaradiť a tým dvihnúť kvalitu našich ETL procesov na ešte vyššiu úroveň. Bohužiaľ, k skúsenostiam s nasledovnými nástrojmi z prvej ruky som sa už nedostala, keďže priority na projekte sa presunuli smerom od big data a neskôr som zmenila pôsobisko.&lt;/p&gt;
+&lt;p&gt;Profilovanie dát je proces skúmania zdrojových dát a porozumenia ich štruktúre, obsahu a vzájomných vzťahov s cieľom identifikovania potenciálu pre dátové projekty. Výsledky testovania, monitoringu a profilovania a ich sprievodné vizualizácie môžu pomôcť identifikovať vzory v dátach a príležitosti prepojenia datasetov, značkovania a pridania metadát s cieľom lepšie identifikovať a kategorizovať informácie v organizácii.&lt;/p&gt;
+&lt;p&gt;Nástroje na kvalitu dát umožňujú analýzu datasetu, validáciu dát, profilovanie dát, odhalenie nevalidných (napr. duplicitné záznamy, hodnoty v stĺpci nezodpovedajúce dátovému typu alebo rozsahu hodnôt, v akom by mali byť), chýbajúcich alebo neobvyklých dát. Nastavujú sa prahy akceptovaných parametrov pre dáta s dobrou kvalitou, oproti ktorým sa dáta testujú a pravidelne kontrolujú, či spĺňajú vopred definované pravidlá a štandardy kvality. Zámerom bolo zapojiť takéto testy do workflowu a zastaviť ďalšie spracovávanie datasetu, ak by obsahoval zlé dáta a tým zabrániť zavedeniu zlých dát do published.&lt;br&gt;
+Pre tieto účely som našla knižnicu &lt;a href=&quot;https://greatexpectations.io/&quot;&gt;Great Expectations&lt;/a&gt;, nemohli sme ju však použiť kvôli nekompatibilnej verzii Pythonu na našom clusteri. Great Expectations umožňuje tiež automatickú dokumentáciu dát. Až neskôr som objavila alternatívy pre Scalu ako &lt;a href=&quot;https://github.com/awslabs/deequ&quot;&gt;Deequ&lt;/a&gt;, &lt;a href=&quot;https://github.com/FRosner/drunken-data-quality&quot;&gt;DDQ&lt;/a&gt;, &lt;a href=&quot;https://github.com/databrickslabs/dataframe-rules-engine&quot;&gt;DataFrame Rules Engine&lt;/a&gt; a &lt;a href=&quot;https://griffin.apache.org/&quot;&gt;Apache Griffin&lt;/a&gt;. &lt;a href=&quot;https://github.com/sodadata/soda-sql&quot;&gt;Soda SQL&lt;/a&gt; operuje nad dátami prístupnými SQL, podporuje Amazon Redshift, Apache Hive a Spark, Snowflake a niekoľko DB a pravidlá sa definujú v YAML formáte. Umožňuje aj používanie vlastných metrík.&lt;/p&gt;
+&lt;p&gt;Zaujímavo sa javili aj nástroje na vytvorenie katalógu dát &lt;a href=&quot;https://www.amundsen.io/&quot;&gt;Amundsen&lt;/a&gt; a na pôvod dát a vizualizáciu procesov &lt;a href=&quot;https://absaoss.github.io/spline&quot;&gt;Apache Spline&lt;/a&gt;. Katalóg dát slúži ako organizovaný inventár dát pre dátových inžinierov a používateľov dát, kde môžu na jednom mieste vyhľadávať dáta vhodné pre svoje potreby.&lt;/p&gt;
+&lt;p&gt;Pomocou môžu byť aj riešenia založené na strojovom učení (ML), ktoré by sa natrénovali na historických dátach a odhaľovali anomálie v novopríchodzích.&lt;/p&gt;
+&lt;h3 id=&quot;z%C3%A1ver&quot;&gt;Záver &lt;a class=&quot;direct-link&quot; href=&quot;#z%C3%A1ver&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;ETL procesy a ich testovanie sú menšinová oblasť IT, ale majú svoje čaro. Postupom času zistíte, kde všade môže nastať problém. Niekoľko takých tipov na čo si dať pozor:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;prehodenie hodnôt medzi dvoma stĺpcami rovnakého dátového typu&lt;/li&gt;
+&lt;li&gt;náhle zastavenie dodávania dát od tretej strany&lt;/li&gt;
+&lt;li&gt;náhla zmena schémy surových dát&lt;/li&gt;
+&lt;li&gt;hodiny dát naviac a menej v dňoch prechodu na letný čas a späť&lt;/li&gt;
+&lt;li&gt;uistite sa, že sťahujete naozaj všetky surové dáta z ich zdroja&lt;/li&gt;
+&lt;li&gt;uistite sa, že nahrávate naozaj všetky spracované dáta na cieľový systém&lt;/li&gt;
+&lt;li&gt;pravidelne zálohujte dáta, môže sa stať, že workflow vymaže/pokazí časť dát&lt;/li&gt;
+&lt;li&gt;dobré je aj pravidelne sledovať historické dáta v cieľovom systéme, môže sa stať, že workflow vymaže časť dát, nahrá dáta viackrát alebo prepíše inú partíciu ako má a takto to môžete zistiť&lt;/li&gt;
+&lt;li&gt;pozor na upgrady používaných nástrojov. Spark 2.4 zmenil ako sa ukladajú prázdne reťazce z CSV (null/prázdny reťazec), čo malo vplyv na spájanie datasetov na dotknutom stĺpci&lt;/li&gt;
+&lt;li&gt;ak beh workflowu prechádza cez polnoc (alebo inú pre Vás relevantnú časovú hranicu), uistite sa, že všetky kroky workflowu pracujú s tými batchmi dát, s ktorými majú&lt;/li&gt;
+&lt;/ul&gt;
 
 			
 		</content>
