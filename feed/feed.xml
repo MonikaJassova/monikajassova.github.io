@@ -265,7 +265,7 @@ Pre tieto účely som našla knižnicu &lt;a href=&quot;https://greatexpectation
 &lt;ul&gt;
 &lt;li&gt;open-source desktopová a Android aplikácia na vytváranie, organizáciu a zdieľanie osobných znalostí&lt;/li&gt;
 &lt;li&gt;pracuje s lokálnymi súbormi vo formáte Markdown alebo Org-mode&lt;/li&gt;
-&lt;li&gt;je postavená na odkazoch a tagoch. Je veľmi jednoduché vytvoriť novú stránku a nalinkovať ju - je to záležitosť napísania &lt;code&gt;[[Nová stránka]]&lt;/code&gt;
+&lt;li&gt;je postavená na odkazoch a tagoch. Je veľmi jednoduché vytvoriť novú stránku a nalinkovať ju - je to záležitosť napísania &lt;code&gt;[[Názov novej stránky]]&lt;/code&gt;
 &lt;ul&gt;
 &lt;li&gt;zároveň umožňuje stránky ukladať aj v hierarchickej štruktúre (ak v ich názve je &amp;quot;/&amp;quot; na oddelenie jednotlivých adresárov), takže je flexibilná a môžete ju používať rôznymi spôsobmi&lt;/li&gt;
 &lt;li&gt;vytvorené stránky a ich prepojenia vidíte pekne v grafe&lt;/li&gt;
