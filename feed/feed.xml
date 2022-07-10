@@ -5,7 +5,7 @@
 	
 	<link href="https://monikajassova.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://monikajassova.github.io"/>
-	<updated>2022-06-07T00:00:00-00:00</updated>
+	<updated>2022-07-11T00:00:00-00:00</updated>
 	<id>https://monikajassova.github.io</id>
 	<author>
 		<name>Monika Jaššová</name>
@@ -217,6 +217,87 @@ Pre tieto účely som našla knižnicu &lt;a href=&quot;https://greatexpectation
 &lt;li&gt;pozor na upgrady používaných nástrojov. Spark 2.4 zmenil ako sa ukladajú prázdne reťazce z CSV (null/prázdny reťazec), čo malo vplyv na spájanie datasetov na dotknutom stĺpci&lt;/li&gt;
 &lt;li&gt;ak beh workflowu prechádza cez polnoc (alebo inú pre Vás relevantnú časovú hranicu), uistite sa, že všetky kroky workflowu pracujú s tými batchmi dát, s ktorými majú&lt;/li&gt;
 &lt;/ul&gt;
+
+			
+		</content>
+	</entry>
+	
+	<entry>
+		<title>Budovanie druhého mozgu</title>
+		<link href="https://monikajassova.github.io/posts/pkm-logseq/"/>
+		<updated>2022-07-11T00:00:00-00:00</updated>
+		<id>https://monikajassova.github.io/posts/pkm-logseq/</id>
+		<content type="html">
+		  &lt;p&gt;&lt;em&gt;O potrebe personal knowledge managementu a mojich začiatkoch s nástrojom Logseq&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;V poslednej dobe čítam veľa náučných kníh a článkov, počúvam náučné videá a podcasty. Veľakrát ma informácie v nich zaujali a hovorila som si: „to si musím zapamätať, je to zaujímavé/užitočné.“ Samozrejme, že mi vyfučali z hlavy, predsa len ľudský mozog má limity, a tak som začala uvažovať, že si začnem robiť poznámky a zapisovať dôležité myšlienky. V správnej chvíli mi LinkedIn zobrazil vo feede &lt;a href=&quot;https://www.linkedin.com/posts/artem-grygorenko_notetaking-effectiveness-system-activity-6939909127817076736-Aorf&quot;&gt;príspevok&lt;/a&gt;, ktorý ma priviedol k heslu &lt;mark&gt;personal knowledge management&lt;/mark&gt; (PKM) a systémom robenia poznámok.&lt;/p&gt;
+&lt;h3 id=&quot;%C4%8Do-je-pkm&quot;&gt;Čo je PKM &lt;a class=&quot;direct-link&quot; href=&quot;#%C4%8Do-je-pkm&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;PKM je druhý mozog, externá pamäť, niekde nájdete aj pojem osobná wikipédia&lt;/li&gt;
+&lt;li&gt;ide o dlhodobú investíciu času a úsilia do zachytenia a organizovania informácií. Zahŕňa veci, čo prežívame, čítame, počúvame. Je to premyslený a systematický zber informácií.&lt;/li&gt;
+&lt;li&gt;PKM teda zahŕňa aj poznámky z mítingov, osobné dáta, nápady na darčeky, nákupné zoznamy, cestovné itineráre atď. Hocičo, čo si chceme pamätať a čo považujeme za užitočné pre budúcnosť. Uložením týchto vecí na centralizovanom digitálnom mieste mimo zábudlivý mozog môžeme využiť benefity vyhľadávania, zálohy, synchronizácie medzi zariadeniami a zdieľania s ostatnými (pripomínam šifrovanie, ak ide o poznámky osobného charakteru).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;pre%C4%8Do-pkm-pou%C5%BE%C3%ADva%C5%A5&quot;&gt;Prečo PKM používať &lt;a class=&quot;direct-link&quot; href=&quot;#pre%C4%8Do-pkm-pou%C5%BE%C3%ADva%C5%A5&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;všetko, čo chceme v živote dokázať, vyžaduje hľadanie a využívanie správnych informácií. Profesionálny úspech a kvalita života závisí od schopnosti manažovať informácie okolo nás (v súčasnosti ich je kvantum a sme nimi zahltení). Nemôžeme použiť hlavu na uloženie všetkého, čo potrebujeme vedieť, pomôžme si technológiou.&lt;/li&gt;
+&lt;li&gt;poznámkovanie je zároveň intelektuálnym cvičením:
+&lt;ul&gt;
+&lt;li&gt;parafrázovanie, zhrnutie vlastnými slovami vedie k lepšiemu pochopeniu, učeniu a zapamätaniu si danej informácie. Naše myšlienky dávajú zmysel.&lt;/li&gt;
+&lt;li&gt;konfrontovanie s existujúcimi poznatkami prispieva k rozvoju kritického myslenia a schopnosti riešiť problémy&lt;/li&gt;
+&lt;li&gt;zvyšuje kreativitu a pomáha v procese rozhodovania. Môžete objaviť nové nečakané prepojenia a generovať nové myšlienky&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;zabraňuje zahlteniu, dáva pokoj mysli, šetrí mentálnu kapacitu a energiu
+&lt;ul&gt;
+&lt;li&gt;ak používame na všetky poznámky jeden nástroj, eliminuje to problém x súborov/aplikácií/papierov (kam som si konkrétnu vec poznačila? bola tá pracovná požiadavka v emaili, Slacku, na Confluence alebo v nejakom zdieľanom dokumente?), zvýraznené pasáže v knihách takisto nie sú používateľsky prívetivé (v ktorej knihe som o danej veci čítala a kde presne to bolo?)&lt;/li&gt;
+&lt;li&gt;ak sú informácie uložené v sieti, prepojenia uľahčujú prácu
+&lt;ul&gt;
+&lt;li&gt;nemusíte sa zaoberať tým, ako danú informáciu kategorizovať, do ktorého adresára ju uložiť&lt;/li&gt;
+&lt;li&gt;zároveň je jednoduchšie nejakú informáciu nájsť a objaviť súvisiace prepojenia. Štruktúra podobná mozgu umožňuje, že sa k jednej zásuvke dá dôjsť viacerými cestami.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;PKM je obzvlášť nápomocný ľuďom z oblasti výskumu, na písanie odborných prác - budujete základy, na ktorých v budúcnosti môžete stavať, viete, ako sa vaše poznanie rozvíjalo a máte k dispozícii zdroje&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Dômyselné a produktívne robenie poznámok a PKM umožňujú aplikácie ako napr. &lt;a href=&quot;https://roamresearch.com/&quot;&gt;Roam Research&lt;/a&gt;, &lt;a href=&quot;https://obsidian.md/&quot;&gt;Obsidian&lt;/a&gt;, &lt;a href=&quot;https://www.athensresearch.org/&quot;&gt;Athens&lt;/a&gt;, &lt;a href=&quot;https://workflowy.com/&quot;&gt;Workflowy&lt;/a&gt;, ja som si vybrala open-source alternatívu &lt;a href=&quot;https://logseq.com/&quot;&gt;Logseq&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Existuje viacero metód robenia poznámok a ich organizácie ako napr. &lt;a href=&quot;https://en.wikipedia.org/wiki/Zettelkasten&quot;&gt;Zettelkasten&lt;/a&gt;, &lt;a href=&quot;https://notes.andymatuschak.org/Evergreen_notes&quot;&gt;Evergreen Notes&lt;/a&gt;, &lt;a href=&quot;https://fortelabs.co/blog/para/&quot;&gt;P.A.R.A. - Projects, Areas, Resources, Archives&lt;/a&gt; a &lt;a href=&quot;https://medium.com/@nickmilo22/in-what-ways-can-we-form-useful-relationships-between-notes-9b9ec46973c6&quot;&gt;IMF - Index, Maps of Content, and Other Fluid Frameworks&lt;/a&gt;. Každému môže lepšie fungovať niečo iné, odporúča sa brať ohľad na osobné ciele, ktoré chceme s PKM dosiahnuť a špecifické okolnosti.&lt;/p&gt;
+&lt;h3 id=&quot;logseq&quot;&gt;Logseq &lt;a class=&quot;direct-link&quot; href=&quot;#logseq&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;open-source desktopová a Android aplikácia na vytváranie, organizáciu a zdieľanie osobných znalostí&lt;/li&gt;
+&lt;li&gt;pracuje s lokálnymi súbormi vo formáte Markdown alebo Org-mode&lt;/li&gt;
+&lt;li&gt;je postavená na odkazoch a tagoch. Je veľmi jednoduché vytvoriť novú stránku a nalinkovať ju - je to záležitosť napísania &lt;code&gt;[[Nová stránka]]&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;zároveň umožňuje stránky ukladať aj v hierarchickej štruktúre (ak v ich názve je &amp;quot;/&amp;quot; na oddelenie jednotlivých adresárov), takže je flexibilná a môžete ju používať rôznymi spôsobmi&lt;/li&gt;
+&lt;li&gt;vytvorené stránky a ich prepojenia vidíte pekne v grafe&lt;/li&gt;
+&lt;li&gt;obsahuje tiež journal (denník) - stránku pre každý deň&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;dá sa použiť aj na manažment úloh&lt;/li&gt;
+&lt;li&gt;môžete definovať šablóny - napr. ak vytvárate stránku pre knihu, ponúkne polia, aké chcete (autor, názov, tagy a pod.)&lt;/li&gt;
+&lt;li&gt;dotazy (v Clojure) napr. na zobrazenie všetkých šablón, ktoré máte; zobrazenie úloh s termínom v najbližšom týždni...&lt;/li&gt;
+&lt;li&gt;vstavaná podpora pre pomoc so zapamätaním si faktov prostredníctvom kartičiek na princípe &lt;a href=&quot;https://en.wikipedia.org/wiki/Spaced_repetition&quot;&gt;spaced repetition&lt;/a&gt; (často sa používa na učenie slovíčok/fráz v cudzom jazyku)&lt;/li&gt;
+&lt;li&gt;vstavaná podpora PDF - ak vložíte PDF súbor a zvýrazňujete si v ňom pasáže, tieto sa nalinkujú na stránke&lt;/li&gt;
+&lt;li&gt;množstvo pluginov a tém od komunity - napr. na zobrazenie stránky ako myšlienkovej mapy, vloženie tituliek z linkovaného YouTube videa...&lt;/li&gt;
+&lt;li&gt;ďalšie nástroje integrované s Logseqom a uľahčujúce prácu:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.snipd.com/&quot;&gt;Snipd&lt;/a&gt; na uloženie momentov z podcastov&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://readwise.io/&quot;&gt;Readwise&lt;/a&gt; importuje zvýraznené pasáže z ebookov a článkov&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.shortform.com/&quot;&gt;Shortform&lt;/a&gt; poskytuje sumáre kníh a analýzy ich myšlienok&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;užitočné zdroje k základom i pokročilým technikám používania Logsequ:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.youtube.com/c/OneStutteringMind/featured&quot;&gt;https://www.youtube.com/c/OneStutteringMind/featured&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.youtube.com/c/ToolsonTech/featured&quot;&gt;https://www.youtube.com/c/ToolsonTech/featured&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;moje-za%C4%8Diatky-s-pkm&quot;&gt;Moje začiatky s PKM &lt;a class=&quot;direct-link&quot; href=&quot;#moje-za%C4%8Diatky-s-pkm&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Pre konkrétny systém robenia poznámok som sa ešte nerozhodla, začala som jednoducho, určila som si pár konvencií ako si stránky zorganizovať. Nemal by byť problém systém neskôr upraviť, môže sa postupom času vyvíjať. Zatiaľ používam denník ako defaultné miesto na zachytenie poznámok, mám aj domovskú stránku, šablónu pre knihy, stránku so všetkými úlohami a doslovné citácie linkujem k jednej stránke a uvádzam ich zdroj. V budúcnosti sa chcem posunúť na systém postupného spracovávania citácií na krátke a výstižné poznámky vlastnými slovami.&lt;br&gt;
+Časť môjho grafu na ukážku:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://monikajassova.github.io/img/logseq-graf.png&quot; alt=&quot;Graf v Logsequ&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Separátny graf som si vytvorila pre pracovné záležitosti, do ktorého migrujem existujúce poznámky rozhodené po textových súboroch a iných dokumentoch.&lt;/p&gt;
+&lt;p&gt;Koncept PKM ma očaril a ľutujem, že som ho neobjavila skôr, ušetril by mi mnoho starostí. Teraz sa vraciam k prečítaným knihám, aby som si ich spoznámkovala 😄. Je to vedomá práca, nie je to zadarmo, ale viem, že prinesie benefity v budúcnosti. Už tento príspevok vznikol na základe mojich poznámok o Logsequ a o knihe &lt;a href=&quot;https://www.martinus.sk/?uItem=913673&quot;&gt;How to Take Smart Notes&lt;/a&gt; 🙂.&lt;/p&gt;
 
 			
 		</content>
