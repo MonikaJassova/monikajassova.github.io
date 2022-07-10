@@ -37,7 +37,7 @@ Existuje viacero metód robenia poznámok a ich organizácie ako napr. [Zettelka
 ### Logseq
 - open-source desktopová a Android aplikácia na vytváranie, organizáciu a zdieľanie osobných znalostí
 - pracuje s lokálnymi súbormi vo formáte Markdown alebo Org-mode
-- je postavená na odkazoch a tagoch. Je veľmi jednoduché vytvoriť novú stránku a nalinkovať ju - je to záležitosť napísania ```[[Nová stránka]]```
+- je postavená na odkazoch a tagoch. Je veľmi jednoduché vytvoriť novú stránku a nalinkovať ju - je to záležitosť napísania ```[[Názov novej stránky]]```
   - zároveň umožňuje stránky ukladať aj v hierarchickej štruktúre (ak v ich názve je "/" na oddelenie jednotlivých adresárov), takže je flexibilná a môžete ju používať rôznymi spôsobmi
   - vytvorené stránky a ich prepojenia vidíte pekne v grafe
   - obsahuje tiež journal (denník) - stránku pre každý deň
