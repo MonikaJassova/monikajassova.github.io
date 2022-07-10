@@ -24,7 +24,7 @@ V poslednej dobe čítam veľa náučných kníh a článkov, počúvam náučn�
   - konfrontovanie s existujúcimi poznatkami prispieva k rozvoju kritického myslenia a schopnosti riešiť problémy
   - zvyšuje kreativitu a pomáha v procese rozhodovania. Môžete objaviť nové nečakané prepojenia a generovať nové myšlienky
 - zabraňuje zahlteniu, dáva pokoj mysli, šetrí mentálnu kapacitu a energiu
-  - ak používame na všetky poznámky jeden nástroj, eliminuje to problém x súborov/aplikácií/papierov (kam som si konkrétnu vec poznačila? bola tá pracovná požiadavka v emaili, Slacku, na Confluence alebo v nejakom zdieľanom dokumente?), zvýraznené pasáže v knihách takisto nie sú používateľsky prívetivé (v ktorej knihe som o danej veci čítala a kde to bolo?)
+  - ak používame na všetky poznámky jeden nástroj, eliminuje to problém x súborov/aplikácií/papierov (kam som si konkrétnu vec poznačila? bola tá pracovná požiadavka v emaili, Slacku, na Confluence alebo v nejakom zdieľanom dokumente?), zvýraznené pasáže v knihách takisto nie sú používateľsky prívetivé (v ktorej knihe som o danej veci čítala a kde presne to bolo?)
   - ak sú informácie uložené v sieti, prepojenia uľahčujú prácu
     - nemusíte sa zaoberať tým, ako danú informáciu kategorizovať, do ktorého adresára ju uložiť
     - zároveň je jednoduchšie nejakú informáciu nájsť a objaviť súvisiace prepojenia. Štruktúra podobná mozgu umožňuje, že sa k jednej zásuvke dá dôjsť viacerými cestami.
@@ -38,12 +38,12 @@ Existuje viacero metód robenia poznámok a ich organizácie ako napr. [Zettelka
 - open-source desktopová a Android aplikácia na vytváranie, organizáciu a zdieľanie osobných znalostí
 - pracuje s lokálnymi súbormi vo formáte Markdown alebo Org-mode
 - je postavená na odkazoch a tagoch. Je veľmi jednoduché vytvoriť novú stránku a nalinkovať ju - je to záležitosť napísania ```[[Nová stránka]]```
-  - zároveň umožňuje stránky ukladať aj v klasickej hierarchickej štruktúre (ak v ich názve je "/" na oddelenie jednotlivých adresárov), takže je flexibilná a môžete ju používať rôznymi spôsobmi
+  - zároveň umožňuje stránky ukladať aj v hierarchickej štruktúre (ak v ich názve je "/" na oddelenie jednotlivých adresárov), takže je flexibilná a môžete ju používať rôznymi spôsobmi
   - vytvorené stránky a ich prepojenia vidíte pekne v grafe
   - obsahuje tiež journal (denník) - stránku pre každý deň
 - dá sa použiť aj na manažment úloh
 - môžete definovať šablóny - napr. ak vytvárate stránku pre knihu, ponúkne polia, aké chcete (autor, názov, tagy a pod.)
-- dotazy (v Clojure) napr. na zobrazenie všetkých šablón, ktoré máte; zobrazenie úloh s termínom na najbližší týždeň...
+- dotazy (v Clojure) napr. na zobrazenie všetkých šablón, ktoré máte; zobrazenie úloh s termínom v najbližšom týždni...
 - vstavaná podpora pre pomoc so zapamätaním si faktov prostredníctvom kartičiek na princípe [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition) (často sa používa na učenie slovíčok/fráz v cudzom jazyku)
 - vstavaná podpora PDF - ak vložíte PDF súbor a zvýrazňujete si v ňom pasáže, tieto sa nalinkujú na stránke
 - množstvo pluginov a tém od komunity - napr. na zobrazenie stránky ako myšlienkovej mapy, vloženie tituliek z linkovaného YouTube videa...
