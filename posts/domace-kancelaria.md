@@ -20,7 +20,7 @@ Sedenie som skúšala oživiť fit loptou, ale nebola som konzistentná v snahe 
 
 ## Ergonomické klávesnice
 
-Spomínané na polovice rozdelené klávesnice môžete uložiť podľa šírky vašich pliec, natočiť ako Vám vyhovuje a niektoré modely umožňujú aj naklopenie, prípadne sú konkávne, čo by malo uľahčiť dosah prstov na klávesy. Kolega mal už vo veku 23 rokov zranenie z opakovaného namáhania a jedna z takýchto s 30 stupňovým náklonom je jediná, ktorá mu nespôsobuje ťažkosti.
+Spomínané na polovice rozdelené klávesnice môžete uložiť podľa šírky pliec, natočiť ako Vám vyhovuje a niektoré modely umožňujú aj naklopenie, prípadne sú konkávne, čo by malo uľahčiť dosah prstov na klávesy. Kolega mal už vo veku 23 rokov zranenie z opakovaného namáhania a jedna z takýchto s 30stupňovým náklonom je jediná, ktorá mu nespôsobuje ťažkosti.
 
 Existujú aj rôzne rozloženia klávesov:
 
