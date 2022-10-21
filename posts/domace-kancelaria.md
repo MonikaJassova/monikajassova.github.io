@@ -22,10 +22,10 @@ Sedenie som skúšala oživiť fit loptou, ale nebola som konzistentná v snahe 
 
 Spomínané na polovice rozdelené klávesnice môžete uložiť podľa šírky vašich pliec, natočiť ako Vám vyhovuje a niektoré modely umožňujú aj naklopenie, prípadne sú konkávne, čo by malo uľahčiť dosah prstov na klávesy. Kolega mal už vo veku 23 rokov zranenie z opakovaného namáhania a jedna z takýchto s 30 stupňovým náklonom je jediná, ktorá mu nespôsobuje ťažkosti.
 
-Existujú aj rôzne rozloženia kláves:
+Existujú aj rôzne rozloženia klávesov:
 
 - klasické majú riadky posunuté voči sebe (F sa nachádza medzi C a V)
-- ortolineárne s pravidelnou mriežkou kláves
+- ortolineárne s pravidelnou mriežkou klávesov
 - stĺpcovo posunuté, kde sú klávesy usporiadané rovno pod sebou a stĺpce trochu posunuté navzájom, aby zodpovedali rozdielom v dĺžke prstov.
 
 Zoznam delených klávesníc: <https://github.com/diimdeep/awesome-split-keyboards>
@@ -53,7 +53,7 @@ Ako rozloženie som si vybrala [Colemak-DH](https://colemakmods.github.io/mod-dh
 ![Keybr](/img/keybr10h.png)
 ![monkeytype](/img/monkeytype.png)
 
-Ladenie rozmiestnenia ostatných kláves, vrstiev a podsvietenia zabralo tiež nejaký čas a je stále vo vývoji. Možnosti sú nespočetné, na začiatku ohromujúce, ale úžasné a s nástrojom na konfiguráciu sa ľahko pracuje. Príjemne prekvapili klávesy na pohyb kurzora, takže pre jednoduchú navigáciu nemusím prekladať ruku na myš.
+Ladenie rozmiestnenia ostatných klávesov, vrstiev a podsvietenia zabralo tiež nejaký čas a je stále vo vývoji. Možnosti sú nespočetné, na začiatku ohromujúce, ale úžasné a s nástrojom na konfiguráciu sa ľahko pracuje. Príjemne prekvapili klávesy na pohyb kurzora, takže pre jednoduchú navigáciu nemusím prekladať ruku na myš.
 
 ### Učenie a tréning
 
@@ -71,4 +71,4 @@ Ak by ste sa chceli naučiť nové rozloženie aj Vy alebo potrénovať rýchlos
 Ostáva asi posledný väčší výdavok - polohovateľný stôl. Cieľom je častá zmena polohy pri práci, nie predĺžené státie. Kolega bol donútený si ho zadovážiť kvôli problémom s krížami.
 Stolička mi zatiaľ vyhovuje, ešte by sa dala v budúcnosti pridať ďalšia poloha na kľakačke.
 
-A čo vy? Dbáte na ergonómiu, máte nejaké tipy?
+A čo Vy? Dbáte na ergonómiu, máte nejaké tipy?
