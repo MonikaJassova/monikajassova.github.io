@@ -10,8 +10,8 @@ layout: layouts/post.njk
 
 *O zariaďovaní domácej kancelárie a o fascinujúcom svete klávesníc.*
 
-Pracujem z domu od vypuknutia korony, teda 2,5 roka. Keď bolo jasné, že sa do officu už nevrátim, začala som si postupne zariaďovať domácu kanceláriu tak, aby bola šetrnejšia k telu. Momentálne nemám problémy (okrem občasnej stuhnutej šije a ramien), ale radšej sa snažím robiť preventívne opatrenia.
-Dlhodobé sedenie za počítačom zdraviu neprospieva a práca v neergonomickom prostredí alebo s neergonomickými nástrojmi môže viesť k zraneniu z opakovaného namáhania - problémom ako tenisový lakeť, poškodenie hybnosti ramenných pletencov, poškodenie šliach prstov alebo syndróm karpálneho tunela. Osvedčilo sa mi tiež cvičenie jogy/pilatesu a cvikov na posilnenie stredu tela (core), ktoré sú dobrou kompenzáciou sedenia a prevenciou zlého držania tela.
+Pracujem z domu od vypuknutia korony, teda 2,5 roka. Keď bolo jasné, že sa do officu už nevrátim, začala som si postupne zariaďovať domácu kanceláriu tak, aby bola šetrnejšia k telu. Momentálne nemám problémy (okrem občasnej stuhnutej šije a ramien), ale radšej sa snažím robiť preventívne opatrenia. Osvedčilo sa mi tiež cvičenie jogy/pilatesu a cvikov na posilnenie stredu tela (core), ktoré sú dobrou kompenzáciou sedenia a prevenciou zlého držania tela.
+Dlhodobé sedenie za počítačom zdraviu neprospieva a práca v neergonomickom prostredí alebo s neergonomickými nástrojmi môže viesť k zraneniu z opakovaného namáhania - problémom ako tenisový lakeť, poškodenie hybnosti ramenných pletencov, poškodenie šliach prstov alebo syndróm karpálneho tunela.
 
 Konkrétne k vybaveniu, starý <mark>monitor</mark> som nahradila väčším s lepším obrazom šetrnejším k očiam a výškovo nastaviteľným.
 Od Juraja Bednára som odkopírovala vertikálnu <mark>myš</mark>. Zvykala som si na ňu asi 2 dni, potom som nechápala, ako som mohla používať klasickú. Zápästie je v prirodzenejšej polohe a práca s myšou oveľa pohodlnejšia, mám aj dojem, že ramená menej tuhnú.
