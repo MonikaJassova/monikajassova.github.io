@@ -30,14 +30,14 @@
 /posts/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
-/index.html
-  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
-/
-  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
-
 /page-list/index.html
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 /page-list/
+  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
+
+/index.html
+  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
+/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
 /tags/index.html
@@ -45,9 +45,9 @@
 /tags/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
-/tags/another-tag/index.html
+/tags/osobne/index.html
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
-/tags/another-tag/
+/tags/osobne/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
 /posts/uzitocne-zdroje/index.html
@@ -55,9 +55,9 @@
 /posts/uzitocne-zdroje/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
-/tags/second-tag/index.html
+/tags/another-tag/index.html
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
-/tags/second-tag/
+/tags/another-tag/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
 /posts/moja-cesta/index.html
@@ -75,14 +75,24 @@
 /posts/testovanie-etl/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
-/tags/osobne/index.html
+/tags/second-tag/index.html
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
-/tags/osobne/
+/tags/second-tag/
+  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
+
+/posts/domace-kancelaria/index.html
+  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
+/posts/domace-kancelaria/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
 /tags/number-2/index.html
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 /tags/number-2/
+  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
+
+/posts/pkm-logseq/index.html
+  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
+/posts/pkm-logseq/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
 /tags/it/index.html
@@ -93,11 +103,6 @@
 /tags/big-data/index.html
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 /tags/big-data/
-  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
-
-/posts/pkm-logseq/index.html
-  Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
-/posts/pkm-logseq/
   Content-Security-Policy: default-src 'self' data:;object-src 'none';script-src 'self' https://gc.zgo.at https://miti.goatcounter.com/count 'sha256-XwWdy3h8RLzX10dUs9n/fCAkQc+XFysyIb7c80Ymdkw=' 'sha256-dV8AqTFq+DEHvrcvFtA7Q4feFxe8sPFUc57DVH84EjE=' 'sha256-Ky9qZOPnMhQV/s7Fdb9TYAOfU4KtWNqCZaFK8tSzXa0=';style-src 'unsafe-inline';img-src 'self' https://miti.goatcounter.com/count
 
 /tags/testovanie/index.html
