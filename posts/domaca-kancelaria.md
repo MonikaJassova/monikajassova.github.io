@@ -1,6 +1,6 @@
 ---
 title: Domáca kancelária
-description: O zariaďovaní domácej kancelárie a fascinujúcom svete klávesníc.
+description: O zariaďovaní domácej kancelárie a o fascinujúcom svete klávesníc.
 date: 2022-10-21
 tags:
   - osobné
@@ -10,8 +10,8 @@ layout: layouts/post.njk
 
 *O zariaďovaní domácej kancelárie a o fascinujúcom svete klávesníc.*
 
-Pracujem z domu od vypuknutia korony, teda 2,5 roka. Keď bolo jasné, že sa do officu už nevrátim, začala som si postupne zariaďovať domácu kanceláriu tak, aby bola šetrnejšia k telu. Momentálne nemám problémy (okrem občasnej stuhnutej šije a ramien), ale radšej sa snažím robiť preventívne opatrenia. Osvedčilo sa mi tiež cvičenie jogy/pilatesu a cvikov na posilnenie stredu tela (core), ktoré sú dobrou kompenzáciou sedenia a prevenciou zlého držania tela.
-Dlhodobé sedenie za počítačom zdraviu neprospieva a práca v neergonomickom prostredí alebo s neergonomickými nástrojmi môže viesť k zraneniu z opakovaného namáhania - problémom ako tenisový lakeť, poškodenie hybnosti ramenných pletencov, poškodenie šliach prstov alebo syndróm karpálneho tunela.
+Pracujem z domu od vypuknutia korony, teda 2,5 roka. Keď bolo jasné, že sa do officu už nevrátim, začala som si postupne zariaďovať domácu kanceláriu tak, aby bola šetrnejšia k telu. Dlhodobé sedenie za počítačom zdraviu neprospieva a práca v neergonomickom prostredí alebo s neergonomickými nástrojmi môže viesť k zraneniu z opakovaného namáhania - problémom ako tenisový lakeť, poškodenie hybnosti ramenných pletencov, poškodenie šliach prstov alebo syndróm karpálneho tunela.
+Momentálne nemám problémy (okrem občasnej stuhnutej šije a ramien), ale radšej sa snažím robiť preventívne opatrenia. Osvedčilo sa mi cvičenie jogy/pilatesu a cvikov na posilnenie stredu tela (core), ktoré sú dobrou kompenzáciou sedenia a prevenciou zlého držania tela.
 
 Konkrétne k vybaveniu, starý <mark>monitor</mark> som nahradila väčším s lepším obrazom šetrnejším k očiam a výškovo nastaviteľným.
 Od Juraja Bednára som odkopírovala vertikálnu <mark>myš</mark>. Zvykala som si na ňu asi 2 dni, potom som nechápala, ako som mohla používať klasickú. Zápästie je v prirodzenejšej polohe a práca s myšou oveľa pohodlnejšia, mám aj dojem, že ramená menej tuhnú.
@@ -20,7 +20,7 @@ Sedenie som skúšala oživiť fit loptou, ale nebola som konzistentná v snahe 
 
 ## Ergonomické klávesnice
 
-Spomínané na polovice rozdelené klávesnice môžete uložiť podľa šírky pliec, natočiť ako Vám vyhovuje a niektoré modely umožňujú aj naklopenie, prípadne sú konkávne, čo by malo uľahčiť dosah prstov na klávesy. Kolega mal už vo veku 23 rokov zranenie z opakovaného namáhania a jedna z takýchto s 30stupňovým náklonom je jediná, ktorá mu nespôsobuje ťažkosti.
+Spomínané na polovice rozdelené klávesnice môžete uložiť podľa šírky pliec, natočiť ako Vám vyhovuje a niektoré modely umožňujú aj naklopenie, prípadne sú konkávne, čo by malo uľahčiť dosah prstov na klávesy. Kolega mal už vo veku 23 rokov zranenie z opakovaného namáhania a jedna z takýchto s 30° náklonom je jediná, ktorá mu nespôsobuje ťažkosti.
 
 Existujú aj rôzne rozloženia klávesov:
 
@@ -34,7 +34,7 @@ Zoznam delených klávesníc: <https://github.com/diimdeep/awesome-split-keyboar
 
 Plne programovateľné klávesnice umožňujú využívať vrstvy a naprogramovať každý kláves osobitne pre rôzne módy - jednoduché stlačenie, opakované stlačenie, podržanie, ďalej namapovať kombinácie skratiek či makrá. Možnosti sú rozsiahle a každý si môže klávesnicu prispôsobiť sebe a tým aj zvýšiť produktivitu práce. Firmvér [QMK](https://qmk.fm), ktorý toto všetko umožňuje, je open-source.
 
-Zaujímavé je, že na trhu sa okrem hotových klávesníc predávajú aj DIY súpravy, v ktorých nájdete všetky potrebné súčiastky a vy si ich musíte pospájkovať a zložiť. A nájdete dokonca aj open-source hardvér od ľudí, ktorí navrhli vlastné klávesnice - telo klávesnice si môžete vytlačiť na 3D tlačiarni (šablónu upraviť podľa svojho želania), vyrobiť plošnú dosku, pospájkovať, vybrať mechanické spínače, nasadiť samotné klávesy a pridať káble. Krásny koncept 🙂.
+Zaujímavé je, že na trhu sa okrem hotových klávesníc predávajú aj DIY súpravy, ktoré obsahujú všetky potrebné súčiastky a Vy si ich musíte pospájkovať a zložiť. A nájdete dokonca aj open-source hardvér od ľudí, ktorí navrhli vlastné klávesnice - telo klávesnice si môžete vytlačiť na 3D tlačiarni (šablónu upraviť podľa svojho želania), vyrobiť plošnú dosku, pospájkovať, vybrať mechanické spínače, nasadiť samotné klávesy a pridať káble. Krásny koncept 🙂.
 
 ### Rozloženia znakov
 
@@ -46,18 +46,21 @@ Po zvážení aktuálne dostupných hotových možností na trhu som sa rozhodla
 
 ![Moonlander](/img/moonlander.jpg)
 
-Moonlander poslúžil aj ako motivácia konečne sa naučiť písať všetkými desiatimi bez pozerania 😁. Nikdy som to neovládala, snaha učiť sa párkrát bola, ale po krátkom čase vyprchala, tak som si vystačila aj bez toho. Občas som však cítila limity svojho písania. Pred kúpou novej klávesnice som sa otestovala, ako rýchlo mi to ide na QWERTY rozložení, aby som mala benchmark - keď som sa veľmi snažila, tak to bolo do **40 slov za minútu**.
+Moonlander poslúžil aj ako motivácia konečne sa naučiť písať všetkými desiatimi bez pozerania 😁. Nikdy som to neovládala, snaha učiť sa párkrát bola, ale po krátkom čase vyprchala. Vystačila som si aj bez toho, občas som však cítila limity svojho písania. Pred kúpou novej klávesnice som sa otestovala, ako rýchlo mi to ide na QWERTY rozložení, aby som mala benchmark - keď som sa veľmi snažila, tak to bolo do **40 slov za minútu**.
 
-Ako rozloženie som si vybrala [Colemak-DH](https://colemakmods.github.io/mod-dh/). Začala som sa učiť písmená zo stredného radu ešte kým som čakala na doručenie novej klávesnice. Prekvapilo ma, že zvyšok písmen sa mi podarilo dostať do pamäte za víkend. Prvotný test rýchlosti ukázal to, čo mnohým ostatným - hodnota podstatne klesla, v mojom prípade na cca **10 slov/min**. Po 2 dňoch cvičenia som sa dostala na takmer **20**. Ukázal sa problém - síce som sa pri tréningu zlepšovala, ale akonáhle som na obrazovke nevidela slová a písala som voľne, išlo to stále pomaly. Mozog mal toho na starosti zrazu veľa, rozmýšľať nielen ako písať, ale aj čo písať. Takže pracujem ďalej na presnosti a rýchlosti a dostaní Colemak-DH do svalovej pamäte, aby som nad tým, čo majú robiť prsty, nemusela uvažovať. Po mesiaci a dokopy 10 hodinách tréningu na keybr som na **33 slovách/min**. Už nie som ďaleko od svojej pôvodnej rýchlosti, ďalší cieľ bude presiahnuť 50 slov/min.
+Ako rozloženie som si vybrala [Colemak-DH](https://colemakmods.github.io/mod-dh/). Začala som sa učiť písmená zo stredného radu ešte kým som čakala na doručenie novej klávesnice. Zvyšok písmen sa mi podarilo dostať do pamäte za víkend. Prvotný test rýchlosti ukázal to, čo mnohým ostatným - hodnota podstatne klesla, v mojom prípade na cca **10 slov/min**. Po 2 dňoch cvičenia som sa dostala na takmer **20**. Ukázal sa problém - síce som sa pri tréningu zrýchľovala, ale akonáhle som na obrazovke nevidela slová a písala som voľne, išlo to stále pomaly. Mozog mal toho na starosti zrazu veľa, rozmýšľať nielen ako písať, ale aj čo písať. Pracujem ďalej na presnosti a rýchlosti a dostaní rozloženia do svalovej pamäte, aby som nad tým, čo majú robiť prsty, nemusela uvažovať. Po mesiaci a dokopy 10 hodinách tréningu na keybr som na **33 slovách/min**. Už nie som ďaleko od svojej pôvodnej rýchlosti, ďalší cieľ bude presiahnuť 50 slov/min.
+**Aktualizácia 5. nov.:** aj vo voľnom písaní vidím pokrok, praxou sa to poddáva. Určité skupiny znakov už mám zautomatizované a je naozaj radosť naťukať ich (napr. rst alebo anglická koncovka tion).
 
 ![Keybr](/img/keybr10h.png)
 ![monkeytype](/img/monkeytype.png)
 
-Ladenie rozmiestnenia ostatných klávesov, vrstiev a podsvietenia zabralo tiež nejaký čas a je stále vo vývoji. Možnosti sú nespočetné, na začiatku ohromujúce, ale úžasné a s nástrojom na konfiguráciu sa ľahko pracuje. Príjemne prekvapili klávesy na pohyb kurzora, takže pre jednoduchú navigáciu nemusím prekladať ruku na myš.
+Ladenie rozmiestnenia ostatných klávesov, vrstiev a podsvietenia zabralo tiež nejaký čas a ešte nie je ukončené. Možnosti sú nespočetné, na začiatku ohromujúce, ale úžasné a s nástrojom na konfiguráciu sa ľahko pracuje. Príjemne prekvapili klávesy na pohyb kurzora, takže pre jednoduchú navigáciu nemusím prekladať ruku na myš.
+
+![Moonlander](/img/moonlander2.jpg)
 
 ### Učenie a tréning
 
-Ak by ste sa chceli naučiť nové rozloženie aj Vy alebo potrénovať rýchlosť, zhrnula som pár zdrojov:
+Ak by ste chceli potrénovať rýchlosť písania alebo naučiť sa nové rozloženie aj Vy, zhrnula som pár zdrojov:
 
 - jednoduché lekcie na učenie sa rozloženia Colemak a iných: <https://www.colemak.academy>
 - rozsiahly kurz na učenie sa rozloženia Colemak a iných: [https://www.edclub.com](https://www.edclub.com/library?page=1&ordering=learners_count&locale=en_US&limit=12&subject__in=1)
