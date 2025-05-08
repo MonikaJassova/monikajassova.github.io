@@ -5,7 +5,7 @@
 	
 	<link href="https://monikajassova.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://monikajassova.github.io"/>
-	<updated>2022-10-21T00:00:00-00:00</updated>
+	<updated>2022-10-21T00:00:00+00:00</updated>
 	<id>https://monikajassova.github.io</id>
 	<author>
 		<name>Monika Jaššová</name>
@@ -15,7 +15,7 @@
 	<entry>
 		<title>Moja cesta do sveta IT</title>
 		<link href="https://monikajassova.github.io/posts/moja-cesta/"/>
-		<updated>2022-02-02T00:00:00-00:00</updated>
+		<updated>2022-02-02T00:00:00+00:00</updated>
 		<id>https://monikajassova.github.io/posts/moja-cesta/</id>
 		<content type="html">
 		  &lt;p&gt;&lt;em&gt;V prvom príspevku svojho blogu začínam zľahka a osobnejšie&lt;/em&gt;&lt;/p&gt;
@@ -50,7 +50,7 @@ Vo firme som bola pridelená na projekty, kde sa manuálne testovali webstránky
 	<entry>
 		<title>Užitočné zdroje</title>
 		<link href="https://monikajassova.github.io/posts/uzitocne-zdroje/"/>
-		<updated>2022-04-04T00:00:00-00:00</updated>
+		<updated>2022-04-04T00:00:00+00:00</updated>
 		<id>https://monikajassova.github.io/posts/uzitocne-zdroje/</id>
 		<content type="html">
 		  &lt;p&gt;&lt;em&gt;Na tomto mieste nájdete zoznam rôznych užitočných odkazov, ktorý budem aktualizovať&lt;/em&gt;&lt;/p&gt;
@@ -62,6 +62,8 @@ Vo firme som bola pridelená na projekty, kde sa manuálne testovali webstránky
 &lt;p&gt;&lt;a href=&quot;https://checkmarx.com/try-codebashing&quot;&gt;https://checkmarx.com/try-codebashing&lt;/a&gt; Školenie aplikačnej bezpečnosti, interaktívne lekcie pekne vysvetlia jednotlivé typy zraniteľností, ako prebiehajú ich zneužitia a útoky a ako im predísť&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.oreilly.com/&quot;&gt;https://www.oreilly.com&lt;/a&gt; Vydavateľstvo odbornej literatúry známe knihami s ohrozenými živočíšnymi druhmi na obálke, poskytuje tiež prístup k videám, interaktívnym kurzom a školeniam naživo&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://junior.guru/&quot;&gt;https://junior.guru&lt;/a&gt; Výborne spracovaný český web pre záujemcov o IT, v príručke rozoberá, čo si predstaviť pod programovaním, čo naňho potrebujete, ako sa učiť, ako zohnať prvú prácu aj ako sa posunúť od juniora ďalej&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/@TechWorldwithNana&quot;&gt;https://www.youtube.com/@TechWorldwithNana&lt;/a&gt; DevOps a Cloud, vynikajúco vysvetľujúca lektorka&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/@professorpatterns&quot;&gt;https://www.youtube.com/@professorpatterns&lt;/a&gt; AI, Data Science a Machine Learning, veľa videí k Open WebUI&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://modernafirma.podbean.com/&quot;&gt;https://modernafirma.podbean.com&lt;/a&gt; Podcast Grishiho zo štúdia Wezeo a web inštruktora Yablka na témy v 3 oblastiach: premena na modernú firmu, budovanie digitálneho produktu, skúsenosti úspešných lídrov&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.glassdoor.com/&quot;&gt;https://www.glassdoor.com&lt;/a&gt; Anonymné recenzie firiem, informácie o platoch, hodnotenia pohovorov a otázky z nich&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.levels.fyi/&quot;&gt;https://www.levels.fyi&lt;/a&gt; Informácie o platoch v top firmách v IT odvetví&lt;/p&gt;
@@ -78,7 +80,7 @@ Vo firme som bola pridelená na projekty, kde sa manuálne testovali webstránky
 	<entry>
 		<title>Apache Spark</title>
 		<link href="https://monikajassova.github.io/posts/spark/"/>
-		<updated>2022-05-21T00:00:00-00:00</updated>
+		<updated>2022-05-21T00:00:00+00:00</updated>
 		<id>https://monikajassova.github.io/posts/spark/</id>
 		<content type="html">
 		  &lt;p&gt;&lt;em&gt;Zbežný prehľad fungovania Apache Spark&lt;/em&gt;&lt;/p&gt;
@@ -151,7 +153,7 @@ Ak si chcete Spark prakticky vyskúšať na lokálnom počítači, je to možné
 	<entry>
 		<title>Testovanie ETL</title>
 		<link href="https://monikajassova.github.io/posts/testovanie-etl/"/>
-		<updated>2022-06-07T00:00:00-00:00</updated>
+		<updated>2022-06-07T00:00:00+00:00</updated>
 		<id>https://monikajassova.github.io/posts/testovanie-etl/</id>
 		<content type="html">
 		  &lt;p&gt;&lt;em&gt;Cieľom tohto článku je zosumarizovať postupy, ktoré som implementovala pri testovaní ETL procesov a s ktorými som sa stretla v rámci big data&lt;/em&gt;&lt;/p&gt;
@@ -225,7 +227,7 @@ Pre tieto účely som našla knižnicu &lt;a href=&quot;https://greatexpectation
 	<entry>
 		<title>Budovanie druhého mozgu</title>
 		<link href="https://monikajassova.github.io/posts/pkm-logseq/"/>
-		<updated>2022-07-11T00:00:00-00:00</updated>
+		<updated>2022-07-11T00:00:00+00:00</updated>
 		<id>https://monikajassova.github.io/posts/pkm-logseq/</id>
 		<content type="html">
 		  &lt;p&gt;&lt;em&gt;O potrebe personal knowledge managementu a mojich začiatkoch s nástrojom Logseq&lt;/em&gt;&lt;/p&gt;
@@ -306,7 +308,7 @@ Pre tieto účely som našla knižnicu &lt;a href=&quot;https://greatexpectation
 	<entry>
 		<title>Domáca kancelária</title>
 		<link href="https://monikajassova.github.io/posts/domaca-kancelaria/"/>
-		<updated>2022-10-21T00:00:00-00:00</updated>
+		<updated>2022-10-21T00:00:00+00:00</updated>
 		<id>https://monikajassova.github.io/posts/domaca-kancelaria/</id>
 		<content type="html">
 		  &lt;p&gt;&lt;em&gt;O zariaďovaní domácej kancelárie a o fascinujúcom svete klávesníc.&lt;/em&gt;&lt;/p&gt;
