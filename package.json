@@ -12,7 +12,7 @@
     "js-build-watch": "rollup -c rollup.config.js -w",
     "debug": "DEBUG=* eleventy && npm run test",
     "test": "mocha test/test*.js",
-    "test-watch": "mocha test/test*.js --watch",
+    "test-watch": "mocha test/test*.js --watch --watch-files=test/*",
     "clean": "rm -Rf ./_site/posts/*"
   },
   "pre-push": [
@@ -28,25 +28,25 @@
   },
   "homepage": "https://github.com/11ty/eleventy-base-blog#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-navigation": "^0.1.3",
     "@11ty/eleventy-plugin-rss": "^1.0.7",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
     "eleventy-plugin-local-images": "^0.4.0",
-    "file-type": "^12.0.1",
+    "file-type": "^16.5.4",
     "fs-extra": "^8.1.0",
-    "jsdom": "^15.1.1",
-    "luxon": "^1.21.3",
+    "jsdom": "^16.5.0",
+    "luxon": "^2.5.2",
     "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^5.2.5",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "pre-commit": "^1.2.2",
-    "pre-push": "^0.1.1",
+    "pre-push": "^0.1.4",
     "rollup-plugin-terser": "^6.1.0",
     "shorthash": "0.0.2"
   },
   "dependencies": {
-    "@ampproject/toolbox-optimizer": "^2.8.3",
+    "@ampproject/toolbox-optimizer": "^2.9.0",
     "any-shell-escape": "^0.1.1",
     "clean-css": "^4.2.3",
     "concurrently": "^7.0.0",
@@ -60,13 +60,14 @@
     "image-size": "^0.8.3",
     "jimp": "^0.16.1",
     "lru-cache": "^5.1.1",
-    "mocha": "^8.1.3",
+    "mocha": "^10.1.0",
     "phin": "^3.5.0",
     "purge-from-html": "^1.0.3",
     "purgecss": "^4.0.3",
     "querystring": "^0.2.0",
     "rollup": "^2.23.0",
-    "sharp": "^0.29.0",
+    "sharp": "^0.30.5",
+    "touch": "^3.1.0",
     "twitter": "^1.7.1"
   }
 }

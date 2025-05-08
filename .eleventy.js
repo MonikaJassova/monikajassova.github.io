@@ -43,8 +43,11 @@
 const { DateTime } = require("luxon");
 const { promisify } = require("util");
 const fs = require("fs");
+const path = require("path");
 const hasha = require("hasha");
+const touch = require("touch");
 const readFile = promisify(fs.readFile);
+const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 const execFile = promisify(require("child_process").execFile);
 const pluginRss = require("@11ty/eleventy-plugin-rss");
@@ -55,7 +58,6 @@ const markdownItAnchor = require("markdown-it-anchor");
 const localImages = require("./third_party/eleventy-plugin-local-images/.eleventy.js");
 const CleanCSS = require("clean-css");
 const GA_ID = require("./_data/metadata.json").googleAnalyticsId;
-const { cspDevMiddleware } = require("./_11ty/apply-csp.js");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
@@ -79,7 +81,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addNunjucksAsyncFilter(
     "addHash",
     function (absolutePath, callback) {
-      readFile(`_site${absolutePath}`, {
+      readFile(path.join(".", absolutePath), {
         encoding: "utf-8",
       })
         .then((content) => {
@@ -88,7 +90,11 @@ module.exports = function (eleventyConfig) {
         .then((hash) => {
           callback(null, `${absolutePath}?hash=${hash.substr(0, 10)}`);
         })
-        .catch((error) => callback(error));
+        .catch((error) => {
+          callback(
+            new Error(`Failed to addHash to '${absolutePath}': ${error}`)
+          );
+        });
     }
   );
 
@@ -173,7 +179,7 @@ module.exports = function (eleventyConfig) {
   // We need to copy cached.js only if GA is used
   eleventyConfig.addPassthroughCopy(GA_ID ? "js" : "js/*[!cached].*");
   eleventyConfig.addPassthroughCopy("fonts");
-  eleventyConfig.addPassthroughCopy(".well-known");
+  eleventyConfig.addPassthroughCopy("_headers");
 
   // We need to rebuild upon JS change to update the CSP.
   eleventyConfig.addWatchTarget("./js/");
@@ -195,37 +201,12 @@ module.exports = function (eleventyConfig) {
   });
   eleventyConfig.setLibrary("md", markdownLibrary);
 
-  // Browsersync Overrides
-  eleventyConfig.setBrowserSyncConfig({
-    middleware: cspDevMiddleware,
-    callbacks: {
-      ready: function (err, browserSync) {
-        const content_404 = fs.readFileSync("_site/404.html");
-
-        browserSync.addMiddleware("*", (req, res) => {
-          // Provides the 404 content without redirect.
-          res.write(content_404);
-          res.end();
-        });
-      },
-    },
-    ui: false,
-    ghostMode: false,
-  });
-
-  // Run me before the build starts
-  eleventyConfig.on("beforeBuild", () => {
-    // Copy _header to dist
-    // Don't use addPassthroughCopy to prevent apply-csp from running before the _header file has been copied
-    try {
-      const headers = fs.readFileSync("./_headers", { encoding: "utf-8" });
-      fs.mkdirSync("./_site", { recursive: true });
-      fs.writeFileSync("_site/_headers", headers);
-    } catch (error) {
-      console.log(
-        "[beforeBuild] Something went wrong with the _headers file\n",
-        error
-      );
+  // After the build touch any file in the test directory to do a test run.
+  eleventyConfig.on("afterBuild", async () => {
+    const files = await readdir("test");
+    for (const file of files) {
+      touch(`test/${file}`);
+      break;
     }
   });
 

@@ -25,6 +25,10 @@ https://www.oreilly.com Vydavateľstvo odbornej literatúry známe knihami s ohr
 
 https://junior.guru Výborne spracovaný český web pre záujemcov o IT, v príručke rozoberá, čo si predstaviť pod programovaním, čo naňho potrebujete, ako sa učiť, ako zohnať prvú prácu aj ako sa posunúť od juniora ďalej
 
+https://www.youtube.com/@TechWorldwithNana DevOps a Cloud, vynikajúco vysvetľujúca lektorka
+
+https://www.youtube.com/@professorpatterns AI, Data Science a Machine Learning, veľa videí k Open WebUI
+
 https://modernafirma.podbean.com Podcast Grishiho zo štúdia Wezeo a web inštruktora Yablka na témy v 3 oblastiach: premena na modernú firmu, budovanie digitálneho produktu, skúsenosti úspešných lídrov
 
 https://www.glassdoor.com Anonymné recenzie firiem, informácie o platoch, hodnotenia pohovorov a otázky z nich
