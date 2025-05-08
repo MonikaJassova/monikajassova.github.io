@@ -40,7 +40,7 @@ Silná frustrácia a negatívna emócia v závere zatienili predošlé pozitíva
 - sama testerka bez niekoho, kto by pracoval na podobnom projekte, tak bolo všetko na mojom úsudku - aké nástroje použijem; čo, ako a kedy otestujem; čo zautomatizujem a pod. Úzka spolupráca s developermi v tíme.
 - tu už som sa dostala do kontaktu aj so zákazníkom, scrum mítingy, spolupráca s product ownerom, scrum masterom, podieľanie sa na príprave ticketov, ich estimácii a plánovaní sprintov
 - čo som sa naučila: testovanie big data a API; automatizácia; scrum; skúsenosť s grafovou databázou; dostala som sa aj k CI/CD a monitoringu; základy AWS k certifikátu
-- práca sa mi páčila, nespomínam si na nejaké prekážky, ktoré by mi ju zhoršovali. Začiatky boli ťažšie, ale potom som bola rada za pridelenie na tento projekt.
+- práca sa mi páčila, nespomínam si na nejaké prekážky, ktoré by mi ju zhoršovali. Začiatky boli ťažšie, ale potom som bola rada za pridelenie na tento projekt. Neskôr big data prešli do udržiavacieho módu a tím pracoval primárne na internom nástroji.
 
 3. startup
 - full remote, kolegovia z takmer celého sveta, občasné spoločné workshopy v Európe
