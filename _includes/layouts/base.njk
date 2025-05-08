@@ -6,6 +6,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- See _data/csp.js for how to add to the CSP.
+    Update me: Remove comment if you want a CSP.
+    <meta http-equiv="Content-Security-Policy" content="{{ csp.regular | safe }}">
+    -->
     {% if isdevelopment %}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     {% else %}
@@ -85,7 +89,7 @@
     </main>
 
     <footer>
-      © {{ metadata.author.name }}, 2022
+      © {{ metadata.author.name }}, 2022 - 2025
     </footer>
 
     <!-- Current page: {{ page.url | url }} -->
