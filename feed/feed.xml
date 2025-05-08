@@ -5,7 +5,7 @@
 	
 	<link href="https://monikajassova.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://monikajassova.github.io"/>
-	<updated>2022-10-21T00:00:00+00:00</updated>
+	<updated>2025-05-08T00:00:00+00:00</updated>
 	<id>https://monikajassova.github.io</id>
 	<author>
 		<name>Monika Jaššová</name>
@@ -356,6 +356,75 @@ Sedenie som skúšala oživiť fit loptou, ale nebola som konzistentná v snahe 
 &lt;p&gt;Ostáva asi posledný väčší výdavok - polohovateľný stôl. Cieľom je častá zmena polohy pri práci, nie predĺžené státie. Kolega bol donútený si ho zadovážiť kvôli problémom s krížami.&lt;br&gt;
 Stolička mi zatiaľ vyhovuje, ešte by sa dala v budúcnosti pridať ďalšia poloha na kľakačke.&lt;/p&gt;
 &lt;p&gt;A čo Vy? Dbáte na ergonómiu, máte nejaké tipy?&lt;/p&gt;
+
+			
+		</content>
+	</entry>
+	
+	<entry>
+		<title>Reflexie</title>
+		<link href="https://monikajassova.github.io/posts/reflexie/"/>
+		<updated>2025-05-08T00:00:00+00:00</updated>
+		<id>https://monikajassova.github.io/posts/reflexie/</id>
+		<content type="html">
+		  &lt;p&gt;&lt;em&gt;Pri príležitosti odchodu z práce - potrebovala som spracovať dojmy z nej, s odstupom zhodnotiť doterajšie pôsobenie v IT a zamyslieť sa čo ďalej&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Uplynulého 3,5 roka som strávila na blockchainovom projekte. Môj zamýšľaný čas vo firme prestával byť neohraničený, ale ešte koncom januára som si myslela, že sa budem podieľať na dodaní hlavného míľnika a zažijem blok 0 mainnetu Midnight Networku.&lt;br&gt;
+Situácia sa zhoršila v priebehu pár mesiacov - pondelky boli hroznejšie ako zvyčajne a z každej ďalšej požiadavky sa mi ježili chlpy, mala som už toho kolotoča dosť. Riešenie som uvidela v neplatenom voľne/sabatikale. S firmou sme sa na mojej predstave nedohodli, na odporúčanie manažérky som si vzala trojtýždňovú dovolenku s tým, že potom uvidím. Nepomohla a onedlho som sa rozhodla dať výpoveď, aj keď väčšina ľudí v okolí ma varovala pred nepriaznivou situáciou na trhu práce v IT.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://monikajassova.github.io/img/rescue.jpg&quot; alt=&quot;Záchrana&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;%C4%8Do-%C4%8Falej%3F&quot;&gt;Čo ďalej? &lt;a class=&quot;direct-link&quot; href=&quot;#%C4%8Do-%C4%8Falej%3F&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Chcem si pár mesiacov mentálne oddýchnuť, skúsiť &lt;a href=&quot;https://www.databazeknih.cz/prehled-knihy/digitalni-minimalismus-425192&quot;&gt;digitálny minimalizmus podľa Cala Newporta&lt;/a&gt;, sústrediť sa na fyzickú stránku a zlepšiť zanedbanú kondičku, splniť si nejaké cestovateľské a koncertné sny, pohrať sa s AI a tiež popracovať na zručnostiach z reálneho sveta.&lt;br&gt;
+Po načerpaní energie si plánujem vo vlastnom tempe prejsť kurz na rozšírenie znalostí, keďže momentálne som na vážkach, či pokračovať v QA. Uvidím, či mi pracovný trh umožní skúsiť inú rolu, držte palce 🙂.&lt;br&gt;
+Samozrejme, nedá sa zovšeobecňovať a záleží, na aký projekt, manažéra a procesy (a možnosť ich ovplyvniť) v danej firme natrafí, ale rada by som skúsila opäť iný typ firmy/fungovania v práci. Ideálne s pokojnejším projektom a lepšou rovnováhou medzi pracovným a súkromným životom (za ktorú som sčasti zodpovedná aj ja). Z ostatnej práce si (o. i. nižšie) odnášam aj poučenie lepšie manažovať hranice a očakávania, resp. nastaviť ich rozumne na začiatku a dávať si pozor na prílišné pohltenie prácou. A tiež nerezignovať na vznášanie pripomienok a konštruktívnej kritiky a komunikovať prípadné problémy hneď, ako si ich uvedomím.&lt;/p&gt;
+&lt;h3 id=&quot;rekapitul%C3%A1cia&quot;&gt;Rekapitulácia &lt;a class=&quot;direct-link&quot; href=&quot;#rekapitul%C3%A1cia&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Silná frustrácia a negatívna emócia v závere zatienili predošlé pozitíva, tak som sa prinútila triezvo zhodnotiť svoje pôsobenie vo firme aj tými pred ňou:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;korporát&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;práca z kancelárie, príležitostný home office&lt;/li&gt;
+&lt;li&gt;projekty pre zákazníkov z domény zdravotníctva - webové, mobilné a desktopová aplikácia pre glukomery&lt;/li&gt;
+&lt;li&gt;práca v tíme viacerých testerov na tej istej aplikácii&lt;/li&gt;
+&lt;li&gt;gro bola príprava a exekúcia pridelených testovacích prípadov, práca s test case management a softvérom na reportovanie bugov, všetko ostatné riešil vedúci QA, príp. skúsení kolegovia&lt;/li&gt;
+&lt;li&gt;scrum bol skrytý v pozadí, v podstate sme ani nevedeli o sprintoch, neboli sme prizývaní na mítingy, hovorenú angličtinu som vôbec nevyužila&lt;/li&gt;
+&lt;li&gt;čo som sa naučila: základy testovania k ISTQB; určité špecifiká prehliadačov/mobilných OS; prvé stretnutie s testovacím frameworkom postaveným na Seleniu; že vykonávať ručne tie isté úkony dookola fakt nechcem 😛&lt;/li&gt;
+&lt;li&gt;spätne som to hodnotila ako nutné zlo na získanie prvej reálnej praxe a že som mala odísť skôr - čas sa dal využiť zmysluplnejšie. Zo štúdia na akadémii SOVY som využila asi len SQL.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;korporát&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;hybridný režim, cez koronu home office, potom občasné dni v kancelárii&lt;/li&gt;
+&lt;li&gt;práve rozbiehajúci sa big data projekt v doméne digitálneho marketingu&lt;/li&gt;
+&lt;li&gt;sama testerka bez niekoho, kto by pracoval na podobnom projekte, tak bolo všetko na mojom úsudku - aké nástroje použijem; čo, ako a kedy otestujem; čo zautomatizujem a pod. Úzka spolupráca s developermi v tíme.&lt;/li&gt;
+&lt;li&gt;tu už som sa dostala do kontaktu aj so zákazníkom, scrum mítingy, spolupráca s product ownerom, scrum masterom, podieľanie sa na príprave ticketov, ich estimácii a plánovaní sprintov&lt;/li&gt;
+&lt;li&gt;čo som sa naučila: testovanie big data a API; automatizácia; scrum; skúsenosť s grafovou databázou; dostala som sa aj k CI/CD a monitoringu; základy AWS k certifikátu&lt;/li&gt;
+&lt;li&gt;práca sa mi páčila, nespomínam si na nejaké prekážky, ktoré by mi ju zhoršovali. Začiatky boli ťažšie, ale potom som bola rada za pridelenie na tento projekt.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;startup&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;full remote, kolegovia z takmer celého sveta, občasné spoločné workshopy v Európe&lt;/li&gt;
+&lt;li&gt;vlastný produkt - nový blockchain, úzko prepojený na výskum/akadémiu a dynamický svet web3&lt;/li&gt;
+&lt;li&gt;spolupráca s product ownerom, architektami, SRE tímom a ďalšími rolami ako tech writer a DevRel&lt;/li&gt;
+&lt;li&gt;pomerne náročná práca - jednoznačne najťažší projekt, na ktorom som doteraz robila; neustále vykračovanie mimo komfortnú zónu; stále zrýchľujúce sa tempo, zvyšujúci sa tlak a zodpovednosť; bolo treba mať prehľad o release a všetkých veciach v pohybe naprieč projektom&lt;/li&gt;
+&lt;li&gt;niektoré procesy nefungovali ideálne, skúšali sme ich meniť k lepšiemu, nie vždy úspešne&lt;/li&gt;
+&lt;li&gt;keďže hlavný cieľ bol stihnúť termíny a pridávať nové funkcionality, technologický a testovací dlh narastal a releasy nešli časom hladšie, skôr naopak. Predstava náplne práce SDET sa rozchádzala s predstavou, ktorú o nej mala šéfka QA&lt;/li&gt;
+&lt;li&gt;čo som sa naučila:
+&lt;ul&gt;
+&lt;li&gt;ako to vyzerá na projekte komplexného produktu pozostávajúceho z mnohých komponentov, ktoré tvoria spleť závislostí&lt;/li&gt;
+&lt;li&gt;o nových prístupoch v testovaní (zhrniem v ďalšom článku)&lt;/li&gt;
+&lt;li&gt;keď je jednou z persón produktu developer (s vývojom kompilátora pre nový programovací jazyk sa bežne nestretnete)&lt;/li&gt;
+&lt;li&gt;veľa som sa naučila len prítomnosťou v tomto vysoko odbornom prostredí a pozorovaním diskusií, riešení problémov pri vývoji a incidentov na produkcii&lt;/li&gt;
+&lt;li&gt;stretnutie s funkcionálnym programovaním (ktoré som si myslela, že poznám z big data, ale tu to bol iný level)&lt;/li&gt;
+&lt;li&gt;stretnutie s Kubernetes a GitOps&lt;/li&gt;
+&lt;li&gt;aspekty procesu open-sourcingu&lt;/li&gt;
+&lt;li&gt;že mám rezervy v spoločenskej konverzácii v angličtine&lt;/li&gt;
+&lt;li&gt;že full remote je fajn kvôli efektivite využitia času, ale vyžaduje si starať sa o lokálnu socializáciu (už aj introvert ako ja občas potreboval ísť si pokecať s niekým)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Progres je jasný, s čím som spokojná. Nečakala som síce, že sa dostanem až na prah vyhorenia, ale beriem to, že všetko zlé je na niečo dobré (ak sa človek z toho poučí).&lt;/p&gt;
 
 			
 		</content>
