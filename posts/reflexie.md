@@ -44,7 +44,7 @@ Silná frustrácia a negatívna emócia v závere zatienili predošlé pozitíva
 
 3. startup
 - full remote, kolegovia z takmer celého sveta, občasné spoločné workshopy v Európe
-- vlastný produkt - nový blockchain, úzko prepojený na výskum/akadémiu a dynamický svet web3
+- vlastný produkt - nový blockchain, úzko prepojený na výskum/akadémiu a dynamický svet web3. Ja som testovala hlavne browser extension (rozšírenie do prehliadača) peňaženky, knižnicu peňaženky a tzv. faucet aplikáciu (FE a BE s DB), posledné mesiace node (uzol siete).
 - spolupráca s product ownerom, architektami, SRE tímom a ďalšími rolami ako tech writer a DevRel
 - pomerne náročná práca - jednoznačne najťažší projekt, na ktorom som doteraz robila; neustále vykračovanie mimo komfortnú zónu; stále zrýchľujúce sa tempo, zvyšujúci sa tlak a zodpovednosť; bolo treba mať prehľad o release a všetkých veciach v pohybe naprieč projektom
 - niektoré procesy nefungovali ideálne, skúšali sme ich meniť k lepšiemu, nie vždy úspešne
