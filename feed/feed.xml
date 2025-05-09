@@ -405,7 +405,7 @@ Samozrejme, nedá sa zovšeobecňovať a záleží, na aký projekt, manažéra 
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;full remote, kolegovia z takmer celého sveta, občasné spoločné workshopy v Európe&lt;/li&gt;
-&lt;li&gt;vlastný produkt - nový blockchain, úzko prepojený na výskum/akadémiu a dynamický svet web3&lt;/li&gt;
+&lt;li&gt;vlastný produkt - nový blockchain, úzko prepojený na výskum/akadémiu a dynamický svet web3. Ja som testovala hlavne browser extension (rozšírenie do prehliadača) peňaženky, knižnicu peňaženky a tzv. faucet aplikáciu (FE a BE s DB), posledné mesiace node (uzol siete).&lt;/li&gt;
 &lt;li&gt;spolupráca s product ownerom, architektami, SRE tímom a ďalšími rolami ako tech writer a DevRel&lt;/li&gt;
 &lt;li&gt;pomerne náročná práca - jednoznačne najťažší projekt, na ktorom som doteraz robila; neustále vykračovanie mimo komfortnú zónu; stále zrýchľujúce sa tempo, zvyšujúci sa tlak a zodpovednosť; bolo treba mať prehľad o release a všetkých veciach v pohybe naprieč projektom&lt;/li&gt;
 &lt;li&gt;niektoré procesy nefungovali ideálne, skúšali sme ich meniť k lepšiemu, nie vždy úspešne&lt;/li&gt;
