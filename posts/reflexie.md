@@ -51,7 +51,7 @@ Silná frustrácia a negatívna emócia v závere zatienili predošlé pozitíva
 - keďže hlavný cieľ bol stihnúť termíny a pridávať nové funkcionality, technologický a testovací dlh narastal a releasy nešli časom hladšie, skôr naopak. Predstava náplne práce SDET sa rozchádzala s predstavou, ktorú o nej mala šéfka QA
 - čo som sa naučila:
   - ako to vyzerá na projekte komplexného produktu pozostávajúceho z mnohých komponentov, ktoré tvoria spleť závislostí
-  - o nových prístupoch v testovaní (zhrniem v ďalšom článku)
+  - o nových prístupoch v testovaní (zhrnula som v článku [Netradičné prístupy k testovaniu](/posts/netradicne-testovanie))
   - keď je jednou z persón produktu developer (s vývojom kompilátora pre nový programovací jazyk sa bežne nestretnete)
   - veľa som sa naučila len prítomnosťou v tomto vysoko odbornom prostredí a pozorovaním diskusií, riešení problémov pri vývoji a incidentov na produkcii
   - stretnutie s funkcionálnym programovaním (ktoré som si myslela, že poznám z big data, ale tu to bol iný level)

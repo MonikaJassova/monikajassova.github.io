@@ -29,6 +29,8 @@ https://www.youtube.com/@TechWorldwithNana DevOps a Cloud, vynikajúco vysvetľu
 
 https://www.youtube.com/@professorpatterns AI, Data Science a Machine Learning, veľa videí k Open WebUI
 
+https://www.youtube.com/c/DevOpsToolkit novinky zo sveta DevOps technológií, recenzie z praxe
+
 https://modernafirma.podbean.com Podcast Grishiho zo štúdia Wezeo a web inštruktora Yablka na témy v 3 oblastiach: premena na modernú firmu, budovanie digitálneho produktu, skúsenosti úspešných lídrov
 
 https://www.glassdoor.com Anonymné recenzie firiem, informácie o platoch, hodnotenia pohovorov a otázky z nich
