@@ -6,6 +6,7 @@ tags:
   - IT
   - testovanie
 layout: layouts/post.njk
+image: /img/xstate-model-voter.png
 ---
 
 *Prehľad zaujímavých prístupov k testovaniu, s ktorými som sa stretla na blockchainovom projekte (ako kritický vyžadoval vyššiu mieru istoty a na overenie dizajnu základných kameňov sa využívali aj matematické metódy formálnej verifikácie). Tiež prístupy, ktoré vyzerajú byť dobrým kandidátom na zaradenie do arzenálu. Pôjdeme v smere od unit testov až k E2E testom na produkčnom prostredí.*
@@ -72,6 +73,8 @@ Nástroje:
 - [fMBT](https://github.com/intel/fMBT)
 
 Teória vyzerá pekne, ale zatiaľ som nevidela úspešný príklad z reálnej praxe na nejakom komplexnom projekte. My sme MBT skúšali ako proof of concept testovania decentralizovanej aplikácie DAO s využitím XState. S návrhom ideálneho modelu sme mali ťažkosti (bol to pokus-omyl) a prístup sme si nezvolili, ale vytvorený stavový diagram slúžil ako dobrá vizuálna dokumentácia a oceňovali sme, že prístup nás nútil zamyslieť sa nad rôznymi stavmi, do ktorých sa aplikácia môže dostať.
+
+![XState model - voter](/img/xstate-model-voter.png)
 
 ### Contract testing (code-based)
 
