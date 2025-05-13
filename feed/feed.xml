@@ -5,7 +5,7 @@
 	
 	<link href="https://monikajassova.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://monikajassova.github.io"/>
-	<updated>2025-05-08T00:00:00+00:00</updated>
+	<updated>2025-05-13T00:00:00+00:00</updated>
 	<id>https://monikajassova.github.io</id>
 	<author>
 		<name>Monika Jaššová</name>
@@ -64,6 +64,7 @@ Vo firme som bola pridelená na projekty, kde sa manuálne testovali webstránky
 &lt;p&gt;&lt;a href=&quot;https://junior.guru/&quot;&gt;https://junior.guru&lt;/a&gt; Výborne spracovaný český web pre záujemcov o IT, v príručke rozoberá, čo si predstaviť pod programovaním, čo naňho potrebujete, ako sa učiť, ako zohnať prvú prácu aj ako sa posunúť od juniora ďalej&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/@TechWorldwithNana&quot;&gt;https://www.youtube.com/@TechWorldwithNana&lt;/a&gt; DevOps a Cloud, vynikajúco vysvetľujúca lektorka&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/@professorpatterns&quot;&gt;https://www.youtube.com/@professorpatterns&lt;/a&gt; AI, Data Science a Machine Learning, veľa videí k Open WebUI&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/c/DevOpsToolkit&quot;&gt;https://www.youtube.com/c/DevOpsToolkit&lt;/a&gt; novinky zo sveta DevOps technológií, recenzie z praxe&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://modernafirma.podbean.com/&quot;&gt;https://modernafirma.podbean.com&lt;/a&gt; Podcast Grishiho zo štúdia Wezeo a web inštruktora Yablka na témy v 3 oblastiach: premena na modernú firmu, budovanie digitálneho produktu, skúsenosti úspešných lídrov&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.glassdoor.com/&quot;&gt;https://www.glassdoor.com&lt;/a&gt; Anonymné recenzie firiem, informácie o platoch, hodnotenia pohovorov a otázky z nich&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.levels.fyi/&quot;&gt;https://www.levels.fyi&lt;/a&gt; Informácie o platoch v top firmách v IT odvetví&lt;/p&gt;
@@ -413,7 +414,7 @@ Samozrejme, nedá sa zovšeobecňovať a záleží, na aký projekt, manažéra 
 &lt;li&gt;čo som sa naučila:
 &lt;ul&gt;
 &lt;li&gt;ako to vyzerá na projekte komplexného produktu pozostávajúceho z mnohých komponentov, ktoré tvoria spleť závislostí&lt;/li&gt;
-&lt;li&gt;o nových prístupoch v testovaní (zhrniem v ďalšom článku)&lt;/li&gt;
+&lt;li&gt;o nových prístupoch v testovaní (zhrnula som v článku &lt;a href=&quot;https://monikajassova.github.io/posts/netradicne-testovanie&quot;&gt;Netradičné prístupy k testovaniu&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;keď je jednou z persón produktu developer (s vývojom kompilátora pre nový programovací jazyk sa bežne nestretnete)&lt;/li&gt;
 &lt;li&gt;veľa som sa naučila len prítomnosťou v tomto vysoko odbornom prostredí a pozorovaním diskusií, riešení problémov pri vývoji a incidentov na produkcii&lt;/li&gt;
 &lt;li&gt;stretnutie s funkcionálnym programovaním (ktoré som si myslela, že poznám z big data, ale tu to bol iný level)&lt;/li&gt;
@@ -425,6 +426,147 @@ Samozrejme, nedá sa zovšeobecňovať a záleží, na aký projekt, manažéra 
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Progres je jasný, s čím som spokojná. Nečakala som síce, že sa dostanem až na prah vyhorenia, ale beriem to, že všetko zlé je na niečo dobré (ak sa človek z toho poučí).&lt;/p&gt;
+
+			
+		</content>
+	</entry>
+	
+	<entry>
+		<title>Netradičné prístupy k testovaniu</title>
+		<link href="https://monikajassova.github.io/posts/netradicne-testovanie/"/>
+		<updated>2025-05-13T00:00:00+00:00</updated>
+		<id>https://monikajassova.github.io/posts/netradicne-testovanie/</id>
+		<content type="html">
+		  &lt;p&gt;&lt;em&gt;Prehľad zaujímavých prístupov k testovaniu, s ktorými som sa stretla na blockchainovom projekte (ako kritický vyžadoval vyššiu mieru istoty a na overenie dizajnu základných kameňov sa využívali aj matematické metódy formálnej verifikácie). Tiež prístupy, ktoré vyzerajú byť dobrým kandidátom na zaradenie do arzenálu. Pôjdeme v smere od unit testov až k E2E testom na produkčnom prostredí.&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&quot;mutation-testing&quot;&gt;Mutation testing &lt;a class=&quot;direct-link&quot; href=&quot;#mutation-testing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Mutation testing sa používa na otestovanie unit testov, zhodnotenie ich efektívnosti, kvality. Jeho koncept je veľmi jednoduchý a geniálny - mutácia je zavedenie modifikácie zdrojového kódu aplikácie, napr. otočenie aritmetického znamienka, zmena logického operátora, opačná hodnota boolean a pod., po čom sa očakáva, že unit testy by zmenu v programe mali zachytiť a spadnúť. Ak sa tak nestane a &amp;quot;mutant&amp;quot; prežije, unit testy nedostatočne pokrývajú kód testami (aj pri 100% code coverage nám môžu chýbať negatívne testovacie prípady a iné).&lt;br&gt;
+Je vhodný v situácii, kedy potrebujeme zistiť, ako je na tom s unit testami projekt, na ktorý sme prišli a nepoznáme ho alebo napr. open-source projekty. Mutation testy sa môžu použiť aj na otestovanie efektivity &lt;a href=&quot;#property-based-testing&quot;&gt;property-based unit testov&lt;/a&gt;.&lt;br&gt;
+Nevýhodou je, že beh mutation testov trvá dlhšie ako unit testy.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Vq9eqZzblfg&quot;&gt;https://www.youtube.com/watch?v=Vq9eqZzblfg&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Príkladmi konkrétnych frameworkov sú:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://stryker-mutator.io/&quot;&gt;Stryker Mutator&lt;/a&gt; pre JavaScript/TypeScript, Scalu a C#&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://pitest.org/&quot;&gt;Pitest&lt;/a&gt; pre Javu a JVM&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/sixty-north/cosmic-ray&quot;&gt;Cosmic Ray&lt;/a&gt; pre Python&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;property-based-testing&quot;&gt;Property-based testing &lt;a class=&quot;direct-link&quot; href=&quot;#property-based-testing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Klasické testy, s ktorými sa stretávame, sú založené na konkrétnych príkladoch - pre takýto vstup očakávam takýto výstup. Napr. funkciu na vrátenie true/false, či používateľ je plnoletý na základe veku, viem otestovať niekoľkými príkladmi: pre 17 rokov očakávam false, pre 18 true, pre 0 false, pre 100 true.&lt;br&gt;
+Property-based testy sú založené na definovaní všeobecných vlastností, ktoré sú platné pre všetky možné hodnoty. Developer zadefinuje, akého typu a z akého rozpätia vstupy majú byť (existujú vstavané generátory pre primitívne dátové typy, príp. developer nakódi vlastný generátor pre typy a triedy, aké potrebuje) a PBT framework vygeneruje veľký počet náhodných hodnôt, ktoré sú otestované, či spĺňajú dané vlastnosti. Vlastnosť môže byť vyjadrená takýmto spôsobom:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  pre hocijaké (x, y, ...)
+  také, že spĺňa predpoklad(x, y, ...)
+  výrok (x, y, ...) je pravdivý
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Príkladmi konkrétnych frameworkov sú:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://fast-check.dev/&quot;&gt;fast-check&lt;/a&gt; pre JS/TS&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://hypothesis.works/&quot;&gt;Hypothesis&lt;/a&gt; pre Python&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://scalacheck.org/&quot;&gt;ScalaCheck&lt;/a&gt; a &lt;a href=&quot;https://hedgehogqa.github.io/scala-hedgehog/&quot;&gt;Hedgehog&lt;/a&gt; pre Scalu&lt;/li&gt;
+&lt;li&gt;ďalšie jazyky nájdete na &lt;a href=&quot;https://github.com/jmid/pbt-frameworks&quot;&gt;https://github.com/jmid/pbt-frameworks&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;výhodnou funkcionalitou frameworku je shrinking, ktorý sa pri nájdení výnimky z vlastnosti postará o zjednodušený minimalizovaný prípad na reprodukciu problému&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Písanie takýchto testov si vyžaduje zmenu spôsobu myslenia a kreativitu, developer/tester si musí odvodiť univerzálne platné vlastnosti, premýšľať o korektných vstupoch a hlboko porozumieť požiadavkám, ako má funkcionalita fungovať skôr ako pri tradičnom prístupe. PBT sú komplementárne ku klasickým example-based testom - môžu identifikovať hraničné prípady a potenciálne problémy, na ktoré nebolo myslené pri example-based testoch. Taktiež môžu odhaliť neočakávané problémy spojené so špecifickou množinou vstupov alebo mylné predstavy.&lt;br&gt;
+PBT majú vyššie náklady, ale aj vyššiu hodnotu. Použiť sa dajú aj na vyšších úrovniach nad unit testami. Tipy pre uvažovanie a výber vlastností: &lt;a href=&quot;https://fsharpforfunandprofit.com/posts/property-based-testing-2/&quot;&gt;https://fsharpforfunandprofit.com/posts/property-based-testing-2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Stratégie implementácie:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;začať s example-based, keď tie sú hotové, pridať property-based&lt;/li&gt;
+&lt;li&gt;napísať property-based len pre kľúčové komponenty systému
+&lt;ul&gt;
+&lt;li&gt;komplikované, ktoré nie úplne chápeme, čo robia&lt;/li&gt;
+&lt;li&gt;kritické pre klienta&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Viac vo videu:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=gENnmmOjifA&quot;&gt;https://www.youtube.com/watch?v=gENnmmOjifA&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Prípadom frameworku postaveného na PBT je &lt;a href=&quot;https://quickstrom.io/&quot;&gt;Quickstrom&lt;/a&gt; na testovanie webových aplikácií, ktorý k vlastnostiam pridáva lineárnu temporálnu logiku - aplikáciu vieme popísať špecifikáciou, ktorá hovorí, aké prechody stavov sú validné, ktorý stav má nastať po ktorom, aký stav nastane aspoň raz/vždy a pod. V Quickstrome definujeme akcie, ktoré sa dajú v aplikácii vykonať, stavy, v ktorých sa aplikácia môže nachádzať a Quickstrom sa postará o to, aby vygeneroval náhodné sledy akcií a vyhodnotil, či skutočne nadobudnutý sled stavov zodpovedá špecifikácii a aplikácia nespravila niečo neočakávané.&lt;br&gt;
+Nevýhodou je strmá krivka učenia, skromná dokumentácia, projekt nie je ešte dostatočne zrelý - limitovaná podpora dynamického obsahu a ťažkosti s načasovaním. Interný proof of concept taktiež odhalil nespoľahlivé alebo neúčinné selektory pre identifikáciu elementov, že defaultné správanie vyhodnotenia viditeľnosti a aktívnosti elementov pre vykonanie akcie nie vždy vyhovovalo a boli potrebné rôzne hacky a explicitné predpoklady, kedy môže byť akcia vykonaná. Neponúka ani schopnosť simultánne pracovať s viacerými stránkami alebo otestovať viac súborov cez príkaz &lt;code&gt;check&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Iným nástrojom, ktorý využíva PBT, je &lt;a href=&quot;https://schemathesis.io/&quot;&gt;Schemathesis&lt;/a&gt; na testovanie API s pomocou API schémy (viď aj &lt;a href=&quot;#schema-based-contract-testing&quot;&gt;Schema-based contract testing&lt;/a&gt;).&lt;/p&gt;
+&lt;h3 id=&quot;model-based-testing&quot;&gt;Model-based testing &lt;a class=&quot;direct-link&quot; href=&quot;#model-based-testing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Podstatou MBT je automatické generovanie testov a ich exekúcia na základe modelu systému. Abstraktný model reprezentujúci očakávané správanie, vstupy, výstupy a stavy testovaného systému musí vytvoriť tester. To si opäť vyžaduje prepnúť spôsob myslenia, akým uvažujeme. Model môže byť v podobe diagramu prechodu stavov, konečného automatu, rozhodovacej tabuľky, UML diagramu. MBT sa dá použiť na rôznych úrovniach od unit po systémové a akceptačné testy.&lt;br&gt;
+Je ideálny do agilného prostredia, kde sa menia požiadavky a treba testovať rýchlo a kontinuálne (údajne, našla som aj opačný názor).&lt;/p&gt;
+&lt;p&gt;Plusy: šetrí čas automatizovaním vytvárania a exekuovania testov, údržba je takisto zjednodušená - len úprava modelu, zvýšené pokrytie, škálovateľnosť - obzvlášť efektívny pre veľké a komplexné systémy&lt;br&gt;
+Mínusy: strmá krivka učenia, tvorba presných a detailných modelov komplexných systémov je zložitá a časovo náročná, málo využívaný v testerskej komunite - ťažko nájsť nejaké odporúčania a overené postupy&lt;/p&gt;
+&lt;p&gt;Nástroje:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/statelyai/xstate&quot;&gt;XState&lt;/a&gt;, k testovaniu &lt;a href=&quot;https://stately.ai/docs/generate-test-paths&quot;&gt;tu&lt;/a&gt; a &lt;a href=&quot;https://css-tricks.com/model-based-testing-in-react-with-state-machines/&quot;&gt;článok o prepojení XState a testovacích frameworkov Jest a Puppeteer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://graphwalker.github.io/&quot;&gt;GraphWalker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/intel/fMBT&quot;&gt;fMBT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Teória vyzerá pekne, ale zatiaľ som nevidela úspešný príklad z reálnej praxe na nejakom komplexnom projekte. My sme MBT skúšali ako proof of concept testovania decentralizovanej aplikácie DAO s využitím XState. S návrhom ideálneho modelu sme mali ťažkosti (bol to pokus-omyl) a prístup sme si nezvolili, ale vytvorený stavový diagram slúžil ako dobrá vizuálna dokumentácia a oceňovali sme, že prístup nás nútil zamyslieť sa nad rôznymi stavmi, do ktorých sa aplikácia môže dostať.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://monikajassova.github.io/img/xstate-model-voter.png&quot; alt=&quot;XState model - voter&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;contract-testing-(code-based)&quot;&gt;Contract testing (code-based) &lt;a class=&quot;direct-link&quot; href=&quot;#contract-testing-(code-based)&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Contract testy sa nachádzajú v testovacej pyramíde medzi unit a integračnými testami. Ich úlohou je zaistiť, že dvojica komponentov vie stále komunikovať skrz API napriek zmenám v kóde (teda bol dodržaný skôr dohodnutý kontrakt o vzájomnej komunikácii). Výhodou je, že tieto testy sú asynchrónne a bežia v izolácii - nevyžadujú si prostredie, na ktorom by oba komponenty museli bežať súčasne. Na problémy sa dá prísť ešte pred nasadením na testovacie prostredie, v rámci CI checku na pull requeste v repozitári. Ideálne pre microservices architektúru. Netestujú, či funkcionalita za nejakým API volaním funguje, to stále potrebujeme mať podchytené v iných funkcionálnych testoch.&lt;/p&gt;
+&lt;p&gt;Plusy: exekuuje reálny aplikačný kód na oboch stranách interakcie, testuje aj statusové kódy a základné predpoklady o odpovedi, zároveň príklady slúžia ako špecifikácia a dokumentácia, silné verifikačné záruky, časť testov na vyšších úrovniach môže byť presunutá do contract testov&lt;br&gt;
+Mínusy: zložitejší a časovo náročnejší na začiatok, potrebná údržba testov&lt;/p&gt;
+&lt;p&gt;Typy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;consumer-driven: kontrakt definuje konzument API (klient) na základe toho, čo očakáva od producenta API (servera). Pokrýva len časť, ktorú potrebuje konkrétny konzument (producent môže mať ďalších konzumentov, ktorí majú iné požiadavky). Akékoľvek správanie producenta, ktoré nie je využívané konzumentami sa môže meniť bez obavy z porušenia kontraktu a padnutia testov. Špecifikácia je nahratá s pomocou mocku producenta. Interakcie (vstupy a očakávané výstupy) sú zachytené v súbore kontraktu. Ten sa zdieľa s producentom, ktorý kontrakt verifikuje na svojej strane - prehratím interakcie a porovnaním s očakávanymi odpoveďami.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;producer-driven: kontrakt definuje producent API (ako súbor všetkého, čo poskytuje) a konzumenti ho používajú na uistenie, že vedia spracovať uvedené odpovede úspešne. Chýba spätná väzba.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;bidirectional: producent aj konzument vytvoria svoju verziu kontraktu pre špecifickú integráciu - očakávania o správaní producenta a špecifikáciu správania producenta. Porovnanie a verifikáciu kontraktu robí nezávislá tretia strana, ktorej poskytnú kontrakty. Konzument aj producent sa vedia dotazovať na výsledky verifikácie, aby zistili, či nastali nejaké integračné problémy a či je bezpečné nové verzie nasadiť na prostredie.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Viac informácií má na svojej stránke Bas Dijkstra, ktorý sa na contract testing špecializuje:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.ontestautomation.com/an-introduction-to-contract-testing-part-1-meet-the-players/&quot;&gt;https://www.ontestautomation.com/an-introduction-to-contract-testing-part-1-meet-the-players/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.ontestautomation.com/contract-testing-what-not-to-test-for-part-1/&quot;&gt;https://www.ontestautomation.com/contract-testing-what-not-to-test-for-part-1/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;alebo ich nájdete v nedávno vydanej knihe &lt;a href=&quot;https://www.manning.com/books/contract-testing-in-action&quot;&gt;Contract Testing in Action&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Frameworky:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://pact.io/&quot;&gt;Pact&lt;/a&gt; s podporou JS, JVM, Rust, Python, Go, PHP, .NET&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/karatelabs/karate/tree/master/karate-netty#consumer-provider-example&quot;&gt;Karate&lt;/a&gt; - kontrakty definované vo formáte Gherkin, jar na beh testov&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://spring.io/projects/spring-cloud-contract&quot;&gt;Spring Cloud Contract&lt;/a&gt; - podporuje definovanie kontraktov v YAML a Groovy a ich beh v Dockeri&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://specmatic.io/&quot;&gt;Specmatic&lt;/a&gt; - no-code riešenie, ktoré generuje contract testy z API špecifikácií&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Bohužiaľ, k implementácii contract testingu sme sa na projekte z časových dôvodov a iných priorít nedostali, ale videli sme prípady, kedy by tento prístup pomohol v skorom zachytení nežiaducich zmien priamo u komponentu, ktorý ich zaviedol.&lt;/p&gt;
+&lt;h4 id=&quot;schema-based-contract-testing&quot;&gt;Schema-based contract testing &lt;a class=&quot;direct-link&quot; href=&quot;#schema-based-contract-testing&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Schéma alebo špecifikácia API je statický formálny popis API, ktorý zachytáva všetky možné koncové body, požiadavky a odpovede. Príklady schém pre rôzne protokoly sú &lt;a href=&quot;https://swagger.io/resources/open-api/&quot;&gt;OpenAPI Specification&lt;/a&gt; pre REST, &lt;a href=&quot;https://graphql.org/learn/schema/&quot;&gt;GraphQL schema&lt;/a&gt;, &lt;a href=&quot;https://www.asyncapi.com/en&quot;&gt;AsyncAPI&lt;/a&gt;, &lt;a href=&quot;https://json-schema.org/&quot;&gt;JSON schema&lt;/a&gt; alebo &lt;a href=&quot;https://open-rpc.org/&quot;&gt;OpenRPC&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;SBCT kontroluje, či konzument používa správy, ktoré sa zhodujú s (podmnožinou) danej API schémy a či producent produkuje výstup, ktorý súhlasí s touto schémou. Tvrdí, že daná strana komunikácie je kompatibilná so schémou v určitom čase.&lt;br&gt;
+Stále je však potrebné sledovať, aké verzie aplikácií sú nasadené, aby sme sa uistili, že obe strany používajú kompatibilné verzie schémy. Správa tiež môže byť kompatibilná so schémou (syntakticky správna), ale nemať význam a byť nesprávna.&lt;/p&gt;
+&lt;p&gt;Plusy: ľahšie a rýchlejšie je s nimi začať, menšia údržba - ak sú schémy generované priamo z kódu, zároveň slúži ako dokumentácia API, odstraňuje nutnosť existencie testovacích dát&lt;br&gt;
+Mínusy: robí porovnanie schém - teda tvaru dát, ostatné aspekty kontraktu (cesty, metódy, hlavičky, statusové kódy, špecifické množiny vstupov) nie sú testované, nižšie verifikačné záruky, schéma je často ručne vytvorená a udržiavaná - môže nastať odchýlka medzi schémou a reálnym kódom.&lt;/p&gt;
+&lt;p&gt;Viac v seriáli na &lt;a href=&quot;https://pactflow.io/blog/contract-testing-using-json-schemas-and-open-api-part-1/&quot;&gt;https://pactflow.io/blog/contract-testing-using-json-schemas-and-open-api-part-1/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Pár nástrojov:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://stoplight.io/open-source/prism&quot;&gt;Prism&lt;/a&gt; pre OpenAPI špecifikácie&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://microcks.io/&quot;&gt;Microcks&lt;/a&gt; testuje nasadené implementácie oproti API špecifikácii&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://schemathesis.io/&quot;&gt;Schemathesis&lt;/a&gt; PBT framework na API testovanie, deteguje aj odchýlku medzi implementáciou API a OpenAPI alebo GraphQL špecifikáciou&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/apiaryio/dredd&quot;&gt;Dredd&lt;/a&gt; už archivovaný projekt, ktorý testoval, či implementácia backendu zodpovedá API schéme&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;trace-based-testing&quot;&gt;Trace-based testing &lt;a class=&quot;direct-link&quot; href=&quot;#trace-based-testing&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Na integrovanom prostredí vrátane produkcie (ak máme naprieč komponentami systému implementovaný tracing) môžeme okrem pasívneho monitoringu zbierané dáta využiť aj na testovací účel. TBT overuje tvrdenia o trase stôp pre danú transakciu a umožňuje integračné aj komplexné E2E testy. Definujeme model, nasleduje zber dát a na záver vyhodnotenie, či dáta zodpovedajú modelu. Rovnaký model a test môže byť použitý pri integračných testoch na lokálnom prostredí aj unit testoch s mockmi. Sú vhodné najmä pre microservices architektúru a distribuované systémy. TBT sa dajú kombinovať aj so záťažovými testami a pomôcť pri odhalení úzkych hrdiel v systéme.&lt;br&gt;
+Písaním testov nad traceami zároveň robíme tracing dôležitou súčasťou vývoja, nie dodatočnou myšlienkou a vytvárame cyklus spätnej väzby, ktorý má za následok lepšie testovanie aj lepšiu observabilitu (dá sa nazvať aj trace-driven development) a tým pádom aj rýchlejšie určenie príčiny v prípade problémov. Akékoľvek nástroje, ktoré umožňujú analýzu štruktúrovaných dát nám pomôžu pri TBT. Ďalšie nadstavby môžu byť kombinácie s temporálnou logikou, model checkermi a formálnou verifikáciou.&lt;/p&gt;
+&lt;p&gt;Príkladom je &lt;a href=&quot;https://tracetest.io/&quot;&gt;Tracetest&lt;/a&gt; pre OpenTelemetry. Poskytuje mnoho integrácií vrátane Playwrightu, čím umožňuje naozajstné E2E testovanie, kedy sa test začne na UI webstránky a dostane schopnosť vidieť a sledovať celé interné spracovanie danej požiadavky skrz back end, databázu a externé služby.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=MP_edlFWRi4&quot;&gt;https://www.youtube.com/watch?v=MP_edlFWRi4&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;chaos-engineering&quot;&gt;Chaos engineering &lt;a class=&quot;direct-link&quot; href=&quot;#chaos-engineering&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Zaujímavým prístupom sú nefunkcionálne testovacie techniky na hodnotenie toho, ako je systém robustný, odolný voči nepriaznivým vplyvom a abnormálnemu správaniu, ako toleruje chyby a schopnosť zotaviť sa z nich.&lt;br&gt;
+Chaos engineering je praktika úmyselného zavádzania chýb a zlyhaní na rôznych úrovniach (odstránenie Kubernetes podu, zvýšenie latencie, úplné prerušenie sieťového spojenia medzi komponentami, simulácia používateľských chýb atď.). Cieľom je potvrdiť alebo vyvrátiť naše hypotézy o tom, ako systém zareaguje a či sa zotaví a zlepšiť celkovú odolnosť systému odhalením skrytých slabín a validáciou mechanizmov obnovy za realistickej pracovnej záťaže a kombinácie závad. Zameriava sa teda na zvýšenie dôvery v schopnosť distribuovaných systémov čeliť turbulentným podmienkam skutočného sveta vrátane nepredvídateľných zlyhaní.&lt;br&gt;
+Vykonáva sa na prostrediach podobných produkcii aj priamo na produkcii.&lt;br&gt;
+Podmienkou je mať systém dostatočne zrelý, spoľahlivý (aby nepadal aj bez pričinenia chaos engineeringu) a tiež observabilita na dostatočnej úrovni, aby sme do systému &amp;quot;videli&amp;quot;, ako sa správa a mohli sledovať hodnoty kľúčových indikátorov.&lt;/p&gt;
+&lt;p&gt;Pár nástrojov:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://chaos-mesh.org/&quot;&gt;Chaos Mesh&lt;/a&gt; a &lt;a href=&quot;https://litmuschaos.io/&quot;&gt;Litmus&lt;/a&gt; pre Kubernetes&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/netflix/chaosmonkey&quot;&gt;Chaos Monkey&lt;/a&gt; od Netflixu, ktorý bol priekopníkom chaos engineeringu&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://chaostoolkit.org/&quot;&gt;ChaosToolkit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;viac na &lt;a href=&quot;https://github.com/dastergon/awesome-chaos-engineering&quot;&gt;https://github.com/dastergon/awesome-chaos-engineering&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Chaos engineering spadá pod resilience testing spolu s:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fault injection: úmyselne zavádza špecifické závady a zlyhania do systému na validáciu jeho robustnosti a schopnosti poradiť si s chybami. Používa sa skoro vo vývojovom cykle v kontrolovanom testovacom prostredí na potvrdenie, že systém sa správa správne za známych chybových podmienok.&lt;/li&gt;
+&lt;li&gt;stress testing: vystavuje systém extrémnej pracovnej záťaži alebo vyťaženiu zdrojov (CPU, pamäť...) a má za cieľ identifikovať výkonnostné úzke hrdlá, zlyhania z preťaženia&lt;/li&gt;
+&lt;li&gt;failover testing: úmyselne spôsobí vypovedanie služby a pozoruje, či systém dokáže prejsť na zálohu alebo rezervnú službu&lt;/li&gt;
+&lt;li&gt;data recovery testing: verifikuje, že dáta sa dajú obnoviť zo záloh a aj že zálohovacie mechanizmy sú efektívne a proces obnovy spoľahlivý a výkonný. Mal by byť vykonávaný periodicky, hodí sa tiež po veľkých zmenách v dátach a migráciách.&lt;/li&gt;
+&lt;li&gt;disaster recovery testing: pomáha uistiť sa, že systém môže byť obnovený a spojazdnený po udalostiach veľkého rozsahu ako výpadku dátových centier. Zahŕňa aktivity ako obnovu zo záloh, prepnutie na redundantné systémy alebo presmerovanie prevádzky na disaster recovery prostredie. Vhodný po signifikantných zmenách v infraštruktúre.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Ako vidíte, je toho neúrekom a v testovaní sa stále dá vymyslieť a nájsť niečo nové, kombinovať rôzne prístupy. A v súčasnosti aj využívať pomoc AI.&lt;/em&gt;&lt;/p&gt;
 
 			
 		</content>
