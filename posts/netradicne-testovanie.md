@@ -39,7 +39,7 @@ Príkladmi konkrétnych frameworkov sú:
 - [Hypothesis](https://hypothesis.works/) pre Python
 - [ScalaCheck](https://scalacheck.org/) a [Hedgehog](https://hedgehogqa.github.io/scala-hedgehog/) pre Scalu
 - ďalšie jazyky nájdete na https://github.com/jmid/pbt-frameworks
-  - výhodnou funkcionalitou frameworku je shrinking, ktorý sa pri nájdení výnimky z vlastnosti postará o zjednodušený minimalizovaný prípad na reprodukciu problému
+  - výhodnou funkcionalitou frameworku je shrinking, ktorý sa pri nájdení výnimky z vlastností postará o zjednodušený minimalizovaný prípad na reprodukciu problému
 
 Písanie takýchto testov si vyžaduje zmenu spôsobu myslenia a kreativitu, developer/tester si musí odvodiť univerzálne platné vlastnosti, premýšľať o korektných vstupoch a hlboko porozumieť požiadavkám, ako má funkcionalita fungovať skôr ako pri tradičnom prístupe. PBT sú komplementárne ku klasickým example-based testom - môžu identifikovať hraničné prípady a potenciálne problémy, na ktoré nebolo myslené pri example-based testoch. Taktiež môžu odhaliť neočakávané problémy spojené so špecifickou množinou vstupov alebo mylné predstavy.
 PBT majú vyššie náklady, ale aj vyššiu hodnotu. Použiť sa dajú aj na vyšších úrovniach nad unit testami. Tipy pre uvažovanie a výber vlastností: https://fsharpforfunandprofit.com/posts/property-based-testing-2/
@@ -62,10 +62,10 @@ Iným nástrojom, ktorý využíva PBT, je [Schemathesis](https://schemathesis.i
 ### Model-based testing
 
 Podstatou MBT je automatické generovanie testov a ich exekúcia na základe modelu systému. Abstraktný model reprezentujúci očakávané správanie, vstupy, výstupy a stavy testovaného systému musí vytvoriť tester. To si opäť vyžaduje prepnúť spôsob myslenia, akým uvažujeme. Model môže byť v podobe diagramu prechodu stavov, konečného automatu, rozhodovacej tabuľky, UML diagramu. MBT sa dá použiť na rôznych úrovniach od unit po systémové a akceptačné testy.
-Je ideálny do agilného prostredia, kde sa menia požiadavky a treba testovať rýchlo a kontinuálne (údajne, našla som aj opačný názor).
+Má byť ideálny do agilného prostredia, kde sa menia požiadavky a treba testovať rýchlo a kontinuálne (našla som aj opačnú skúsenosť, že zmeny požiadaviek si vyžiadali aj úplne prerobiť model).
 
-Plusy: šetrí čas automatizovaním vytvárania a exekuovania testov, údržba je takisto zjednodušená - len úprava modelu, zvýšené pokrytie, škálovateľnosť - obzvlášť efektívny pre veľké a komplexné systémy
-Mínusy: strmá krivka učenia, tvorba presných a detailných modelov komplexných systémov je zložitá a časovo náročná, málo využívaný v testerskej komunite - ťažko nájsť nejaké odporúčania a overené postupy
+Plusy: šetrí čas automatizovaním vytvárania a exekuovania testov, údržba je takisto zjednodušená - len úprava modelu, zvýšené pokrytie, škálovateľnosť - efektívny pre veľké a komplexné systémy
+Mínusy: strmá krivka učenia, tvorba presných a detailných modelov komplexných systémov je zložitá a časovo náročná, málo využívaný v testerskej komunite - ťažké nájsť nejaké odporúčania a overené postupy
 
 Nástroje:
 - [XState](https://github.com/statelyai/xstate), k testovaniu [tu](https://stately.ai/docs/generate-test-paths) a [článok o prepojení XState a testovacích frameworkov Jest a Puppeteer](https://css-tricks.com/model-based-testing-in-react-with-state-machines/)
@@ -78,7 +78,7 @@ Teória vyzerá pekne, ale zatiaľ som nevidela úspešný príklad z reálnej p
 
 ### Contract testing (code-based)
 
-Contract testy sa nachádzajú v testovacej pyramíde medzi unit a integračnými testami. Ich úlohou je zaistiť, že dvojica komponentov vie stále komunikovať skrz API napriek zmenám v kóde (teda bol dodržaný skôr dohodnutý kontrakt o vzájomnej komunikácii). Výhodou je, že tieto testy sú asynchrónne a bežia v izolácii - nevyžadujú si prostredie, na ktorom by oba komponenty museli bežať súčasne. Na problémy sa dá prísť ešte pred nasadením na testovacie prostredie, v rámci CI checku na pull requeste v repozitári. Ideálne pre microservices architektúru. Netestujú, či funkcionalita za nejakým API volaním funguje, to stále potrebujeme mať podchytené v iných funkcionálnych testoch.
+Contract testy sa nachádzajú v testovacej pyramíde medzi unit a integračnými testami. Ich úlohou je zaistiť, že dvojica komponentov vie stále komunikovať cez API napriek zmenám v kóde (teda bol dodržaný skôr dohodnutý kontrakt o vzájomnej komunikácii). Ich podstatou je, že sú asynchrónne a bežia v izolácii - nevyžadujú si prostredie, na ktorom by oba komponenty museli bežať súčasne. Na problémy sa dá prísť ešte pred nasadením na testovacie prostredie, v rámci CI checku na pull requeste v repozitári. Ideálne pre microservices architektúru. Netestujú, či funkcionalita za nejakým API volaním funguje, to stále potrebujeme mať podchytené v iných funkcionálnych testoch.
 
 Plusy: exekuuje reálny aplikačný kód na oboch stranách interakcie, testuje aj statusové kódy a základné predpoklady o odpovedi, zároveň príklady slúžia ako špecifikácia a dokumentácia, silné verifikačné záruky, časť testov na vyšších úrovniach môže byť presunutá do contract testov
 Mínusy: zložitejší a časovo náročnejší na začiatok, potrebná údržba testov
@@ -102,7 +102,7 @@ Frameworky:
 - [Spring Cloud Contract](https://spring.io/projects/spring-cloud-contract) - podporuje definovanie kontraktov v YAML a Groovy a ich beh v Dockeri
 - [Specmatic](https://specmatic.io/) - no-code riešenie, ktoré generuje contract testy z API špecifikácií
 
-Bohužiaľ, k implementácii contract testingu sme sa na projekte z časových dôvodov a iných priorít nedostali, ale videli sme prípady, kedy by tento prístup pomohol v skorom zachytení nežiaducich zmien priamo u komponentu, ktorý ich zaviedol.
+Bohužiaľ, k implementácii contract testingu sme sa na projekte z časových dôvodov a iných priorít nedostali, ale videli sme prípady, kedy by tento prístup pomohol v skorom zachytení nežiaducich zmien priamo u komponentu, ktorý ich spôsobil.
 
 #### Schema-based contract testing
 
@@ -124,8 +124,8 @@ Pár nástrojov:
 
 ### Trace-based testing
 
-Na integrovanom prostredí vrátane produkcie (ak máme naprieč komponentami systému implementovaný tracing) môžeme okrem pasívneho monitoringu zbierané dáta využiť aj na testovací účel. TBT overuje tvrdenia o trase stôp pre danú transakciu a umožňuje integračné aj komplexné E2E testy. Definujeme model, nasleduje zber dát a na záver vyhodnotenie, či dáta zodpovedajú modelu. Rovnaký model a test môže byť použitý pri integračných testoch na lokálnom prostredí aj unit testoch s mockmi. Sú vhodné najmä pre microservices architektúru a distribuované systémy. TBT sa dajú kombinovať aj so záťažovými testami a pomôcť pri odhalení úzkych hrdiel v systéme.
-Písaním testov nad traceami zároveň robíme tracing dôležitou súčasťou vývoja, nie dodatočnou myšlienkou a vytvárame cyklus spätnej väzby, ktorý má za následok lepšie testovanie aj lepšiu observabilitu (dá sa nazvať aj trace-driven development) a tým pádom aj rýchlejšie určenie príčiny v prípade problémov. Akékoľvek nástroje, ktoré umožňujú analýzu štruktúrovaných dát nám pomôžu pri TBT. Ďalšie nadstavby môžu byť kombinácie s temporálnou logikou, model checkermi a formálnou verifikáciou.
+Na integrovanom prostredí vrátane produkcie (ak máme naprieč komponentami systému implementovaný tracing) môžeme okrem pasívneho monitoringu zbierané dáta využiť aj na proaktívny testovací účel. TBT overuje tvrdenia o trase stôp pre danú transakciu a umožňuje integračné aj komplexné E2E testy. Definujeme model, nasleduje zber dát a na záver vyhodnotenie, či dáta zodpovedajú modelu. Rovnaký model a test môže byť použitý pri integračných testoch na lokálnom prostredí aj unit testoch s mockmi. Sú vhodné najmä pre microservices architektúru a distribuované systémy. TBT sa dajú kombinovať aj so záťažovými testami a pomôcť pri odhalení úzkych hrdiel v systéme.
+Tvorbou testov nad traceami zároveň robíme tracing dôležitou súčasťou vývoja, nie dodatočnou myšlienkou a vytvárame cyklus spätnej väzby, ktorý má za následok lepšie testovanie aj lepšiu observabilitu = pozorovateľnosť (dá sa nazvať aj trace-driven development) a tým pádom aj rýchlejšie určenie príčiny v prípade problémov. Akékoľvek nástroje, ktoré umožňujú analýzu štruktúrovaných dát nám pomôžu pri TBT. Ďalšie nadstavby môžu byť kombinácie s temporálnou logikou, model checkermi a formálnou verifikáciou.
 
 Príkladom je [Tracetest](https://tracetest.io/) pre OpenTelemetry. Poskytuje mnoho integrácií vrátane Playwrightu, čím umožňuje naozajstné E2E testovanie, kedy sa test začne na UI webstránky a dostane schopnosť vidieť a sledovať celé interné spracovanie danej požiadavky skrz back end, databázu a externé služby.
 
@@ -144,11 +144,11 @@ Pár nástrojov:
   - [ChaosToolkit](https://chaostoolkit.org/)
   - viac na https://github.com/dastergon/awesome-chaos-engineering
 
-Chaos engineering spadá pod resilience testing spolu s:
+Chaos engineering spadá pod resilience testing (testovanie odolnosti) spolu s:
 - fault injection: úmyselne zavádza špecifické závady a zlyhania do systému na validáciu jeho robustnosti a schopnosti poradiť si s chybami. Používa sa skoro vo vývojovom cykle v kontrolovanom testovacom prostredí na potvrdenie, že systém sa správa správne za známych chybových podmienok.
 - stress testing: vystavuje systém extrémnej pracovnej záťaži alebo vyťaženiu zdrojov (CPU, pamäť...) a má za cieľ identifikovať výkonnostné úzke hrdlá, zlyhania z preťaženia
 - failover testing: úmyselne spôsobí vypovedanie služby a pozoruje, či systém dokáže prejsť na zálohu alebo rezervnú službu
-- data recovery testing: verifikuje, že dáta sa dajú obnoviť zo záloh a aj že zálohovacie mechanizmy sú efektívne a proces obnovy spoľahlivý a výkonný. Mal by byť vykonávaný periodicky, hodí sa tiež po veľkých zmenách v dátach a migráciách.
+- data recovery testing: verifikuje, že dáta sa dajú obnoviť zo záloh a že zálohovacie mechanizmy sú efektívne a proces obnovy spoľahlivý a výkonný. Mal by byť vykonávaný periodicky, hodí sa tiež po veľkých zmenách v dátach a migráciách.
 - disaster recovery testing: pomáha uistiť sa, že systém môže byť obnovený a spojazdnený po udalostiach veľkého rozsahu ako výpadku dátových centier. Zahŕňa aktivity ako obnovu zo záloh, prepnutie na redundantné systémy alebo presmerovanie prevádzky na disaster recovery prostredie. Vhodný po signifikantných zmenách v infraštruktúre.
 
 *Ako vidíte, je toho neúrekom a v testovaní sa stále dá vymyslieť a nájsť niečo nové, kombinovať rôzne prístupy. A v súčasnosti aj využívať pomoc AI.*
