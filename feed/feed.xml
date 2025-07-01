@@ -5,7 +5,7 @@
 	
 	<link href="https://monikajassova.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://monikajassova.github.io"/>
-	<updated>2025-05-13T00:00:00+00:00</updated>
+	<updated>2025-07-01T00:00:00+00:00</updated>
 	<id>https://monikajassova.github.io</id>
 	<author>
 		<name>Monika Jaššová</name>
@@ -567,6 +567,31 @@ Podmienkou je mať systém dostatočne zrelý, spoľahlivý (aby nepadal aj bez 
 &lt;li&gt;disaster recovery testing: pomáha uistiť sa, že systém môže byť obnovený a spojazdnený po udalostiach veľkého rozsahu ako výpadku dátových centier. Zahŕňa aktivity ako obnovu zo záloh, prepnutie na redundantné systémy alebo presmerovanie prevádzky na disaster recovery prostredie. Vhodný po signifikantných zmenách v infraštruktúre.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;Ako vidíte, je toho neúrekom a v testovaní sa stále dá vymyslieť a nájsť niečo nové, kombinovať rôzne prístupy. A v súčasnosti aj využívať pomoc AI.&lt;/em&gt;&lt;/p&gt;
+
+			
+		</content>
+	</entry>
+	
+	<entry>
+		<title>IT knižnica</title>
+		<link href="https://monikajassova.github.io/posts/kniznica/"/>
+		<updated>2025-07-01T00:00:00+00:00</updated>
+		<id>https://monikajassova.github.io/posts/kniznica/</id>
+		<content type="html">
+		  &lt;p&gt;&lt;em&gt;Na tomto mieste nájdete zoznam kníh o testovaní a iných oblastiach IT, ktorý budem aktualizovať&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&quot;knihy-o-testovan%C3%AD&quot;&gt;Knihy o testovaní &lt;a class=&quot;direct-link&quot; href=&quot;#knihy-o-testovan%C3%AD&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/59891129-full-stack-testing&quot;&gt;Full Stack Testing&lt;/a&gt; - prehľad 10 testovacích znalostí potrebných pre súčasné webové a mobilné aplikácie a ich holistické otestovanie (vrátane testovania prístupnosti, dát, vizuálnej stránky, kontinuálneho testovania), každá kapitola obsahuje stavebné bloky pre uvedenie do problematiky, ukážku testu, pár releventných nástrojov a testovaciu stratégiu. Ako bonus sa tu nachádza aj krátky úvod do testovania 4 nových technológií (AI a ML aplikácie, blockchain, IoT, AR/VR).&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/15980494-explore-it&quot;&gt;Explore It!&lt;/a&gt; - exploratory testing v kocke, vynikajúca kniha&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/35904152-a-practical-guide-to-testing-in-devops&quot;&gt;A Practical Guide to Testing in DevOps&lt;/a&gt; - čo znamená DevOps metodológia pre rolu testera, testovanie v produkcii, testovanie samotných DevOps komponentov (CI/CD, infraštruktúry, monitorovania a výstrah), použitie monitorovania ako testovania, obsahuje aj príklady testovania v DevOps z praxe u známych firiem. Páčila sa mi analógia DevOps bug filtra a testovacieho kyvadla medzi hlbokým a plytkým testovaním.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/59796908-effective-software-testing&quot;&gt;Effective Software Testing: A developer&#39;s guide&lt;/a&gt; - kniha sa hodí, ak chcete byť SDET,  snažíte sa testy posúvať na nižšie úrovne, alebo hľadáte spoločný náhľad s developermi, je tu aj kapitola venovaná väčším systémovým testom, ktoré typicky píšu testeri&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/213798717-contract-testing-in-action&quot;&gt;Contract Testing in Action&lt;/a&gt; - ako uvádza titulok, v akcii je framework Pact, pokiaľ viem, pred ňou neexistovalo nič ucelené na túto tému&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/40597214-complete-guide-to-test-automation&quot;&gt;Complete Guide to Test Automation&lt;/a&gt; - zameraná čisto na automatizovanie testov a všetkého možného, čo je s automatizáciou späté, začína od úplných základov ako je hodnota automatizácie, pokračuje cez metriky pokrytia a ich význam, izoláciu testov, manažovanie testovacích prostredí a nastavenie automatizačného projektu (získanie ľudí pre myšlienku) po podrobný popis procesu tvorby testov, skúmanie zlyhaní, zaobchádzanie s bugmi atď.&lt;/p&gt;
+&lt;h3 id=&quot;knihy-o-pr%C3%A1ci-program%C3%A1tora&quot;&gt;Knihy o práci programátora &lt;a class=&quot;direct-link&quot; href=&quot;#knihy-o-pr%C3%A1ci-program%C3%A1tora&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/54375336-the-coding-career-handbook-guides-principles-strategies-and-tactics&quot;&gt;The Coding Career Handbook&lt;/a&gt; - zameraná na aspekty kariéry &lt;em&gt;okrem&lt;/em&gt; kódenia, sprevádza od hľadania prvej práce, cez cestu od junior k senior vývojárovi až po manažérske a vyššie IC (individual contributor) roly či neprogramátorské roly, destilované skúsenosti a postrehy s &lt;strong&gt;množstvom&lt;/strong&gt; odkazov na ďalšie materiály&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Nasledujúce sú vhodné najmä pre juniorov, skúsenejší si tu asi veľa nového alebo zaujímavého nenájdu:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer&quot;&gt;The Pragmatic Programmer&lt;/a&gt; - ako sa stať dobrým programátorom, najviac technická zo zoznamu (napr. sa tu rozoberá ľahko meniteľný dizajn, manažovanie zdrojov, súbežnosť, refaktorovanie), ale venuje sa aj iným veciam ako produktivita pri práci s nástrojmi, komunikácia, odhadovanie, práca s požiadavkami, skutočná podstata agile metodológie.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/5608045-apprenticeship-patterns&quot;&gt;Apprenticeship Patterns&lt;/a&gt; - pozerá sa na vývoj SW ako na remeslo, využíva analógiu od učňa cez tovariša po majstra cechu, súbor rád pre určité situácie v živote developera, kapitoly sú organizované vo formáte kontext-problém-riešenie-akcia&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.goodreads.com/book/show/6399113-the-passionate-programmer&quot;&gt;The Passionate Programmer&lt;/a&gt; - strategické tipy ako budovať svoj produkt (seba ako odborníka) a svoju značku, s praktickými radami, kapitoly ako výber trhu, investovanie do svojho produktu, realizácia, marketing a udržiavanie ostria&lt;/p&gt;
 
 			
 		</content>
