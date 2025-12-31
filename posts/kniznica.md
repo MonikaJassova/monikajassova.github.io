@@ -24,6 +24,9 @@ layout: layouts/post.njk
 
 [Complete Guide to Test Automation](https://www.goodreads.com/book/show/40597214-complete-guide-to-test-automation) - zameraná čisto na automatizovanie testov a všetkého možného, čo je s automatizáciou späté, začína od úplných základov ako je hodnota automatizácie, pokračuje cez metriky pokrytia a ich význam, izoláciu testov, manažovanie testovacích prostredí a nastavenie automatizačného projektu (získanie ľudí pre myšlienku) po podrobný popis procesu tvorby testov, skúmanie zlyhaní, zaobchádzanie s bugmi atď.
 
+### Knihy o DevOps
+
+[Fundamentals of DevOps and Software Delivery](https://www.goodreads.com/book/show/234570781-fundamentals-of-devops-and-software-delivery) - ako vraví titulok, o DevOps najmä z pohľadu dodávania softvéru
 
 ### Knihy o práci programátora
 
