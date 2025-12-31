@@ -63,7 +63,7 @@ https://thenewstack.io Novinky a články z celého prierezu vývoja SW od archi
 
 https://unknow.news Poľský týždenný newsletter zaujímavostí z IT
 
-### Pracovné 
+### Pracovné záležitosti
 
 https://www.techinterviewhandbook.org Príprava na pohovory na vývojára
 
