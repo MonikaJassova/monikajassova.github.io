@@ -5,6 +5,7 @@ date: 2025-05-13
 tags:
   - IT
   - testovanie
+  - blockchain
 layout: layouts/post.njk
 image: /img/xstate-model-voter.png
 ---
