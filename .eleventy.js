@@ -59,11 +59,13 @@ const localImages = require("./third_party/eleventy-plugin-local-images/.elevent
 const CleanCSS = require("clean-css");
 const GA_ID = require("./_data/metadata.json").googleAnalyticsId;
 const embedYouTube = require("eleventy-plugin-youtube-embed");
+const pluginMermaid = require("@kevingimbel/eleventy-plugin-mermaid");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginSyntaxHighlight);
   eleventyConfig.addPlugin(pluginNavigation);
+  eleventyConfig.addPlugin(pluginMermaid);
 
   eleventyConfig.addPlugin(localImages, {
     distPath: "_site",
