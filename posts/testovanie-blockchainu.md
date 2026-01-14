@@ -37,7 +37,7 @@ Začnem popisom jednotlivých komponentov projektu. Ten prešiel niekoľkými it
 - indexer: v Ruste, spracúva transakcie uzla, ku ktorému je napojený, poskytuje GraphQL API pre ľahšie dotazovanie sa na dáta blockchainu a beží procesy read-only peňaženiek (ktoré potom u používateľa môžu fungovať ako tzv. light peňaženky aj v prehliadači)
 - knižnica peňaženky a rozšírenia do prehliadača (implementácia peňaženky): v Scala.js a TypeScripte, peňaženka umožňuje vytvárať transakcie a) medzi adresami jednotlivých peňaženiek; b) na adresy smart kontraktov pri interakcii s decentralizovanými aplikáciami (ďalej dApps) a obdržanie tokenov od smart kontraktov
 - faucet: služba pre distribúciu tokenov (používatelia blockchainu musia nejak získať tokeny, ak ide o testnet a iné neprodukčné siete, kde token nemá reálnu hodnotu a nedá sa kúpiť), v podstate server, na ktorom beží peňaženka naplnená tokenmi, záujemca zadal adresu svojej peňaženky na webstránke a prebehlo zaslanie nastavenej sumy na požadovanú adresu
-- programovací jazyk Compact: vlastný jazyk pre smart kontrakty podobný TypeScriptu, vyžadoval si svoj kompilátor (a podporné produkty pre vývojárov ako plugin do VS Code pre syntax a debugging)
+- programovací jazyk Compact: vlastný jazyk pre smart kontrakty podobný TypeScriptu, vyžadoval si svoj kompilátor (a podporné nástroje pre vývojárov ako plugin do VS Code pre syntax a debugging)
 - knižnica Midnight.js: na vývoj dApps nad Midnightom - prepája smart kontrakty v Compacte s TypeScriptom, obsahuje klientov pre peňaženku, indexer, proof server a iné
 - dApps: vzorové decentralizované aplikácie v podobe CLI aj UI, slúžili ako test celého systému a dokumentácia. dApps v skratke vytvoria predpis transakcie na základe smart kontraktu a požiadajú pripojenú peňaženku o schválenie a poskytnutie mincí na jej pokrytie. Alebo sa peňaženka môže uchádzať o vyplatenie sumy z účtu kontraktu po overení na základe pravidiel kontraktu.
 - kryptografické knižnice: použité v ledgeri a iných komponentoch, mimo záber testerského tímu (bezpečnosti a testovaniu tohto sa venujú kryptografickí analytici)
@@ -99,14 +99,14 @@ Knižnica peňaženky využívala RxJS streamy a keď som nerozumela, prečo sa 
 
 Samotná aplikácia nebola rozsiahla (jedna webstránka a asi 2-3 API endpointy) a mala jednoduchú úlohu. Logika rate limitovania bola dôkladne otestovaná na unit úrovni. Pri zavedení JWT tokenov som vyskúšala pohrať sa s [Burp Suite](https://portswigger.net/burp/communitydownload) a [extension na dekódovanie](https://portswigger.net/bappstore/26aaa5ded2f74beea19e2ed8345a93dd), pričom sa mi podarilo nájsť chybu v hodnote exspirácie tokenu.
 Viac práce a väčšina problémov vyplývala z prevádzky. Prešlo sa na viac inštancií služby (každá s vlastnou peňaženkou - manipulácia s tou istou peňaženkou v rovnakom čase vedie k problémom, tzv. double spend), ktoré vybavovali požiadavky o tokeny uložené v databáze. Faucet okrem vlastného proof servera dostala neskôr aj svoj indexer.
-Pri resete blockchainu bolo treba v clustri odstrániť PVC databázy, v ktorej sa priebežne ukladali aj snapshoty peňaženiek pre rýchlejší štart a nechať faucet synchronizovať s taktiež premazaným indexerom. Trochu ladenia si vyžiadala konfigurácia probes pre Kubernetes, ak sa vymenila použitá peňaženka a musela synchronizovať dlhý blockchain. Dlhšiu investigáciu potrebovala situácia, kedy sa peňaženka javila ako plne zosynchronizovaná, ale v skutočnosti bol blockchain a indexer ďalej a transakcie zlyhávali.
+Pri resete blockchainu bolo treba v Kubernetes clustri odstrániť PVC databázy, v ktorej sa priebežne ukladali aj snapshoty peňaženiek pre rýchlejší štart a nechať faucet synchronizovať s taktiež premazaným indexerom. Trochu ladenia si vyžiadala konfigurácia probes pre K8s, ak sa vymenila použitá peňaženka a musela synchronizovať dlhý blockchain. Dlhšiu investigáciu potrebovala situácia, kedy sa peňaženka javila ako plne zosynchronizovaná, ale v skutočnosti bol blockchain a indexer ďalej a transakcie zlyhávali.
 
 ### Testovanie uzla
 
 Tu som strávila posledné mesiace práce. Uzol Midnightu mal závislosti na uzle a ďalšej infraštruktúre z Cardano strany (Midnight je vlastne sidechain alebo partner chain Cardana). Aby sme vedeli bežať a testovať Midnight blockchain aj bez nich, dal sa zapnúť mock follower mód.
-Časovo náročný a náchylný na chyby bol proces inicializácie a registrácie nového sidechainu. Nakoniec sa ho kolegovi spolu s jedným z SRE tímu podarilo zautomatizovať.
+Časovo náročný a náchylný na chyby bol proces inicializácie a registrácie nového sidechainu a registrácie Midnight uzla ako validátora. Nakoniec sa to kolegovi spolu s jedným z SRE tímu podarilo zautomatizovať.
 
-Zostavili sme spolu checklist všetkého, čo nové verzie uzla musia spĺňať - spomínaná procedúra inicializácie musela prejsť, uzol musel produkovať a finalizovať bloky na lokálnej sieti v Dockeri, staging prostredí aj konfigurácii pre produkciu atď.
+Zostavili sme spolu checklist všetkého, čo nové verzie uzla musia spĺňať - spomínané procedúry inicializácie a registrácie museli prejsť, uzol musel produkovať a finalizovať bloky na lokálnej sieti v Dockeri, staging prostredí aj konfigurácii pre produkciu atď.
 
 Samotný Midnight uzol mohol bežať v rôznych konfiguráciách a chybičky v konfigurácii a použitej špecifikácii siete mohli spôsobiť, že uzol sa nepripojil k existujúcej sieti alebo sa nevedel ani spustiť. To sme chceli zachytiť včas a do CI workflowu som zakomponovala kontroly, či bol pregenerovaný súbor špecifikácie siete a iné miesta, ktoré robili problémy a kontrolu, či aspoň spustenie a produkcia blokov v lokálnej sieti funguje. Test, či uzol vie synchronizovať dáta so staging prostredím a produkciou čakal na vyriešenie prístupu k ďalšiemu potrebnému komponentu z GitHub Actions.
 
@@ -115,9 +115,9 @@ Prevádzkovanie siete uzlov nebola najjednoduchšia úloha a uberala dosť z ča
 Aby sa pri integrácii zmien nečakalo za peňaženkou a dAppkami, vývojár uzla vytvoril interný nástroj - generátor transakcií, ktorý používal funkcie ledgera na vytvorenie rôznych typov transakcií, takže sme mali dopredu potvrdené, že fungujú. Tento nástroj bol interne vydaný ako Docker image a postupne sa nabaľoval o ďalšie funkcionality - potrebné bolo skontrolovať adresu prislúchajúcu seedu a zostatky na tzv. genesis adresách (počiatočné s tokenmi pri štarte blockchainu), čo hlavne pri zmene kryptografie, prechode na hierarchisticky determinované peňaženky ([viď BIP-44 a spol.](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)) aj iných situáciách párkrát nedopadlo podľa očakávaní.
 Bolo potrebné otestovať uzol aj pod záťažou, takže pribudla podpora pre generovanie dávok transakcií a ich posielanie uzlu v požadovaných intervaloch.
 
-Nie úplne triviálnym sa ukázalo "klonovanie" blockchainu, nakoniec kolega developer prišiel na to, že sa dá zobrať uzol z existujúcej siete, v oddelenom namespace clustera ho použiť ako uzol na bootstrapping siete, k nemu pripojiť nové uzly, a tak spraviť z jedného spoločného základu dve siete s rovnakými dátami (napr. na otestovanie hotfixu alebo rýchlejšie vytvorenie blockchainu na záťažové testy bez potreby nabiť ho generátorom transakcií).
+Nie úplne triviálnym sa ukázalo "klonovanie" blockchainu, nakoniec kolega developer prišiel na to, že sa dá zobrať uzol z existujúcej siete, v oddelenom namespace clustera ho použiť ako uzol na bootstrapping siete, k nemu pripojiť nové uzly, a tak spraviť z jedného spoločného základu dve siete s rovnakými dátami (napr. na otestovanie hotfixu alebo rýchlejšie vytvorenie blockchainu na záťažové testy bez potreby naplniť ho generátorom transakcií).
 
-Pri práci s uzlom som sa stretla s [blockchain explorerom od Polkadot](https://polkadot.js.org/apps/#/explorer).
+Pri práci s uzlom som sa stretla s [blockchain explorerom od Polkadot](https://polkadot.js.org/apps/#/explorer). Na interakciu s uzlom a indexerom poslúžil API klient [Insomnia](https://insomnia.rest/), ktorý v tom čase ako jeden z mála podporoval aj WebSocket okrem REST a JSON-RPC protokolov.
 
 ### Testovanie ďalších komponentov a celoprojektové záležitosti
 
@@ -137,7 +137,7 @@ Matice kompatibilných verzií som zostavovala väčšinou ja a občas sa prišl
 
 ##### Hard Fork
 
-Samostatnou kapitolou bola orchestrácia a testovanie tzv. hard forku - upgradu blockchainu naprieč hlavnými komponentmi na spätne nekompatibilnú verziu (postup pri reálnom produkčnom blockchaine, ktorý sa neresetuje) a rollbacku. Táto úloha prischla mne a dávanie automatizovaného testu dokopy ma stálo veľa mentálnych síl a náčrtov sekvencie krokov, ktorú potrebujem vykonať v jednotlivých fázach hard forku, aby som mala na testovanie pripravené všetko, čo potrebujem 😅.
+Samostatnou kapitolou bola orchestrácia a testovanie tzv. hard forku - upgradu blockchainu naprieč hlavnými komponentmi na spätne nekompatibilnú verziu (postup pri reálnom produkčnom blockchaine, ktorý sa neresetuje) a rollbacku. Dávanie automatizovaného testu dokopy ma stálo veľa mentálnych síl a náčrtov sekvencie krokov, ktoré potrebujem vykonať v jednotlivých fázach hard forku, aby som mala na testovanie pripravené všetko, čo potrebujem 😅.
 
 ```mermaid
 ---
@@ -162,7 +162,7 @@ Overenie hard forku sa obmedzovalo na funkčnosť peňaženiek (podpora hard for
 - transakcie mali fungovať vždy podľa aktuálneho protokolu
 - transakcie vytvorené podľa iného protokolu mali byť odmietnuté
 
-E2E test prebiehal tak, že najprv boli pustené Docker kontajnery uzla, indexera a proof servera verzií pred hard forkom, vytvorili sa testovacie peňaženky a spravila transakciu, uložili sa snapshoty. Potom sa špeciálnym API volaním spustil upgrade a migrácia dát na uzle. Po dokončení hard forku sa pustili príslušné verzie indexera a proof servera a upgradovanou verziou knižnice peňaženky sa obnovili peňaženky zo snapshotov (to si vyžiadalo úpravy po konzultácii s architektom, zvyčajný spôsob nefungoval), vytvorila nová peňaženka, skontroloval stav starých peňaženiek, spravili ďalšie transakcie a opäť uložili snapshoty. Nasledoval rollback na predchádzajúce verzie a ďalšie kolo testov.
+E2E test prebiehal tak, že najprv boli pustené Docker kontajnery uzla, indexera a proof servera verzií pred hard forkom, vytvorili sa testovacie peňaženky a spravila transakcia, uložili sa snapshoty. Potom sa špeciálnym API volaním spustil upgrade a migrácia dát na uzle. Po dokončení hard forku sa pustili príslušné verzie indexera a proof servera a upgradovanou verziou knižnice peňaženky sa obnovili peňaženky zo snapshotov (to si vyžiadalo úpravy po konzultácii s architektom, zvyčajný spôsob nefungoval), vytvorila sa nová peňaženka, skontroloval stav starých peňaženiek, spravili ďalšie transakcie a opäť uložili snapshoty. Nasledoval rollback na predchádzajúce verzie a ďalšie kolo testov.
 
 ##### Dokumentácia a open sourcing
 
@@ -176,4 +176,4 @@ Netradičná situácia a projekt si pýtali aj netradičné prístupy k testovan
 
 ### Záver
 
-Išlo jednoznačne o najkomplexnejší a najnáročnejší projekt, na ktorom som dosiaľ mala možnosť pracovať. Stále mám pocit, že som len tak poškrabala povrch a pri testovaní blockchainu sa dá ísť všakovakými smermi a aj poriadne do hĺbky.
+Išlo jednoznačne o najkomplexnejší a najnáročnejší projekt, na ktorom som dosiaľ mala možnosť pracovať. A to som nespomínala Glacier Drop (mechanizmus distribúcie tokenov a prípravy genesis bloku mainnetu, ktorý zahŕňal niekoľko iných blockchainov a ich peňaženky), trusted setup (príprava parametrov pre zero knowledge kryptografiu na mainnete), tokenómiu a ďalšie aspekty, ktoré spustenie mainnetu v budúcnosti prinášalo. Roboty bolo ako na kostole, na druhej strane bolo fascinujúce byť súčasťou vývoja niečoho priekopníckeho v celom svete. Stále mám pocit, že som len tak poškrabala povrch a pri testovaní blockchainu sa dá ísť všakovakými smermi a aj poriadne do hĺbky.
