@@ -170,7 +170,7 @@ E2E test prebiehal tak, že najprv boli pustené Docker kontajnery uzla, indexer
 Tým, že sa API a konfigurácie menili, stávalo sa, že príklady vo verejnej dokumentácii zastarali, čo samozrejme netešilo externých experimentátorov s Midnightom. Kontrolovať celú dokumentáciu a ručne testovať príklady po každom release zas bolo nad možnosti testerského tímu.
 Tímy museli tiež nabehnúť na používateľsky orientované dokumentovanie zmien v jednotlivých releasoch a postup migrácií, ak boli potrebné.
 
-### Netradičné prístupy k testovaniu
+##### Netradičné prístupy k testovaniu
 
 Netradičná situácia a projekt si pýtali aj netradičné prístupy k testovaniu, o ktorých som písala [v tomto článku](/posts/netradicne-testovanie).
 
