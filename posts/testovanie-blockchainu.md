@@ -98,7 +98,7 @@ Knižnica peňaženky využívala RxJS streamy a keď som nerozumela, prečo sa 
 ### Testovanie faucet
 
 Samotná aplikácia nebola rozsiahla (jedna webstránka a asi 2-3 API endpointy) a mala jednoduchú úlohu. Logika rate limitovania bola dôkladne otestovaná na unit úrovni. Pri zavedení JWT tokenov som vyskúšala pohrať sa s [Burp Suite](https://portswigger.net/burp/communitydownload) a [extension na dekódovanie](https://portswigger.net/bappstore/26aaa5ded2f74beea19e2ed8345a93dd), pričom sa mi podarilo nájsť chybu v hodnote exspirácie tokenu.
-Viac práce a väčšina problémov vyplývala z prevádzky. Prešlo sa na viac inštancií služby (každá s vlastnou peňaženkou - manipulácia s tou istou peňaženkou v rovnakom čase vedie k problémom, tzv. double spend), ktoré vybavovali požiadavky o tokeny zo spoločnej tabuľky v databáze. Faucet okrem vlastného proof servera dostala neskôr aj svoj indexer.
+Viac práce a väčšina problémov vyplývala z prevádzky. Prešlo sa na viac inštancií služby (každá s vlastnou peňaženkou - manipulácia s tou istou peňaženkou v rovnakom čase vedie k problémom, tzv. double spend), ktoré vybavovali požiadavky o tokeny uložené v databáze. Faucet okrem vlastného proof servera dostala neskôr aj svoj indexer.
 Pri resete blockchainu bolo treba v clustri odstrániť PVC databázy, v ktorej sa priebežne ukladali aj snapshoty peňaženiek pre rýchlejší štart a nechať faucet synchronizovať s taktiež premazaným indexerom. Trochu ladenia si vyžiadala konfigurácia probes pre Kubernetes, ak sa vymenila použitá peňaženka a musela synchronizovať dlhý blockchain. Dlhšiu investigáciu potrebovala situácia, kedy sa peňaženka javila ako plne zosynchronizovaná, ale v skutočnosti bol blockchain a indexer ďalej a transakcie zlyhávali.
 
 ### Testovanie uzla
