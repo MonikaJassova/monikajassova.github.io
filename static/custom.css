@@ -1,0 +1,13 @@
+.footer {
+    text-align: center;
+    padding: 3em;
+    margin-top: auto;  /* Pushes footer to bottom */
+}
+
+/* :root.dark {
+  --primary-color: #f9c412;
+}
+
+:root.light {
+  --primary-color: #79b473;
+} */

@@ -1,0 +1,51 @@
+# The URL the site will be built for
+base_url = "https://monikajassova.github.io"
+
+title = "Monikin ITinerár"
+description = "Moje zápisky z cesty po svete IT"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = false
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+theme = "apollo"
+
+taxonomies = [{ name = "tags" }]
+
+generate_feeds = true
+
+feed_filenames = ["atom.xml", "rss.xml"]
+
+author = "Monika Jaššová"
+
+[markdown]
+external_links_target_blank = true
+external_links_class = "external"
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[extra]
+theme = "toggle"
+socials = [
+  { name = "linkedin", url = "https://linkedin.com/in/monika-jassova/", icon = "linkedin" },
+  { name = "github", url = "https://github.com/MonikaJassova/", icon = "github" },
+]
+menu = [
+  { name = "/blog", url = "/blog", weight = 1 },
+  { name = "/portfólio", url = "/portfolio", weight = 2 },
+  { name = "/tagy", url = "/tags", weight = 3 },
+  { name = "/o mne", url = "/about", weight = 4 },
+]
+stylesheets = [
+  "custom.css",           # static/custom.css
+]
+toc = true
+
+[extra.analytics]
+enabled = true
+
+[extra.analytics.goatcounter]
+user = "miti"
