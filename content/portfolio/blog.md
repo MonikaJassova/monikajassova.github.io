@@ -1,6 +1,6 @@
 +++
 title = "Blog"
-description = "Zdrojový kód k tomuto osobnému blogu"
+description = "Zdrojový kód k tomuto blogu"
 weight = 2
 date = 2022-02-02
 

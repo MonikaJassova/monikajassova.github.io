@@ -68,12 +68,9 @@
 
     {# Favicon #}
     {% if config.extra.favicon %}
-        <!-- <link rel="icon"
-              type="image/png"
-              href="{{ get_url(path=config.extra.favicon) }}" /> -->
-        <!-- <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"> -->
-       <link rel="icon" href="{{ '/icons/favicon-192x192.png' | addHash }}" type="image/png">
+        <link rel="icon" type="image/png" href="{{ get_url(path=config.extra.favicon) }}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
     {% endif %}
 
 

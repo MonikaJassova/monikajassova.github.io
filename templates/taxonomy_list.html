@@ -20,9 +20,15 @@
                         <h1 class="title">
                             <a href={{ term.permalink }}>{{ term.name }}</a>
                         </h1>
-
+                        {% if term.page_count == 1 %}
+                            <small class="meta">{{ term.page_count }} článok</small>
+                        {% elif term.page_count >= 2 and term.page_count <= 4%}
+                            <small class="meta">{{ term.page_count }} články</small>
+                        {% else %}
+                            <small class="meta">{{ term.page_count }} článkov</small>
+                        {% endif %}
                         <!-- <small class="meta">{{ term.page_count }} článkov{{ term.page_count | pluralize }}</small> -->
-                        <small class="meta">{{ term.page_count }} článkov</small>
+                        <!-- <small class="meta">{{ term.page_count }} článkov</small> -->
                     </div>
                 {% endfor -%}
             </ul>

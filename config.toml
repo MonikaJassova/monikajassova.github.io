@@ -27,6 +27,13 @@ external_links_class = "external"
 [markdown.highlighting]
 theme = "catppuccin-mocha"
 
+[search]
+include_title = true
+include_description = true
+include_path = true
+include_content = true
+index_format = "elasticlunr_json"
+
 [extra]
 theme = "toggle"
 socials = [
@@ -43,6 +50,7 @@ stylesheets = [
   "custom.css",           # static/custom.css
 ]
 toc = true
+favicon = "icons/favicon.ico"
 
 [extra.analytics]
 enabled = true

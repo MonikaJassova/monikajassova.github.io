@@ -4,10 +4,33 @@
     margin-top: auto;  /* Pushes footer to bottom */
 }
 
-/* :root.dark {
+:root.dark {
   --primary-color: #f9c412;
 }
 
 :root.light {
   --primary-color: #79b473;
-} */
+}
+
+article h1 {
+  font-family: monospace var(--header-font);
+  font-size: 1.8rem;
+  margin-top: 2em;
+}
+article h2 {
+  font-family: monospace var(--header-font);
+  font-size: 1.6rem;
+  margin-top: 2em;
+}
+article h3 {
+  font-family: monospace var(--header-font);
+  font-size: 1.4rem;
+  margin-top: 2em;
+}
+article h4,
+article h5,
+article h6 {
+  font-family: monospace var(--header-font);
+  font-size: 1.2rem;
+  margin-top: 2em;
+}
