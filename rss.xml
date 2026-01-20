@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Monikin ITinerár</title>
+      <link>https://monikajassova.github.io</link>
+      <description>Moje zápisky z cesty po svete IT</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://monikajassova.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sun, 18 Jan 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>WIP: Homelab</title>
+          <pubDate>Sun, 18 Jan 2026 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/projects/homelab/</link>
+          <guid>https://monikajassova.github.io/projects/homelab/</guid>
+          <description xml:base="https://monikajassova.github.io/projects/homelab/"></description>
+      </item>
+      <item>
+          <title>Testovanie blockchainu</title>
+          <pubDate>Tue, 13 Jan 2026 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/testovanie-blockchainu/</link>
+          <guid>https://monikajassova.github.io/blog/testovanie-blockchainu/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/testovanie-blockchainu/">&lt;p&gt;&lt;em&gt;Cieľom článku je ukázať, čo všetko obnášala práca na blockchainovom projekte a zosumarizovať skúsenosti, &quot;vojnové historky&quot; a výzvy, s ktorými som sa stretla&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;uvod-do-blockchainu&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#uvod-do-blockchainu&quot; aria-label=&quot;Anchor link for: uvod-do-blockchainu&quot;&gt;Úvod do blockchainu&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Ak ste ešte náhodou nepočuli o blockchaine, resp. neštudovali si ho bližšie, ide o decentralizovanú distribuovanú digitálnu účtovnú knihu tvorenú reťazou blokov transakcií, ktoré sú navzájom prepojené hashom predošlého bloku. Tento záznam transakcií je replikovaný naprieč peer-to-peer (P2P) sieťou uzlov, ktoré podliehajú určitému protokolu konsenzu na pridávanie a validáciu nových blokov s transakciami bez potreby centrálnej autority. Kryptografia (použitie hashovania, digitálneho podpisu a ďalších techník) zabezpečuje integritu a verifikáciu dát, autentifikáciu a nemennosť (už zapísané transakcie na blockchaine je veľmi ťažké zvrátiť alebo pozmeniť). V prípade kryptomien je blockchain protokolom na výmenu hodnoty, ale blockchain ako technológia sa dá použiť aj ako nemenný overiteľný záznam iných dát v čase.&lt;&#x2F;p&gt;
+&lt;p&gt;Blockchain pozostáva z niekoľkých logických vrstiev:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;infraštruktúra (fyzické a virtuálne servery, na ktorých bežia uzly siete)&lt;&#x2F;li&gt;
+&lt;li&gt;networking (sem spadá komunikácia uzlov - objavovanie iných účastníkov siete, propagácia informácií a ich verifikácia)&lt;&#x2F;li&gt;
+&lt;li&gt;konsenzus&lt;&#x2F;li&gt;
+&lt;li&gt;dáta (bloky, transakcie, Substrate runtime eventy)&lt;&#x2F;li&gt;
+&lt;li&gt;aplikácie (smart kontrakty&#x2F;decentralizované aplikácie)&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Blockchainy kryptomien (Bitcoin, Ethereum, Cardano, ...) sa líšia konkrétnymi mechanizmami fungovania, preto ďalej trochu priblížim Midnight.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;specifika-blockchainu-midnight&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#specifika-blockchainu-midnight&quot; aria-label=&quot;Anchor link for: specifika-blockchainu-midnight&quot;&gt;Špecifiká blockchainu Midnight&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Koncom roka 2021 som začala pracovať pre inžiniersku spoločnosť za kryptomenou Cardano. V tom čase som nemala žiadnu prax s testovaním blockchainu, ale Bitcoin a kryptomeny ma zaujímali. Dostala som sa na utajený projekt úplne nového blockchainu Midnight s podporou dôverných transakcií a smart kontraktov. Tým pádom sme dosť veľa vecí na podporu testovania museli riešiť vo vlastnej réžii. Midnight pre sledovanie vlastníctva tokenov kombinuje tzv. UTXO model (pre transakcie z peňaženky na peňaženku) a account model (pre smart kontrakty). Tokeny okrem natívnej meny mohli byť jedinečné užívateľské, ktoré vydáva konkrétny smart kontrakt.&lt;&#x2F;p&gt;
+&lt;p&gt;Začnem popisom jednotlivých komponentov projektu. Ten prešiel niekoľkými iteráciami - keď som prišla, bol uzol napísaný v Scale, smart kontrakty inšpirované Ethereom a používalo sa na ne Remix IDE, peňaženka bola desktopová aplikácia. Výskum pokračoval a postupne sa menili technológie, architektúra a koncept fungovania smart kontraktov, na záver bol stav takýto:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;knižnica ledgeru (účtovnej knihy): v Ruste, jadro blockchainu, mechanizmus spracovania transakcií, vedenia stavu mincí a smart kontraktov&lt;&#x2F;li&gt;
+&lt;li&gt;proof server: v Ruste, beží na lokálnom zariadení používateľa peňaženky, jeho úlohou je vytvoriť tzv. zero-knowledge dôkaz o súkromných prvkoch transakcie, ktorý je potom ľahko a rýchlo overiteľný&lt;&#x2F;li&gt;
+&lt;li&gt;blockchainový uzol: v Ruste, založený na modulárnom &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.polkadot.com&#x2F;develop&#x2F;parachains&#x2F;intro-polkadot-sdk&#x2F;#substrate&quot;&gt;Substrate SDK od Polkadot&lt;&#x2F;a&gt;, bežiace uzly vytvárajú samotnú blockchainovú sieť, prijaté transakcie validujú, spracúvajú a pridávajú do nových blokov podľa pravidiel ledgera&lt;&#x2F;li&gt;
+&lt;li&gt;indexer: v Ruste, spracúva transakcie uzla, ku ktorému je napojený, poskytuje GraphQL API pre ľahšie dotazovanie sa na dáta blockchainu a beží procesy read-only peňaženiek (ktoré potom u používateľa môžu fungovať ako tzv. light peňaženky aj v prehliadači)&lt;&#x2F;li&gt;
+&lt;li&gt;knižnica peňaženky a rozšírenia do prehliadača (implementácia peňaženky): v Scala.js a TypeScripte, peňaženka umožňuje vytvárať transakcie a) medzi adresami jednotlivých peňaženiek; b) na adresy smart kontraktov pri interakcii s decentralizovanými aplikáciami (ďalej dApps) a obdržanie tokenov od smart kontraktov&lt;&#x2F;li&gt;
+&lt;li&gt;faucet: služba pre distribúciu tokenov (používatelia blockchainu musia nejak získať tokeny, ak ide o testnet a iné neprodukčné siete, kde token nemá reálnu hodnotu a nedá sa kúpiť), v podstate server, na ktorom beží peňaženka naplnená tokenmi, záujemca zadal adresu svojej peňaženky na webstránke a prebehlo zaslanie nastavenej sumy na požadovanú adresu&lt;&#x2F;li&gt;
+&lt;li&gt;programovací jazyk Compact: vlastný jazyk pre smart kontrakty podobný TypeScriptu, vyžadoval si svoj kompilátor (a podporné nástroje pre vývojárov ako plugin do VS Code pre syntax a debugging)&lt;&#x2F;li&gt;
+&lt;li&gt;knižnica Midnight.js: na vývoj dApps nad Midnightom - prepája smart kontrakty v Compacte s TypeScriptom, obsahuje klientov pre peňaženku, indexer, proof server a iné&lt;&#x2F;li&gt;
+&lt;li&gt;dApps: vzorové decentralizované aplikácie v podobe CLI aj UI, slúžili ako test celého systému a dokumentácia. dApps v skratke vytvoria predpis transakcie na základe smart kontraktu a požiadajú pripojenú peňaženku o schválenie a poskytnutie mincí na jej pokrytie. Alebo sa peňaženka môže uchádzať o vyplatenie sumy z účtu kontraktu po overení na základe pravidiel kontraktu.&lt;&#x2F;li&gt;
+&lt;li&gt;kryptografické knižnice: použité v ledgeri a iných komponentoch, mimo záber testerského tímu (bezpečnosti a testovaniu tohto sa venujú kryptografickí analytici)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Zjednodušený diagram:&lt;&#x2F;p&gt;
+&lt;script src=https:&#x2F;&#x2F;monikajassova.github.io&#x2F;js&#x2F;mermaid.js&gt;&lt;&#x2F;script&gt;
+
+&lt;pre class=&quot;mermaid&quot;&gt;
+  ---
+config:
+  theme: &#x27;base&#x27;
+  themeVariables:
+    primaryColor: &#x27;#8c65b0ff&#x27;
+    primaryTextColor: &#x27;#fff&#x27;
+    primaryBorderColor: &#x27;#181818&#x27;
+    lineColor: &#x27;#b3ab9bff&#x27;
+    secondaryColor: &#x27;#79b473&#x27;
+    tertiaryColor: &#x27;#fff&#x27;
+---
+flowchart LR
+    node[(&quot;uzol + ledger&quot;)] --&gt; indexer[indexer] --&gt; wallet[peňaženka] --&gt; proof[proof server]
+    wallet --&gt; node
+    proof --&gt; wallet
+    contract[&#x2F;smart kontrakt&#x2F;] --&gt; compiler[kompilátor + MN.JS] --&gt; dApp[dApp]
+    dApp --&gt; wallet
+    indexer --&gt; dApp
+&lt;&#x2F;pre&gt;
+&lt;p&gt;Zjednodušený popis procesu transakcie:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;peňaženka sa musí zosynchronizovať s blockchainom pomocou indexera, aby mala aktuálne dáta o svojich minciach&lt;&#x2F;li&gt;
+&lt;li&gt;pripraví transakciu a mince, ktoré ju majú pokryť&lt;&#x2F;li&gt;
+&lt;li&gt;pošle predpis transakcie proof serveru&lt;&#x2F;li&gt;
+&lt;li&gt;od neho dostane proof, ktorý zapracuje do konečnej podoby transakcie a pošle uzlu&lt;&#x2F;li&gt;
+&lt;li&gt;ak transakcia prejde cez všetky kontroly ledgera a je zahrnutá do bloku&lt;&#x2F;li&gt;
+&lt;li&gt;indexer spracuje nový blok&lt;&#x2F;li&gt;
+&lt;li&gt;peňaženka nakoniec dostane od indexera aktualizáciu, ktorú aplikuje na svoj stav a zmena zostatku sa prejaví v peňaženke&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Ide o pomerne zložitý a prepojený systém plný závislostí. Naviac si bolo treba uvedomiť, že persónami nášho produktu boli okrem obyčajných používateľov kryptomeny aj prevádzkovatelia blockchainovej infraštruktúry, vývojári decentralizovaných aplikácií, vývojári nových implementácií peňaženiek a iných komponentov a tretie strany v podobe kryptobúrz, decentralizovaných zmenární a iných prvkov kryptoekosystému.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;testovanie-penazenky&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#testovanie-penazenky&quot; aria-label=&quot;Anchor link for: testovanie-penazenky&quot;&gt;Testovanie peňaženky&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Najviac času som strávila v tíme peňaženky. Automatizované testy som vytvorila pre rozšírenie do prehliadača (s pomocou &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;playwright.dev&#x2F;&quot;&gt;Playwrightu&lt;&#x2F;a&gt;) aj pre knižnicu (s testovacím frameworkom &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;jestjs.io&#x2F;&quot;&gt;Jest&lt;&#x2F;a&gt;).&lt;br &#x2F;&gt;
+Keďže inštancia peňaženky potrebuje pre chod proof server, uzol a indexer, tieto som lokálne spúšťala pomocou docker-compose súborov a pri automatizovaných testoch som využívala &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;testcontainers.com&#x2F;&quot;&gt;Testcontainers&lt;&#x2F;a&gt; a možnosť ovládať kontajnery z testu - napr. dočasné stopnutie niektorého z kontajnerov.&lt;&#x2F;p&gt;
+&lt;p&gt;Čo sa týka rozšírenia, Playwright vyžadoval beh v headed móde (neskôr som zachytila, že experimentálne by mal fungovať aj headless) a &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;playwright.dev&#x2F;docs&#x2F;api&#x2F;class-browsertype#browser-type-launch-persistent-context&quot;&gt;perzistentný context&lt;&#x2F;a&gt;. Práca s oknom rozšírenia (otvorenom po kliknutí na ikonu v toolbare) sa simulovala prístupom na &lt;code&gt;chrome-extension:&#x2F;&#x2F;${extensionId}&#x2F;popup.html&lt;&#x2F;code&gt; a nastavením veľkosti viewportu.&lt;br &#x2F;&gt;
+Pri testovaní som použila aj rozšírenia na inšpekciu localStorage, či sa dáta a nastavenia peňaženky správne ukladajú, aktualizujú po zmene a pretrvávajú po reštarte prehliadača. Občas sa nedopatrením stalo, že proces rozšírenia sa nespustil pri otvorení browsera a peňaženka sa začala synchronizovať až po otvorení rozšírenia.&lt;br &#x2F;&gt;
+Normálny používateľský flow si vyžadoval na začiatku používania rozšírenia prejsť tzv. onboardingom (vytvorením novej peňaženky - páru kľúčov reprezentovaných 24slovnou frázou alebo vložením takejto frázy, nastavením hesla a endpointov, ktoré má peňaženka používať), v automatizovaných testoch sa to dalo obísť vložením dát do localStorage.&lt;br &#x2F;&gt;
+Pri používaní peňaženky s dlhodobo bežiacimi sieťami (blockchainom na staging alebo testnet prostredí) a pre scenáre s čiastočnou synchronizáciou (od posledného pripojenia k indexeru) som využila uloženie &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;playwright.dev&#x2F;docs&#x2F;api&#x2F;class-browsertype#browser-type-launch-persistent-context-option-user-data-dir&quot;&gt;User Data Directory&lt;&#x2F;a&gt; do artefaktu GitHub Actions, pričom nasledujúci beh nightly testov si ho stiahol a rozšírenie nainštaloval s existujúcou peňaženkou a čiastočne synchronizovanými dátami. Plná synchronizácia od začiatku - bloku 0 pri sieti dosahujúcej milión blokov trvala aj vyše hodinu.&lt;br &#x2F;&gt;
+Dôležitá bola aj výkonnosť, objavili sa bugy, kedy dlho bežiacemu rozšíreniu nakoniec došla pamäť a ráno po otvorení notebooku ste našli spadnutý tab s rozšírením. Na limit som narazila aj v prípade peňaženky, ktorá spravila v histórii veľa transakcií a jej dáta v úložisku prehliadača narástli cez 50 MB, čo fakticky znemožnilo prácu s rozšírením.&lt;br &#x2F;&gt;
+Do E2E testov som zaviedla aj kroky na vizuálne regresné testovanie, bolo však celkom prácne označiť všetky dynamické oblasti, ktoré sa nemali brať do úvahy, plus testy často padali kvôli jednopixelovej odchýlke a žiadnou konfiguráciou sa mi nedarilo malú odchýlku povoliť (myslím, že Playwright mal bug), nakoniec som ich vypla.&lt;&#x2F;p&gt;
+&lt;p&gt;Čo sa týka samotnej peňaženky ako knižnice a problémov, čo mi utkveli v pamäti - mala som testovacie peňaženky, ktoré si medzi sebou posielali malú sumu. Ak sa nahromadilo na jednej veľa mincí a chcela som ich veľa použiť v transakcii (napr. suma 20 DUST z 20x1 DUST), proof server zlyhal, keďže musel vytvoriť dôkaz pre každú jednu použitú mincu a ani navyšovanie timeoutu požiadavky pre proof server a pamäte pre Docker (kde bežal proof server) nepomáhalo.&lt;br &#x2F;&gt;
+Ďalší zaujímavý prípad bol, keď transakcia pozostávala z takých mincí, že presne pokryli prevádzanú sumu aj poplatky za transakciu a peňaženke sa nemal vrátiť žiaden výdavok. Vtedy ostala čakať za aktualizáciou od indexera a zostala nepoužiteľná, ďalšie pokusy o transakciu hlásili chybu. Ako rýchly fix sa to riešilo povinným výdavkom v každom prípade, aj keď sa kvôli tomu musela pridať ďalšia minca do transakcie. Mimochodom, algoritmus výberu mincí do transakcie a výpočtu poplatkov som raz dostala od môjho developera popísaný na celú jednu stranu PDF.&lt;br &#x2F;&gt;
+Stalo sa aj, že mince zo zlyhanej transakcie neboli označené ako znovu dostupné a nedali sa použiť pre ďalšie transakcie. Alebo pri prepise modulu zo Scaly do TypeScriptu sa stratilo označenie sumy mincí v pending stave (od zaslania transakcie uzlu po spracovanie aktualizácie z indexera) - toto bolo pekne zachytené E2E testami, ktoré vyslovene očakávali, že pole pending bude na istý čas neprázdne.&lt;br &#x2F;&gt;
+Ukladanie snapshotov peňaženky so synchronizovanými dátami som dorobila aj do nightly testov knižnice peňaženky. Keď resetov blockchainov pribúdalo (občas sa stalo, že blockchain sa dostal do neopraviteľného stavu alebo nová verzia bola nekompatibilná s existujúcimi dátami) a nechcelo sa mi ručne premazať artefakty v GitHub Actions, pridala som kontrolu, či obnova zo snapshotu bola úspešná a či nie je počet blokov plne synchronizovanej peňaženky nižší ako mal snapshot, čo viedlo k štartu peňaženky odnova a vytvoreniu čerstvého snapshotu.&lt;br &#x2F;&gt;
+Testovacie scenáre zahŕňali aj peňaženky so sadou rôznych typov transakcií na začiatku, ďalej sa s peňaženkou nehýbalo a nightly beh kontroloval, či sa zostatky tokenov a stavy smart kontraktov nemenili.&lt;br &#x2F;&gt;
+Knižnica peňaženky využívala RxJS streamy a keď som nerozumela, prečo sa niekedy hodnoty nemenia alebo menia, použila som &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;rxjs-debug.github.io&#x2F;&quot;&gt;túto vizualizáciu&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;testovanie-faucet&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#testovanie-faucet&quot; aria-label=&quot;Anchor link for: testovanie-faucet&quot;&gt;Testovanie faucet&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Samotná aplikácia nebola rozsiahla (jedna webstránka a asi 2-3 API endpointy) a mala jednoduchú úlohu. Logika rate limitovania bola dôkladne otestovaná na unit úrovni. Pri zavedení JWT tokenov som vyskúšala pohrať sa s &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;portswigger.net&#x2F;burp&#x2F;communitydownload&quot;&gt;Burp Suite&lt;&#x2F;a&gt; a &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;portswigger.net&#x2F;bappstore&#x2F;26aaa5ded2f74beea19e2ed8345a93dd&quot;&gt;extension na dekódovanie&lt;&#x2F;a&gt;, pričom sa mi podarilo nájsť chybu v hodnote exspirácie tokenu.&lt;&#x2F;p&gt;
+&lt;p&gt;Viac práce a väčšina problémov vyplývala z prevádzky. Prešlo sa na viac inštancií služby (každá s vlastnou peňaženkou - manipulácia s tou istou peňaženkou v rovnakom čase vedie k problémom, tzv. double spend), ktoré vybavovali požiadavky o tokeny uložené v databáze. Faucet okrem vlastného proof servera dostala neskôr aj svoj indexer.&lt;&#x2F;p&gt;
+&lt;p&gt;Pri resete blockchainu bolo treba v Kubernetes clustri odstrániť PVC databázy, v ktorej sa priebežne ukladali aj snapshoty peňaženiek pre rýchlejší štart a nechať faucet synchronizovať s taktiež premazaným indexerom. Trochu ladenia si vyžiadala konfigurácia probes pre K8s, ak sa vymenila použitá peňaženka a musela synchronizovať dlhý blockchain. Dlhšiu investigáciu potrebovala situácia, kedy sa peňaženka javila ako plne zosynchronizovaná, ale v skutočnosti bol blockchain a indexer ďalej a transakcie zlyhávali.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;testovanie-uzla&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#testovanie-uzla&quot; aria-label=&quot;Anchor link for: testovanie-uzla&quot;&gt;Testovanie uzla&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Tu som strávila posledné mesiace práce. Uzol Midnightu mal závislosti na uzle a ďalšej infraštruktúre z Cardano strany (Midnight je vlastne sidechain alebo partner chain Cardana). Aby sme vedeli bežať a testovať Midnight blockchain aj bez nich, dal sa zapnúť mock follower mód.&lt;br &#x2F;&gt;
+Časovo náročný a náchylný na chyby bol proces inicializácie a registrácie nového sidechainu a registrácie Midnight uzla ako validátora. Nakoniec sa to kolegovi spolu s jedným z SRE tímu podarilo zautomatizovať.&lt;&#x2F;p&gt;
+&lt;p&gt;Zostavili sme spolu checklist všetkého, čo nové verzie uzla musia spĺňať - spomínané procedúry inicializácie a registrácie museli prejsť, uzol musel produkovať a finalizovať bloky na lokálnej sieti v Dockeri, staging prostredí aj konfigurácii pre produkciu atď.&lt;&#x2F;p&gt;
+&lt;p&gt;Samotný Midnight uzol mohol bežať v rôznych konfiguráciách a chybičky v konfigurácii a použitej špecifikácii siete mohli spôsobiť, že uzol sa nepripojil k existujúcej sieti alebo sa nevedel ani spustiť. To sme chceli zachytiť včas a do CI workflowu som zakomponovala kontroly, či bol pregenerovaný súbor špecifikácie siete a iné miesta, ktoré robili problémy a kontrolu, či aspoň spustenie a produkcia blokov v lokálnej sieti funguje. Test, či uzol vie synchronizovať dáta so staging prostredím a produkciou čakal na vyriešenie prístupu k ďalšiemu potrebnému komponentu z GitHub Actions.&lt;&#x2F;p&gt;
+&lt;p&gt;Prevádzkovanie siete uzlov nebola najjednoduchšia úloha a uberala dosť z času, začali sme to nazývať NodeOps. Napr. prechod na novú verziu uzla znamenal postupnosť viacerých krokov, uzly sa museli vymieňať po skupinách v určitom poradí, dôležité preto bolo udržiavať aktuálne runbooky pre rôzne situácie (reset blockchainu, nahodenie produkcie blokov, keď sa z rôznych dôvodov zastavila a pod.). Reset blockchainu obnášal aj ďalšie prípravné úkony ako distribúciu tokenov na všetky peňaženky patriace testerskému tímu a nasadenie testovacích smart kontraktov.&lt;&#x2F;p&gt;
+&lt;p&gt;Aby sa pri integrácii zmien nečakalo za peňaženkou a dAppkami, vývojár uzla vytvoril interný nástroj - generátor transakcií, ktorý používal funkcie ledgera na vytvorenie rôznych typov transakcií, takže sme mali dopredu potvrdené, že fungujú. Tento nástroj bol interne vydaný ako Docker image a postupne sa nabaľoval o ďalšie funkcionality - potrebné bolo skontrolovať adresu prislúchajúcu seedu a zostatky na tzv. genesis adresách (počiatočné s tokenmi pri štarte blockchainu), čo hlavne pri zmene kryptografie, prechode na hierarchisticky determinované peňaženky (&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0044.mediawiki&quot;&gt;viď BIP-44 a spol.&lt;&#x2F;a&gt;) aj iných situáciách párkrát nedopadlo podľa očakávaní.&lt;br &#x2F;&gt;
+Bolo potrebné otestovať uzol aj pod záťažou, takže pribudla podpora pre generovanie dávok transakcií a ich posielanie uzlu v požadovaných intervaloch.&lt;&#x2F;p&gt;
+&lt;p&gt;Nie úplne triviálnym sa ukázalo &quot;klonovanie&quot; blockchainu, nakoniec kolega developer prišiel na to, že sa dá zobrať uzol z existujúcej siete, v oddelenom namespace clustera ho použiť ako uzol na bootstrapping siete, k nemu pripojiť nové uzly, a tak spraviť z jedného spoločného základu dve siete s rovnakými dátami (napr. na otestovanie hotfixu alebo rýchlejšie vytvorenie blockchainu na záťažové testy bez potreby naplniť ho generátorom transakcií).&lt;&#x2F;p&gt;
+&lt;p&gt;Pri práci s uzlom som sa stretla s &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;polkadot.js.org&#x2F;apps&#x2F;#&#x2F;explorer&quot;&gt;blockchain explorerom od Polkadot&lt;&#x2F;a&gt;. Na interakciu s uzlom a indexerom poslúžil API klient &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;insomnia.rest&#x2F;&quot;&gt;Insomnia&lt;&#x2F;a&gt;, ktorý v tom čase ako jeden z mála podporoval aj WebSocket okrem REST a JSON-RPC protokolov.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;testovanie-dalsich-komponentov-a-celoprojektove-zalezitosti&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#testovanie-dalsich-komponentov-a-celoprojektove-zalezitosti&quot; aria-label=&quot;Anchor link for: testovanie-dalsich-komponentov-a-celoprojektove-zalezitosti&quot;&gt;Testovanie ďalších komponentov a celoprojektové záležitosti&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;indexer&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#indexer&quot; aria-label=&quot;Anchor link for: indexer&quot;&gt;Indexer&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;V tíme indexera som na chvíľu zaskakovala za kolegu. Komponent mával problémy s výkonnosťou, dlhý blockchain a peňaženky s veľkou transakčnou históriou mu dávali zabrať. To (o.i.) sa malo vyriešiť implementáciou nanovo v Ruste, po čom som si našla &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;the-guild.dev&#x2F;graphql&#x2F;inspector&quot;&gt;nástroj na identifikáciu zmien v GraphQL API&lt;&#x2F;a&gt;, či sa nezaviedli neželané zmeny v API.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;kompilator&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#kompilator&quot; aria-label=&quot;Anchor link for: kompilator&quot;&gt;Kompilátor&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;S týmto komponentom som sa veľmi nestretávala, mali sme nejaké vzorové kontrakty, ktoré boli použité pri testovaní iných komponentov. Pri príležitosti porovnávania výkonnosti komponentov pri zmene podkladovej kryptografie v systéme som našla chybu pri pokuse skompilovať istý smart kontrakt s niekoľkými úrovňami vnorenia funkcií.&lt;br &#x2F;&gt;
+Testeri pridelení k tomuto tímu skúšali vytvárať rôzne kontrakty pomocou fuzzingu a AI a využívať a kombinovať všetky vlastnosti jazyka Compact.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;verzie-a-integracia&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#verzie-a-integracia&quot; aria-label=&quot;Anchor link for: verzie-a-integracia&quot;&gt;Verzie a integrácia&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Tiahla integrácia zmien naprieč projektom bola nepríjemná. Peňaženka zvykla byť predposledným komponentom, ktorý sa zapojil, keďže potrebovala funkčný uzol, indexer a proof server (po nej nasledovali ešte Midnight.js a vzorové dApps, ktoré neskôr prešli do starostlivosti DevRel tímu).&lt;br &#x2F;&gt;
+Matice kompatibilných verzií som zostavovala väčšinou ja a občas sa prišlo na to, že nová verzia bola neočakávane nekompatibilná so starou a vynútila si reset blockchainu. Ak sa našiel bug, ktorý mal pôvod v ledgeri, nasledovala vlna nových releasov ostatných komponentov, ktoré záviseli na niektorom z jeho artefaktov.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;hard-fork&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#hard-fork&quot; aria-label=&quot;Anchor link for: hard-fork&quot;&gt;Hard Fork&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Samostatnou kapitolou bola orchestrácia a testovanie tzv. hard forku - upgradu blockchainu naprieč hlavnými komponentmi na spätne nekompatibilnú verziu (postup pri reálnom produkčnom blockchaine, ktorý sa neresetuje) a rollbacku. Dávanie automatizovaného testu dokopy ma stálo veľa mentálnych síl a náčrtov sekvencie krokov, ktoré potrebujem vykonať v jednotlivých fázach hard forku, aby som mala na testovanie pripravené všetko, čo potrebujem 😅.&lt;&#x2F;p&gt;
+&lt;script src=https:&#x2F;&#x2F;monikajassova.github.io&#x2F;js&#x2F;mermaid.js&gt;&lt;&#x2F;script&gt;
+
+&lt;pre class=&quot;mermaid&quot;&gt;
+  ---
+config:
+  theme: &#x27;base&#x27;
+  themeVariables:
+    primaryColor: &#x27;#8c65b0ff&#x27;
+    primaryTextColor: &#x27;#fff&#x27;
+    primaryBorderColor: &#x27;#181818&#x27;
+    lineColor: &#x27;#b3ab9bff&#x27;
+    secondaryColor: &#x27;#79b473&#x27;
+    tertiaryColor: &#x27;#fff&#x27;
+---
+flowchart LR
+    P0[&quot;protokol P0&quot;] -- &quot;hard fork 1&quot; --&gt; P1[&quot;protokol P1&quot;] -- &quot;hard fork 2 (= rollback)&quot; --&gt; P2[&quot;protokol P2 (= P0)&quot;]
+&lt;&#x2F;pre&gt;
+&lt;p&gt;Overenie hard forku sa obmedzovalo na funkčnosť peňaženiek (podpora hard forku u smart kontraktov v tom čase nebola), predstavovalo takéto scenáre:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;peňaženky vytvorené počas protokolu P0 museli fungovať aj v P1 a P2&lt;&#x2F;li&gt;
+&lt;li&gt;peňaženky vytvorené počas protokolu P1 museli fungovať aj v P2&lt;&#x2F;li&gt;
+&lt;li&gt;nové peňaženky mali byť vytvorené vždy podľa aktuálneho protokolu&lt;&#x2F;li&gt;
+&lt;li&gt;transakcie mali fungovať vždy podľa aktuálneho protokolu&lt;&#x2F;li&gt;
+&lt;li&gt;transakcie vytvorené podľa iného protokolu mali byť odmietnuté&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;E2E test prebiehal tak, že najprv boli pustené Docker kontajnery uzla, indexera a proof servera verzií pred hard forkom, vytvorili sa testovacie peňaženky a spravila transakcia, uložili sa snapshoty. Potom sa špeciálnym API volaním spustil upgrade a migrácia dát na uzle. Po dokončení hard forku sa pustili príslušné verzie indexera a proof servera a upgradovanou verziou knižnice peňaženky sa obnovili peňaženky zo snapshotov (to si vyžiadalo úpravy po konzultácii s architektom, zvyčajný spôsob nefungoval), vytvorila sa nová peňaženka, skontroloval stav starých peňaženiek, spravili ďalšie transakcie a opäť uložili snapshoty. Nasledoval rollback na predchádzajúce verzie a ďalšie kolo testov.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dokumentacia-a-open-sourcing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#dokumentacia-a-open-sourcing&quot; aria-label=&quot;Anchor link for: dokumentacia-a-open-sourcing&quot;&gt;Dokumentácia a open sourcing&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Ďalšiu vrstvu starostí pridávala &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.midnight.network&#x2F;&quot;&gt;dokumentácia&lt;&#x2F;a&gt; a konečný cieľ &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;midnightntwrk&quot;&gt;zdrojový kód projektu&lt;&#x2F;a&gt; zverejniť. V prechodnej fáze, kým boli komponenty vyvíjané neverejne, ale zároveň časť dokumentácie bola verejná, boli nastavené workflowy, ktoré určené časti kopírovali z repozitárov komponentov do centrálneho repozitára dokumentácie. Snažila som sa eliminovať väčšinu manuálnych krokov - mergnutie do mainu zdrojového repozitára spustilo pregenerovanie dokumentácie z kódu a vytvorilo pull request, po ktorého mergnutí a aktualizácii súborov v adresári &lt;code&gt;&#x2F;docs&lt;&#x2F;code&gt; sa zavolalo spustenie workflowu v repozitári cieľovej dokumentácie na dotiahnutie zmien zo zdrojového.&lt;br &#x2F;&gt;
+Tým, že sa API a konfigurácie menili, stávalo sa, že príklady vo verejnej dokumentácii zastarali, čo samozrejme netešilo externých experimentátorov s Midnightom. Kontrolovať celú dokumentáciu a ručne testovať príklady po každom release zas bolo nad možnosti testerského tímu.&lt;br &#x2F;&gt;
+Tímy museli tiež nabehnúť na používateľsky orientované dokumentovanie zmien v jednotlivých releasoch a postup migrácií, ak boli potrebné.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;netradicne-pristupy-k-testovaniu&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#netradicne-pristupy-k-testovaniu&quot; aria-label=&quot;Anchor link for: netradicne-pristupy-k-testovaniu&quot;&gt;Netradičné prístupy k testovaniu&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Netradičná situácia a projekt si pýtali aj netradičné prístupy k testovaniu, o ktorých som písala &lt;a href=&quot;https:&#x2F;&#x2F;monikajassova.github.io&#x2F;blog&#x2F;netradicne-testovanie&#x2F;&quot;&gt;v tomto článku&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;zaver&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#zaver&quot; aria-label=&quot;Anchor link for: zaver&quot;&gt;Záver&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Išlo jednoznačne o najkomplexnejší a najnáročnejší projekt, na ktorom som dosiaľ mala možnosť pracovať. A to som nespomínala Glacier Drop (mechanizmus distribúcie tokenov a prípravy genesis bloku mainnetu, ktorý zahŕňal niekoľko iných blockchainov a ich peňaženky), trusted setup (príprava parametrov pre zero knowledge kryptografiu na mainnete), tokenómiu a ďalšie aspekty, ktoré spustenie mainnetu v budúcnosti prinášalo. Roboty bolo ako na kostole, na druhej strane bolo fascinujúce byť súčasťou vývoja niečoho priekopníckeho v celom svete. Stále mám pocit, že som len tak poškrabala povrch a pri testovaní blockchainu sa dá ísť všakovakými smermi a aj poriadne do hĺbky.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>IT knižnica</title>
+          <pubDate>Tue, 01 Jul 2025 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/kniznica/</link>
+          <guid>https://monikajassova.github.io/blog/kniznica/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/kniznica/">&lt;p&gt;&lt;em&gt;Na tomto mieste nájdete zoznam kníh o testovaní a iných oblastiach IT, ktorý budem aktualizovať&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;knihy-o-testovani&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#knihy-o-testovani&quot; aria-label=&quot;Anchor link for: knihy-o-testovani&quot;&gt;Knihy o testovaní&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;59891129-full-stack-testing&quot;&gt;Full Stack Testing&lt;&#x2F;a&gt; - prehľad 10 testovacích znalostí potrebných pre súčasné webové a mobilné aplikácie a ich holistické otestovanie (vrátane testovania prístupnosti, dát, vizuálnej stránky, kontinuálneho testovania), každá kapitola obsahuje stavebné bloky pre uvedenie do problematiky, ukážku testu, pár releventných nástrojov a testovaciu stratégiu. Ako bonus sa tu nachádza aj krátky úvod do testovania 4 nových technológií (AI a ML aplikácie, blockchain, IoT, AR&#x2F;VR).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;15980494-explore-it&quot;&gt;Explore It!&lt;&#x2F;a&gt; - exploratory testing v kocke, vynikajúca kniha&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;35904152-a-practical-guide-to-testing-in-devops&quot;&gt;A Practical Guide to Testing in DevOps&lt;&#x2F;a&gt; - čo znamená DevOps metodológia pre rolu testera, testovanie v produkcii, testovanie samotných DevOps komponentov (CI&#x2F;CD, infraštruktúry, monitorovania a výstrah), použitie monitorovania ako testovania, obsahuje aj príklady testovania v DevOps z praxe u známych firiem. Páčila sa mi analógia DevOps bug filtra a testovacieho kyvadla medzi hlbokým a plytkým testovaním.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;59796908-effective-software-testing&quot;&gt;Effective Software Testing: A developer&#x27;s guide&lt;&#x2F;a&gt; - kniha sa hodí, ak chcete byť SDET,  snažíte sa testy posúvať na nižšie úrovne, alebo hľadáte spoločný náhľad s developermi, je tu aj kapitola venovaná väčším systémovým testom, ktoré typicky píšu testeri&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;213798717-contract-testing-in-action&quot;&gt;Contract Testing in Action&lt;&#x2F;a&gt; - ako uvádza titulok, v akcii je framework Pact, pokiaľ viem, pred ňou neexistovalo nič ucelené na túto tému&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;40597214-complete-guide-to-test-automation&quot;&gt;Complete Guide to Test Automation&lt;&#x2F;a&gt; - zameraná čisto na automatizovanie testov a všetkého možného, čo je s automatizáciou späté, začína od úplných základov ako je hodnota automatizácie, pokračuje cez metriky pokrytia a ich význam, izoláciu testov, manažovanie testovacích prostredí a nastavenie automatizačného projektu (získanie ľudí pre myšlienku) po podrobný popis procesu tvorby testov, skúmanie zlyhaní, zaobchádzanie s bugmi atď.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;knihy-o-devops&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#knihy-o-devops&quot; aria-label=&quot;Anchor link for: knihy-o-devops&quot;&gt;Knihy o DevOps&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;234570781-fundamentals-of-devops-and-software-delivery&quot;&gt;Fundamentals of DevOps and Software Delivery&lt;&#x2F;a&gt; - ako vraví titulok, o DevOps najmä z pohľadu dodávania softvéru&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;knihy-o-praci-programatora&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#knihy-o-praci-programatora&quot; aria-label=&quot;Anchor link for: knihy-o-praci-programatora&quot;&gt;Knihy o práci programátora&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;54375336-the-coding-career-handbook-guides-principles-strategies-and-tactics&quot;&gt;The Coding Career Handbook&lt;&#x2F;a&gt; - zameraná na aspekty kariéry &lt;em&gt;okrem&lt;&#x2F;em&gt; kódenia, sprevádza od hľadania prvej práce, cez cestu od junior k senior vývojárovi až po manažérske a vyššie IC (individual contributor) roly či neprogramátorské roly, destilované skúsenosti a postrehy s &lt;strong&gt;množstvom&lt;&#x2F;strong&gt; odkazov na ďalšie materiály&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Nasledujúce sú vhodné najmä pre juniorov, skúsenejší si tu asi veľa nového alebo zaujímavého nenájdu:&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;4099.The_Pragmatic_Programmer&quot;&gt;The Pragmatic Programmer&lt;&#x2F;a&gt; - ako sa stať dobrým programátorom, najviac technická zo zoznamu (napr. sa tu rozoberá ľahko meniteľný dizajn, manažovanie zdrojov, súbežnosť, refaktorovanie), ale venuje sa aj iným veciam ako produktivita pri práci s nástrojmi, komunikácia, odhadovanie, práca s požiadavkami, skutočná podstata agile metodológie.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;5608045-apprenticeship-patterns&quot;&gt;Apprenticeship Patterns&lt;&#x2F;a&gt; - pozerá sa na vývoj SW ako na remeslo, využíva analógiu od učňa cez tovariša po majstra cechu, súbor rád pre určité situácie v živote developera, kapitoly sú organizované vo formáte kontext-problém-riešenie-akcia&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.goodreads.com&#x2F;book&#x2F;show&#x2F;6399113-the-passionate-programmer&quot;&gt;The Passionate Programmer&lt;&#x2F;a&gt; - strategické tipy ako budovať svoj produkt (seba ako odborníka) a svoju značku, s praktickými radami, kapitoly ako výber trhu, investovanie do svojho produktu, realizácia, marketing a udržiavanie ostria&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Netradičné prístupy k testovaniu</title>
+          <pubDate>Tue, 13 May 2025 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/netradicne-testovanie/</link>
+          <guid>https://monikajassova.github.io/blog/netradicne-testovanie/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/netradicne-testovanie/">&lt;p&gt;&lt;em&gt;Prehľad zaujímavých prístupov k testovaniu, s ktorými som sa stretla na blockchainovom projekte (ako kritický vyžadoval vyššiu mieru istoty a na overenie dizajnu základných kameňov sa využívali aj matematické metódy formálnej verifikácie). Tiež prístupy, ktoré vyzerajú byť dobrým kandidátom na zaradenie do arzenálu. Pôjdeme v smere od unit testov až k E2E testom na produkčnom prostredí.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;mutation-testing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#mutation-testing&quot; aria-label=&quot;Anchor link for: mutation-testing&quot;&gt;Mutation testing&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Mutation testing sa používa na otestovanie unit testov, zhodnotenie ich efektívnosti, kvality. Jeho koncept je veľmi jednoduchý a geniálny - mutácia je zavedenie modifikácie zdrojového kódu aplikácie, napr. otočenie aritmetického znamienka, zmena logického operátora, opačná hodnota boolean a pod., po čom sa očakáva, že unit testy by zmenu v programe mali zachytiť a spadnúť. Ak sa tak nestane a &quot;mutant&quot; prežije, unit testy nedostatočne pokrývajú kód testami (aj pri 100% code coverage nám môžu chýbať negatívne testovacie prípady a iné).&lt;br &#x2F;&gt;
+Je vhodný v situácii, kedy potrebujeme zistiť, ako je na tom s unit testami projekt, na ktorý sme prišli a nepoznáme ho alebo napr. open-source projekty. Mutation testy sa môžu použiť aj na otestovanie efektivity &lt;a href=&quot;https:&#x2F;&#x2F;monikajassova.github.io&#x2F;blog&#x2F;netradicne-testovanie&#x2F;#property-based-testing&quot;&gt;property-based unit testov&lt;&#x2F;a&gt;.&lt;br &#x2F;&gt;
+Nevýhodou je, že beh mutation testov trvá dlhšie ako unit testy.&lt;&#x2F;p&gt;
+&lt;div &gt;
+    &lt;iframe
+        src=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;Vq9eqZzblfg&quot;
+        width=&quot;100%&quot;
+        height=&quot;315&quot;
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen&gt;
+    &lt;&#x2F;iframe&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Príkladmi konkrétnych frameworkov sú:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;stryker-mutator.io&#x2F;&quot;&gt;Stryker Mutator&lt;&#x2F;a&gt; pre JavaScript&#x2F;TypeScript, Scalu a C#&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;pitest.org&#x2F;&quot;&gt;Pitest&lt;&#x2F;a&gt; pre Javu a JVM&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sixty-north&#x2F;cosmic-ray&quot;&gt;Cosmic Ray&lt;&#x2F;a&gt; pre Python&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;property-based-testing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#property-based-testing&quot; aria-label=&quot;Anchor link for: property-based-testing&quot;&gt;Property-based testing&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Klasické testy, s ktorými sa stretávame, sú založené na konkrétnych príkladoch - pre takýto vstup očakávam takýto výstup. Napr. funkciu na vrátenie true&#x2F;false, či používateľ je plnoletý na základe veku, viem otestovať niekoľkými príkladmi: pre 17 rokov očakávam false, pre 18 true, pre 0 false, pre 100 true.&lt;br &#x2F;&gt;
+Property-based testy sú založené na definovaní všeobecných vlastností, ktoré sú platné pre všetky možné hodnoty. Developer zadefinuje, akého typu a z akého rozpätia vstupy majú byť (existujú vstavané generátory pre primitívne dátové typy, príp. developer nakódi vlastný generátor pre typy a triedy, aké potrebuje) a PBT framework vygeneruje veľký počet náhodných hodnôt, ktoré sú otestované, či spĺňajú dané vlastnosti. Vlastnosť môže byť vyjadrená takýmto spôsobom:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  pre hocijaké (x, y, ...)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  také, že spĺňa predpoklad(x, y, ...)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  výrok (x, y, ...) je pravdivý&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Príkladmi konkrétnych frameworkov sú:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;fast-check.dev&#x2F;&quot;&gt;fast-check&lt;&#x2F;a&gt; pre JS&#x2F;TS&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hypothesis.works&#x2F;&quot;&gt;Hypothesis&lt;&#x2F;a&gt; pre Python&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;scalacheck.org&#x2F;&quot;&gt;ScalaCheck&lt;&#x2F;a&gt; a &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hedgehogqa.github.io&#x2F;scala-hedgehog&#x2F;&quot;&gt;Hedgehog&lt;&#x2F;a&gt; pre Scalu&lt;&#x2F;li&gt;
+&lt;li&gt;ďalšie jazyky nájdete na &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jmid&#x2F;pbt-frameworks&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;jmid&#x2F;pbt-frameworks&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;výhodnou funkcionalitou frameworku je shrinking, ktorý sa pri nájdení výnimky z vlastností postará o zjednodušený minimalizovaný prípad na reprodukciu problému&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Písanie takýchto testov si vyžaduje zmenu spôsobu myslenia a kreativitu, developer&#x2F;tester si musí odvodiť univerzálne platné vlastnosti, premýšľať o korektných vstupoch a hlboko porozumieť požiadavkám, ako má funkcionalita fungovať skôr ako pri tradičnom prístupe. PBT sú komplementárne ku klasickým example-based testom - môžu identifikovať hraničné prípady a potenciálne problémy, na ktoré nebolo myslené pri example-based testoch. Taktiež môžu odhaliť neočakávané problémy spojené so špecifickou množinou vstupov alebo mylné predstavy.&lt;br &#x2F;&gt;
+PBT majú vyššie náklady, ale aj vyššiu hodnotu. Použiť sa dajú aj na vyšších úrovniach nad unit testami. Tipy pre uvažovanie a výber vlastností: &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;fsharpforfunandprofit.com&#x2F;posts&#x2F;property-based-testing-2&#x2F;&quot;&gt;https:&#x2F;&#x2F;fsharpforfunandprofit.com&#x2F;posts&#x2F;property-based-testing-2&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Stratégie implementácie:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;začať s example-based, keď tie sú hotové, pridať property-based&lt;&#x2F;li&gt;
+&lt;li&gt;napísať property-based len pre kľúčové komponenty systému
+&lt;ul&gt;
+&lt;li&gt;komplikované, ktoré nie úplne chápeme, čo robia&lt;&#x2F;li&gt;
+&lt;li&gt;kritické pre klienta&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Viac vo videu:&lt;&#x2F;p&gt;
+&lt;div &gt;
+    &lt;iframe
+        src=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;gENnmmOjifA&quot;
+        width=&quot;100%&quot;
+        height=&quot;315&quot;
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen&gt;
+    &lt;&#x2F;iframe&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Prípadom frameworku postaveného na PBT je &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;quickstrom.io&#x2F;&quot;&gt;Quickstrom&lt;&#x2F;a&gt; na testovanie webových aplikácií, ktorý k vlastnostiam pridáva lineárnu temporálnu logiku - aplikáciu vieme popísať špecifikáciou, ktorá hovorí, aké prechody stavov sú validné, ktorý stav má nastať po ktorom, aký stav nastane aspoň raz&#x2F;vždy a pod. V Quickstrome definujeme akcie, ktoré sa dajú v aplikácii vykonať, stavy, v ktorých sa aplikácia môže nachádzať a Quickstrom sa postará o to, aby vygeneroval náhodné sledy akcií a vyhodnotil, či skutočne nadobudnutý sled stavov zodpovedá špecifikácii a aplikácia nespravila niečo neočakávané.&lt;br &#x2F;&gt;
+Nevýhodou je strmá krivka učenia, skromná dokumentácia, projekt nie je ešte dostatočne zrelý - limitovaná podpora dynamického obsahu a ťažkosti s načasovaním. Interný proof of concept taktiež odhalil nespoľahlivé alebo neúčinné selektory pre identifikáciu elementov, že defaultné správanie vyhodnotenia viditeľnosti a aktívnosti elementov pre vykonanie akcie nie vždy vyhovovalo a boli potrebné rôzne hacky a explicitné predpoklady, kedy môže byť akcia vykonaná. Neponúka ani schopnosť simultánne pracovať s viacerými stránkami alebo otestovať viac súborov cez príkaz &lt;code&gt;check&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Iným nástrojom, ktorý využíva PBT, je &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;schemathesis.io&#x2F;&quot;&gt;Schemathesis&lt;&#x2F;a&gt; na testovanie API s pomocou API schémy (viď aj &lt;a href=&quot;https:&#x2F;&#x2F;monikajassova.github.io&#x2F;blog&#x2F;netradicne-testovanie&#x2F;#schema-based-contract-testing&quot;&gt;Schema-based contract testing&lt;&#x2F;a&gt;).&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;model-based-testing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#model-based-testing&quot; aria-label=&quot;Anchor link for: model-based-testing&quot;&gt;Model-based testing&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Podstatou MBT je automatické generovanie testov a ich exekúcia na základe modelu systému. Abstraktný model reprezentujúci očakávané správanie, vstupy, výstupy a stavy testovaného systému musí vytvoriť tester. To si opäť vyžaduje prepnúť spôsob myslenia, akým uvažujeme. Model môže byť v podobe diagramu prechodu stavov, konečného automatu, rozhodovacej tabuľky, UML diagramu. MBT sa dá použiť na rôznych úrovniach od unit po systémové a akceptačné testy.&lt;br &#x2F;&gt;
+Má byť ideálny do agilného prostredia, kde sa menia požiadavky a treba testovať rýchlo a kontinuálne (našla som aj opačnú skúsenosť, že zmeny požiadaviek si vyžiadali aj úplne prerobiť model).&lt;&#x2F;p&gt;
+&lt;p&gt;Plusy: šetrí čas automatizovaním vytvárania a exekuovania testov, údržba je takisto zjednodušená - len úprava modelu, zvýšené pokrytie, škálovateľnosť - efektívny pre veľké a komplexné systémy&lt;br &#x2F;&gt;
+Mínusy: strmá krivka učenia, tvorba presných a detailných modelov komplexných systémov je zložitá a časovo náročná, málo využívaný v testerskej komunite - ťažké nájsť nejaké odporúčania a overené postupy&lt;&#x2F;p&gt;
+&lt;p&gt;Nástroje:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;statelyai&#x2F;xstate&quot;&gt;XState&lt;&#x2F;a&gt;, k testovaniu &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;stately.ai&#x2F;docs&#x2F;generate-test-paths&quot;&gt;tu&lt;&#x2F;a&gt; a &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;css-tricks.com&#x2F;model-based-testing-in-react-with-state-machines&#x2F;&quot;&gt;článok o prepojení XState a testovacích frameworkov Jest a Puppeteer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;graphwalker.github.io&#x2F;&quot;&gt;GraphWalker&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;intel&#x2F;fMBT&quot;&gt;fMBT&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Teória vyzerá pekne, ale zatiaľ som nevidela úspešný príklad z reálnej praxe na nejakom komplexnom projekte. My sme MBT skúšali ako proof of concept testovania decentralizovanej aplikácie DAO s využitím XState. S návrhom ideálneho modelu sme mali ťažkosti (bol to pokus-omyl) a prístup sme si nezvolili, ale vytvorený stavový diagram slúžil ako dobrá vizuálna dokumentácia a oceňovali sme, že prístup nás nútil zamyslieť sa nad rôznymi stavmi, do ktorých sa aplikácia môže dostať.&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1652 &#x2F; 1652&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;xstate-model-voter.70ce028c0e3874ac.avif&quot;
+     alt=&quot;Xstate model ₋ voter&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;h1 id=&quot;contract-testing-code-based&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#contract-testing-code-based&quot; aria-label=&quot;Anchor link for: contract-testing-code-based&quot;&gt;Contract testing (code-based)&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Contract testy sa nachádzajú v testovacej pyramíde medzi unit a integračnými testami. Ich úlohou je zaistiť, že dvojica komponentov vie stále komunikovať cez API napriek zmenám v kóde (teda bol dodržaný skôr dohodnutý kontrakt o vzájomnej komunikácii). Ich podstatou je, že sú asynchrónne a bežia v izolácii - nevyžadujú si prostredie, na ktorom by oba komponenty museli bežať súčasne. Na problémy sa dá prísť ešte pred nasadením na testovacie prostredie, v rámci CI checku na pull requeste v repozitári. Ideálne pre microservices architektúru. Netestujú, či funkcionalita za nejakým API volaním funguje, to stále potrebujeme mať podchytené v iných funkcionálnych testoch.&lt;&#x2F;p&gt;
+&lt;p&gt;Plusy: exekuuje reálny aplikačný kód na oboch stranách interakcie, testuje aj statusové kódy a základné predpoklady o odpovedi, zároveň príklady slúžia ako špecifikácia a dokumentácia, silné verifikačné záruky, časť testov na vyšších úrovniach môže byť presunutá do contract testov&lt;br &#x2F;&gt;
+Mínusy: zložitejší a časovo náročnejší na začiatok, potrebná údržba testov&lt;&#x2F;p&gt;
+&lt;p&gt;Typy:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;consumer-driven: kontrakt definuje konzument API (klient) na základe toho, čo očakáva od producenta API (servera). Pokrýva len časť, ktorú potrebuje konkrétny konzument (producent môže mať ďalších konzumentov, ktorí majú iné požiadavky). Akékoľvek správanie producenta, ktoré nie je využívané konzumentami sa môže meniť bez obavy z porušenia kontraktu a padnutia testov. Špecifikácia je nahratá s pomocou mocku producenta. Interakcie (vstupy a očakávané výstupy) sú zachytené v súbore kontraktu. Ten sa zdieľa s producentom, ktorý kontrakt verifikuje na svojej strane - prehratím interakcie a porovnaním s očakávanymi odpoveďami.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;producer-driven: kontrakt definuje producent API (ako súbor všetkého, čo poskytuje) a konzumenti ho používajú na uistenie, že vedia spracovať uvedené odpovede úspešne. Chýba spätná väzba.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;bidirectional: producent aj konzument vytvoria svoju verziu kontraktu pre špecifickú integráciu - očakávania o správaní producenta a špecifikáciu správania producenta. Porovnanie a verifikáciu kontraktu robí nezávislá tretia strana, ktorej poskytnú kontrakty. Konzument aj producent sa vedia dotazovať na výsledky verifikácie, aby zistili, či nastali nejaké integračné problémy a či je bezpečné nové verzie nasadiť na prostredie.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Viac informácií má na svojej stránke Bas Dijkstra, ktorý sa na contract testing špecializuje:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.ontestautomation.com&#x2F;an-introduction-to-contract-testing-part-1-meet-the-players&#x2F;&quot;&gt;https:&#x2F;&#x2F;www.ontestautomation.com&#x2F;an-introduction-to-contract-testing-part-1-meet-the-players&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.ontestautomation.com&#x2F;contract-testing-what-not-to-test-for-part-1&#x2F;&quot;&gt;https:&#x2F;&#x2F;www.ontestautomation.com&#x2F;contract-testing-what-not-to-test-for-part-1&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;alebo ich nájdete v nedávno vydanej knihe &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.manning.com&#x2F;books&#x2F;contract-testing-in-action&quot;&gt;Contract Testing in Action&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Frameworky:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;pact.io&#x2F;&quot;&gt;Pact&lt;&#x2F;a&gt; s podporou JS, JVM, Rust, Python, Go, PHP, .NET&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;karatelabs&#x2F;karate&#x2F;tree&#x2F;master&#x2F;karate-netty#consumer-provider-example&quot;&gt;Karate&lt;&#x2F;a&gt; - kontrakty definované vo formáte Gherkin, jar na beh testov&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-contract&quot;&gt;Spring Cloud Contract&lt;&#x2F;a&gt; - podporuje definovanie kontraktov v YAML a Groovy a ich beh v Dockeri&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;specmatic.io&#x2F;&quot;&gt;Specmatic&lt;&#x2F;a&gt; - no-code riešenie, ktoré generuje contract testy z API špecifikácií&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Bohužiaľ, k implementácii contract testingu sme sa na projekte z časových dôvodov a iných priorít nedostali, ale videli sme prípady, kedy by tento prístup pomohol v skorom zachytení nežiaducich zmien priamo u komponentu, ktorý ich spôsobil.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;schema-based-contract-testing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#schema-based-contract-testing&quot; aria-label=&quot;Anchor link for: schema-based-contract-testing&quot;&gt;Schema-based contract testing&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Schéma alebo špecifikácia API je statický formálny popis API, ktorý zachytáva všetky možné koncové body, požiadavky a odpovede. Príklady schém pre rôzne protokoly sú &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;swagger.io&#x2F;resources&#x2F;open-api&#x2F;&quot;&gt;OpenAPI Specification&lt;&#x2F;a&gt; pre REST, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;graphql.org&#x2F;learn&#x2F;schema&#x2F;&quot;&gt;GraphQL schema&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.asyncapi.com&#x2F;en&quot;&gt;AsyncAPI&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;json-schema.org&#x2F;&quot;&gt;JSON schema&lt;&#x2F;a&gt; alebo &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;open-rpc.org&#x2F;&quot;&gt;OpenRPC&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;SBCT kontroluje, či konzument používa správy, ktoré sa zhodujú s (podmnožinou) danej API schémy a či producent produkuje výstup, ktorý súhlasí s touto schémou. Tvrdí, že daná strana komunikácie je kompatibilná so schémou v určitom čase.&lt;br &#x2F;&gt;
+Stále je však potrebné sledovať, aké verzie aplikácií sú nasadené, aby sme sa uistili, že obe strany používajú kompatibilné verzie schémy. Správa tiež môže byť kompatibilná so schémou (syntakticky správna), ale nemať význam a byť nesprávna.&lt;&#x2F;p&gt;
+&lt;p&gt;Plusy: ľahšie a rýchlejšie je s nimi začať, menšia údržba - ak sú schémy generované priamo z kódu, zároveň slúži ako dokumentácia API, odstraňuje nutnosť existencie testovacích dát&lt;br &#x2F;&gt;
+Mínusy: robí porovnanie schém - teda tvaru dát, ostatné aspekty kontraktu (cesty, metódy, hlavičky, statusové kódy, špecifické množiny vstupov) nie sú testované, nižšie verifikačné záruky, schéma je často ručne vytvorená a udržiavaná - môže nastať odchýlka medzi schémou a reálnym kódom.&lt;&#x2F;p&gt;
+&lt;p&gt;Viac v seriáli na &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;pactflow.io&#x2F;blog&#x2F;contract-testing-using-json-schemas-and-open-api-part-1&#x2F;&quot;&gt;https:&#x2F;&#x2F;pactflow.io&#x2F;blog&#x2F;contract-testing-using-json-schemas-and-open-api-part-1&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Pár nástrojov:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;stoplight.io&#x2F;open-source&#x2F;prism&quot;&gt;Prism&lt;&#x2F;a&gt; pre OpenAPI špecifikácie&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;microcks.io&#x2F;&quot;&gt;Microcks&lt;&#x2F;a&gt; testuje nasadené implementácie oproti API špecifikácii&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;schemathesis.io&#x2F;&quot;&gt;Schemathesis&lt;&#x2F;a&gt; PBT framework na API testovanie, deteguje aj odchýlku medzi implementáciou API a OpenAPI alebo GraphQL špecifikáciou&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;apiaryio&#x2F;dredd&quot;&gt;Dredd&lt;&#x2F;a&gt; už archivovaný projekt, ktorý testoval, či implementácia backendu zodpovedá API schéme&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;trace-based-testing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#trace-based-testing&quot; aria-label=&quot;Anchor link for: trace-based-testing&quot;&gt;Trace-based testing&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Na integrovanom prostredí vrátane produkcie (ak máme naprieč komponentami systému implementovaný tracing) môžeme okrem pasívneho monitoringu zbierané dáta využiť aj na proaktívny testovací účel. TBT overuje tvrdenia o trase stôp pre danú transakciu a umožňuje integračné aj komplexné E2E testy. Definujeme model, nasleduje zber dát a na záver vyhodnotenie, či dáta zodpovedajú modelu. Rovnaký model a test môže byť použitý pri integračných testoch na lokálnom prostredí aj unit testoch s mockmi. Sú vhodné najmä pre microservices architektúru a distribuované systémy. TBT sa dajú kombinovať aj so záťažovými testami a pomôcť pri odhalení úzkych hrdiel v systéme.&lt;br &#x2F;&gt;
+Tvorbou testov nad traceami zároveň robíme tracing dôležitou súčasťou vývoja, nie dodatočnou myšlienkou a vytvárame cyklus spätnej väzby, ktorý má za následok lepšie testovanie aj lepšiu observabilitu = pozorovateľnosť (dá sa nazvať aj trace-driven development) a tým pádom aj rýchlejšie určenie príčiny v prípade problémov. Akékoľvek nástroje, ktoré umožňujú analýzu štruktúrovaných dát nám pomôžu pri TBT. Ďalšie nadstavby môžu byť kombinácie s temporálnou logikou, model checkermi a formálnou verifikáciou.&lt;&#x2F;p&gt;
+&lt;p&gt;Príkladom je &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;tracetest.io&#x2F;&quot;&gt;Tracetest&lt;&#x2F;a&gt; pre OpenTelemetry. Poskytuje mnoho integrácií vrátane Playwrightu, čím umožňuje naozajstné E2E testovanie, kedy sa test začne na UI webstránky a dostane schopnosť vidieť a sledovať celé interné spracovanie danej požiadavky skrz back end, databázu a externé služby.&lt;&#x2F;p&gt;
+&lt;div &gt;
+    &lt;iframe
+        src=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;MP_edlFWRi4&quot;
+        width=&quot;100%&quot;
+        height=&quot;315&quot;
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen&gt;
+    &lt;&#x2F;iframe&gt;
+&lt;&#x2F;div&gt;
+&lt;h1 id=&quot;chaos-engineering&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#chaos-engineering&quot; aria-label=&quot;Anchor link for: chaos-engineering&quot;&gt;Chaos engineering&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Zaujímavým prístupom sú nefunkcionálne testovacie techniky na hodnotenie toho, ako je systém robustný, odolný voči nepriaznivým vplyvom a abnormálnemu správaniu, ako toleruje chyby a schopnosť zotaviť sa z nich.&lt;br &#x2F;&gt;
+Chaos engineering je praktika úmyselného zavádzania chýb a zlyhaní na rôznych úrovniach (odstránenie Kubernetes podu, zvýšenie latencie, úplné prerušenie sieťového spojenia medzi komponentami, simulácia používateľských chýb atď.). Cieľom je potvrdiť alebo vyvrátiť naše hypotézy o tom, ako systém zareaguje a či sa zotaví a zlepšiť celkovú odolnosť systému odhalením skrytých slabín a validáciou mechanizmov obnovy za realistickej pracovnej záťaže a kombinácie závad. Zameriava sa teda na zvýšenie dôvery v schopnosť distribuovaných systémov čeliť turbulentným podmienkam skutočného sveta vrátane nepredvídateľných zlyhaní.&lt;br &#x2F;&gt;
+Vykonáva sa na prostrediach podobných produkcii aj priamo na produkcii.&lt;br &#x2F;&gt;
+Podmienkou je mať systém dostatočne zrelý, spoľahlivý (aby nepadal aj bez pričinenia chaos engineeringu) a tiež observabilita na dostatočnej úrovni, aby sme do systému &quot;videli&quot;, ako sa správa a mohli sledovať hodnoty kľúčových indikátorov.&lt;&#x2F;p&gt;
+&lt;p&gt;Pár nástrojov:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;chaos-mesh.org&#x2F;&quot;&gt;Chaos Mesh&lt;&#x2F;a&gt; a &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;litmuschaos.io&#x2F;&quot;&gt;Litmus&lt;&#x2F;a&gt; pre Kubernetes&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;netflix&#x2F;chaosmonkey&quot;&gt;Chaos Monkey&lt;&#x2F;a&gt; od Netflixu, ktorý bol priekopníkom chaos engineeringu&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;chaostoolkit.org&#x2F;&quot;&gt;ChaosToolkit&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;viac na &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dastergon&#x2F;awesome-chaos-engineering&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;dastergon&#x2F;awesome-chaos-engineering&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Chaos engineering spadá pod resilience testing (testovanie odolnosti) spolu s:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;fault injection: úmyselne zavádza špecifické závady a zlyhania do systému na validáciu jeho robustnosti a schopnosti poradiť si s chybami. Používa sa skoro vo vývojovom cykle v kontrolovanom testovacom prostredí na potvrdenie, že systém sa správa správne za známych chybových podmienok.&lt;&#x2F;li&gt;
+&lt;li&gt;stress testing: vystavuje systém extrémnej pracovnej záťaži alebo vyťaženiu zdrojov (CPU, pamäť...) a má za cieľ identifikovať výkonnostné úzke hrdlá, zlyhania z preťaženia&lt;&#x2F;li&gt;
+&lt;li&gt;failover testing: úmyselne spôsobí vypovedanie služby a pozoruje, či systém dokáže prejsť na zálohu alebo rezervnú službu&lt;&#x2F;li&gt;
+&lt;li&gt;data recovery testing: verifikuje, že dáta sa dajú obnoviť zo záloh a že zálohovacie mechanizmy sú efektívne a proces obnovy spoľahlivý a výkonný. Mal by byť vykonávaný periodicky, hodí sa tiež po veľkých zmenách v dátach a migráciách.&lt;&#x2F;li&gt;
+&lt;li&gt;disaster recovery testing: pomáha uistiť sa, že systém môže byť obnovený a spojazdnený po udalostiach veľkého rozsahu ako výpadku dátových centier. Zahŕňa aktivity ako obnovu zo záloh, prepnutie na redundantné systémy alebo presmerovanie prevádzky na disaster recovery prostredie. Vhodný po signifikantných zmenách v infraštruktúre.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Ako vidíte, je toho neúrekom a v testovaní sa stále dá vymyslieť a nájsť niečo nové, kombinovať rôzne prístupy. A v súčasnosti aj využívať pomoc AI.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Reflexie</title>
+          <pubDate>Thu, 08 May 2025 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/reflexie/</link>
+          <guid>https://monikajassova.github.io/blog/reflexie/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/reflexie/">&lt;p&gt;&lt;em&gt;Pri príležitosti odchodu z práce - potrebovala som spracovať dojmy z nej, s odstupom zhodnotiť doterajšie pôsobenie v IT a zamyslieť sa čo ďalej&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Uplynulého 3,5 roka som strávila na blockchainovom projekte. Môj zamýšľaný čas vo firme prestával byť neohraničený, ale ešte koncom januára som si myslela, že sa budem podieľať na dodaní hlavného míľnika a zažijem blok 0 mainnetu Midnight Networku.&lt;br &#x2F;&gt;
+Situácia sa zhoršila v priebehu pár mesiacov - pondelky boli hroznejšie ako zvyčajne a z každej ďalšej požiadavky sa mi ježili chlpy, mala som už toho kolotoča dosť. Riešenie som uvidela v neplatenom voľne&#x2F;sabatikale. S firmou sme sa na mojej predstave nedohodli, na odporúčanie manažérky som si vzala trojtýždňovú dovolenku s tým, že potom uvidím. Nepomohla a onedlho som sa rozhodla dať výpoveď, aj keď väčšina ľudí v okolí ma varovala pred nepriaznivou situáciou na trhu práce v IT.&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;3000 &#x2F; 3000&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;rescue.ac84a32b72acac32.avif&quot;
+     alt=&quot;Záchrana&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;h1 id=&quot;co-dalej&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#co-dalej&quot; aria-label=&quot;Anchor link for: co-dalej&quot;&gt;Čo ďalej?&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Chcem si pár mesiacov mentálne oddýchnuť, skúsiť &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.databazeknih.cz&#x2F;prehled-knihy&#x2F;digitalni-minimalismus-425192&quot;&gt;digitálny minimalizmus podľa Cala Newporta&lt;&#x2F;a&gt;, sústrediť sa na fyzickú stránku a zlepšiť zanedbanú kondičku, splniť si nejaké cestovateľské a koncertné sny, pohrať sa s AI a tiež popracovať na zručnostiach z reálneho sveta.&lt;br &#x2F;&gt;
+Po načerpaní energie si plánujem vo vlastnom tempe prejsť kurz na rozšírenie znalostí, keďže momentálne som na vážkach, či pokračovať v QA. Uvidím, či mi pracovný trh umožní skúsiť inú rolu, držte palce 🙂.&lt;br &#x2F;&gt;
+Samozrejme, nedá sa zovšeobecňovať a záleží, na aký projekt, manažéra a procesy (a možnosť ich ovplyvniť) v danej firme natrafí, ale rada by som skúsila opäť iný typ firmy&#x2F;fungovania v práci. Ideálne s pokojnejším projektom a lepšou rovnováhou medzi pracovným a súkromným životom (za ktorú som sčasti zodpovedná aj ja). Z ostatnej práce si (o. i. nižšie) odnášam aj poučenie lepšie manažovať hranice a očakávania, resp. nastaviť ich rozumne na začiatku a dávať si pozor na prílišné pohltenie prácou. A tiež nerezignovať na vznášanie pripomienok a konštruktívnej kritiky a komunikovať prípadné problémy hneď, ako si ich uvedomím.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;rekapitulacia&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#rekapitulacia&quot; aria-label=&quot;Anchor link for: rekapitulacia&quot;&gt;Rekapitulácia&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Silná frustrácia a negatívna emócia v závere zatienili predošlé pozitíva, tak som sa prinútila triezvo zhodnotiť svoje pôsobenie vo firme aj tými pred ňou:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;korporát&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;ul&gt;
+&lt;li&gt;práca z kancelárie, príležitostný home office&lt;&#x2F;li&gt;
+&lt;li&gt;projekty pre zákazníkov z domény zdravotníctva - webové, mobilné a desktopová aplikácia pre glukomery&lt;&#x2F;li&gt;
+&lt;li&gt;práca v tíme viacerých testerov na tej istej aplikácii&lt;&#x2F;li&gt;
+&lt;li&gt;gro bola príprava a exekúcia pridelených testovacích prípadov, práca s test case management a softvérom na reportovanie bugov, všetko ostatné riešil vedúci QA, príp. skúsení kolegovia&lt;&#x2F;li&gt;
+&lt;li&gt;scrum bol skrytý v pozadí, v podstate sme ani nevedeli o sprintoch, neboli sme prizývaní na mítingy, hovorenú angličtinu som vôbec nevyužila&lt;&#x2F;li&gt;
+&lt;li&gt;čo som sa naučila: základy testovania k ISTQB; určité špecifiká prehliadačov&#x2F;mobilných OS; prvé stretnutie s testovacím frameworkom postaveným na Seleniu; že vykonávať ručne tie isté úkony dookola fakt nechcem 😛&lt;&#x2F;li&gt;
+&lt;li&gt;spätne som to hodnotila ako nutné zlo na získanie prvej reálnej praxe a že som mala odísť skôr - čas sa dal využiť zmysluplnejšie. Zo štúdia na akadémii SOVY som využila asi len SQL.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;korporát&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;ul&gt;
+&lt;li&gt;hybridný režim, cez koronu home office, potom občasné dni v kancelárii&lt;&#x2F;li&gt;
+&lt;li&gt;práve rozbiehajúci sa big data projekt v doméne digitálneho marketingu&lt;&#x2F;li&gt;
+&lt;li&gt;sama testerka bez niekoho, kto by pracoval na podobnom projekte, tak bolo všetko na mojom úsudku - aké nástroje použijem; čo, ako a kedy otestujem; čo zautomatizujem a pod. Úzka spolupráca s developermi v tíme.&lt;&#x2F;li&gt;
+&lt;li&gt;tu už som sa dostala do kontaktu aj so zákazníkom, scrum mítingy, spolupráca s product ownerom, scrum masterom, podieľanie sa na príprave ticketov, ich estimácii a plánovaní sprintov&lt;&#x2F;li&gt;
+&lt;li&gt;čo som sa naučila: testovanie big data a API; automatizácia; scrum; skúsenosť s grafovou databázou; dostala som sa aj k CI&#x2F;CD a monitoringu; základy AWS k certifikátu&lt;&#x2F;li&gt;
+&lt;li&gt;práca sa mi páčila, nespomínam si na nejaké prekážky, ktoré by mi ju zhoršovali. Začiatky boli ťažšie, ale potom som bola rada za pridelenie na tento projekt. Neskôr big data prešli do udržiavacieho módu a tím pracoval primárne na internom nástroji.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;startup&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;ul&gt;
+&lt;li&gt;full remote, kolegovia z takmer celého sveta, občasné spoločné workshopy v Európe&lt;&#x2F;li&gt;
+&lt;li&gt;vlastný produkt - nový blockchain, úzko prepojený na výskum&#x2F;akadémiu a dynamický svet web3. Ja som testovala hlavne browser extension peňaženky, knižnicu peňaženky a tzv. faucet aplikáciu (FE a BE s DB), posledné mesiace node (uzol siete).&lt;&#x2F;li&gt;
+&lt;li&gt;spolupráca s product ownerom, architektami, SRE tímom a ďalšími rolami ako tech writer a DevRel&lt;&#x2F;li&gt;
+&lt;li&gt;pomerne náročná práca - jednoznačne najťažší projekt, na ktorom som doteraz robila; neustále vykračovanie mimo komfortnú zónu; stále zrýchľujúce sa tempo, zvyšujúci sa tlak a zodpovednosť; bolo treba mať prehľad o release a všetkých veciach v pohybe naprieč projektom&lt;&#x2F;li&gt;
+&lt;li&gt;niektoré procesy nefungovali ideálne, skúšali sme ich meniť k lepšiemu, nie vždy úspešne&lt;&#x2F;li&gt;
+&lt;li&gt;keďže hlavný cieľ bol stihnúť termíny a pridávať nové funkcionality, technologický a testovací dlh narastal a releasy nešli časom hladšie, skôr naopak. Predstava náplne práce SDET sa rozchádzala s predstavou, ktorú o nej mala šéfka QA&lt;&#x2F;li&gt;
+&lt;li&gt;čo som sa naučila:
+&lt;ul&gt;
+&lt;li&gt;ako to vyzerá na projekte komplexného produktu pozostávajúceho z mnohých komponentov, ktoré tvoria spleť závislostí&lt;&#x2F;li&gt;
+&lt;li&gt;o nových prístupoch v testovaní (zhrnula som v článku &lt;a href=&quot;https:&#x2F;&#x2F;monikajassova.github.io&#x2F;blog&#x2F;netradicne-testovanie&#x2F;&quot;&gt;Netradičné prístupy k testovaniu&lt;&#x2F;a&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;keď je jednou z persón produktu developer (s vývojom kompilátora pre nový programovací jazyk sa bežne nestretnete)&lt;&#x2F;li&gt;
+&lt;li&gt;veľa som sa naučila len prítomnosťou v tomto vysoko odbornom prostredí a pozorovaním diskusií, riešení problémov pri vývoji a incidentov na produkcii&lt;&#x2F;li&gt;
+&lt;li&gt;stretnutie s funkcionálnym programovaním (ktoré som si myslela, že poznám z big data, ale tu to bol iný level)&lt;&#x2F;li&gt;
+&lt;li&gt;stretnutie s Kubernetes a GitOps&lt;&#x2F;li&gt;
+&lt;li&gt;aspekty procesu open-sourcingu&lt;&#x2F;li&gt;
+&lt;li&gt;že mám rezervy v spoločenskej konverzácii v angličtine&lt;&#x2F;li&gt;
+&lt;li&gt;že full remote je fajn kvôli efektivite využitia času, ale vyžaduje si starať sa o lokálnu socializáciu (už aj introvert ako ja občas potreboval ísť si pokecať s niekým)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Progres je jasný, s čím som spokojná. Nečakala som síce, že sa dostanem až na prah vyhorenia, ale beriem to, že všetko zlé je na niečo dobré (ak sa človek z toho poučí).&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Domáca kancelária</title>
+          <pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/domaca-kancelaria/</link>
+          <guid>https://monikajassova.github.io/blog/domaca-kancelaria/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/domaca-kancelaria/">&lt;p&gt;&lt;em&gt;O zariaďovaní domácej kancelárie a o fascinujúcom svete klávesníc.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Pracujem z domu od vypuknutia korony, teda 2,5 roka. Keď bolo jasné, že sa do officu už nevrátim, začala som si postupne zariaďovať domácu kanceláriu tak, aby bola šetrnejšia k telu. Dlhodobé sedenie za počítačom zdraviu neprospieva a práca v neergonomickom prostredí alebo s neergonomickými nástrojmi môže viesť k zraneniu z opakovaného namáhania - problémom ako tenisový lakeť, poškodenie hybnosti ramenných pletencov, poškodenie šliach prstov alebo syndróm karpálneho tunela.&lt;br &#x2F;&gt;
+Momentálne nemám problémy (okrem občasnej stuhnutej šije a ramien), ale radšej sa snažím robiť preventívne opatrenia. Osvedčilo sa mi cvičenie jogy&#x2F;pilatesu a cvikov na posilnenie stredu tela (core), ktoré sú dobrou kompenzáciou sedenia a prevenciou zlého držania tela.&lt;&#x2F;p&gt;
+&lt;p&gt;Konkrétne k vybaveniu, starý &lt;mark&gt;monitor&lt;&#x2F;mark&gt; som nahradila väčším s lepším obrazom šetrnejším k očiam a výškovo nastaviteľným.
+Od Juraja Bednára som odkopírovala vertikálnu &lt;mark&gt;myš&lt;&#x2F;mark&gt;. Zvykala som si na ňu asi 2 dni, potom som nechápala, ako som mohla používať klasickú. Zápästie je v prirodzenejšej polohe a práca s myšou oveľa pohodlnejšia, mám aj dojem, že ramená menej tuhnú.&lt;br &#x2F;&gt;
+Sedenie som skúšala oživiť fit loptou, ale nebola som konzistentná v snahe striedať stoličku a loptu. Objednala som zdravotnú &lt;mark&gt;stoličku&lt;&#x2F;mark&gt;, ktorá má dynamický sedák, vyžaduje aktívne zapájanie svalov, ale umožňuje sedieť aj v úľavovej polohe. Prechod na ňu bol bez problémov, opäť zabral nejaké 2 dni. Teraz vraj sedím vzpriamenejšie.&lt;br &#x2F;&gt;
+Ďalšia na rade bola &lt;mark&gt;klávesnica&lt;&#x2F;mark&gt;, pri ktorej sa pristavím na dlhšie. Pôvodne som chcela kúpiť nejaký bežný model, ktorý sa predáva ako ergonomický. Na firemnom Slacku som však uvidela odkaz na jednu z delených klávesníc, o ktorých existencii som nevedela. To odštartovalo môj prieskum v tejto oblasti.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;ergonomicke-klavesnice&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ergonomicke-klavesnice&quot; aria-label=&quot;Anchor link for: ergonomicke-klavesnice&quot;&gt;Ergonomické klávesnice&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Spomínané na polovice rozdelené klávesnice môžete uložiť podľa šírky pliec, natočiť ako Vám vyhovuje a niektoré modely umožňujú aj naklopenie, prípadne sú konkávne, čo by malo uľahčiť dosah prstov na klávesy. Kolega mal už vo veku 23 rokov zranenie z opakovaného namáhania a jedna z takýchto s 30° náklonom je jediná, ktorá mu nespôsobuje ťažkosti.&lt;&#x2F;p&gt;
+&lt;p&gt;Existujú aj rôzne rozloženia klávesov:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;klasické majú riadky posunuté voči sebe (F sa nachádza medzi C a V)&lt;&#x2F;li&gt;
+&lt;li&gt;ortolineárne s pravidelnou mriežkou klávesov&lt;&#x2F;li&gt;
+&lt;li&gt;stĺpcovo posunuté, kde sú klávesy usporiadané rovno pod sebou a stĺpce trochu posunuté navzájom, aby zodpovedali rozdielom v dĺžke prstov.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Zoznam delených klávesníc: &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;diimdeep&#x2F;awesome-split-keyboards&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;diimdeep&#x2F;awesome-split-keyboards&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;firmver-a-hardver&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#firmver-a-hardver&quot; aria-label=&quot;Anchor link for: firmver-a-hardver&quot;&gt;Firmvér a hardvér&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Plne programovateľné klávesnice umožňujú využívať vrstvy a naprogramovať každý kláves osobitne pre rôzne módy - jednoduché stlačenie, opakované stlačenie, podržanie, ďalej namapovať kombinácie skratiek či makrá. Možnosti sú rozsiahle a každý si môže klávesnicu prispôsobiť sebe a tým aj zvýšiť produktivitu práce. Firmvér &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;qmk.fm&quot;&gt;QMK&lt;&#x2F;a&gt;, ktorý toto všetko umožňuje, je open-source.&lt;&#x2F;p&gt;
+&lt;p&gt;Zaujímavé je, že na trhu sa okrem hotových klávesníc predávajú aj DIY súpravy, ktoré obsahujú všetky potrebné súčiastky a Vy si ich musíte pospájkovať a zložiť. A nájdete dokonca aj open-source hardvér od ľudí, ktorí navrhli vlastné klávesnice - telo klávesnice si môžete vytlačiť na 3D tlačiarni (šablónu upraviť podľa svojho želania), vyrobiť plošnú dosku, pospájkovať, vybrať mechanické spínače, nasadiť samotné klávesy a pridať káble. Krásny koncept 🙂.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;rozlozenia-znakov&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#rozlozenia-znakov&quot; aria-label=&quot;Anchor link for: rozlozenia-znakov&quot;&gt;Rozloženia znakov&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Ako som spadla zajačou norou do sveta klávesníc, objavila som alternatívne rozloženia znakov. Možno ste už počuli, že okrem tradičného QWERTY existuje &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Dvorak_keyboard_layout&quot;&gt;Dvorak&lt;&#x2F;a&gt;. Je ich však viac - napr. &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;colemak.com&quot;&gt;Colemak&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;workmanlayout.org&quot;&gt;Workman&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;normanlayout.info&#x2F;index.html&quot;&gt;Norman&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;MadRabbit&#x2F;halmak&quot;&gt;Halmak&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;engram.dev&quot;&gt;Engram&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;sites.google.com&#x2F;alanreiser.com&#x2F;handsdown&quot;&gt;Hands Down&lt;&#x2F;a&gt;. QWERTY vzniklo ešte v 19. storočí pre písací stroj. Lepšiu ergonómiu a produktivitu sľubujú práve alternatívne rozloženia, ktoré sú optimalizované na rôzne kritériá a jazyky. Halmak bol dokonca navrhnutý s pomocou umelej inteligencie.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;moje-skusenosti-s-novou-klavesnicou&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#moje-skusenosti-s-novou-klavesnicou&quot; aria-label=&quot;Anchor link for: moje-skusenosti-s-novou-klavesnicou&quot;&gt;Moje skúsenosti s novou klávesnicou&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Po zvážení aktuálne dostupných hotových možností na trhu som sa rozhodla pre &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.zsa.io&#x2F;moonlander&#x2F;&quot;&gt;ZSA Moonlander&lt;&#x2F;a&gt;. Mať ruky na šírku pliec je naozaj pohodlnejšie a vyhovuje mi aj uloženie klávesov do stĺpcov, mne osobne je prirodzenejšie. Zatiaľ mám klávesnicu naplocho, odporúča sa tak stráviť mesiac a až potom skúšať vertikálny náklon.&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;4000 &#x2F; 4000&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;moonlander.d682439764350831.avif&quot;
+     alt=&quot;Moonlander&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Moonlander poslúžil aj ako motivácia konečne sa naučiť písať všetkými desiatimi bez pozerania 😁. Nikdy som to neovládala, snaha učiť sa párkrát bola, ale po krátkom čase vyprchala. Vystačila som si aj bez toho, občas som však cítila limity svojho písania. Pred kúpou novej klávesnice som sa otestovala, ako rýchlo mi to ide na QWERTY rozložení, aby som mala benchmark - keď som sa veľmi snažila, tak to bolo do &lt;strong&gt;40 slov za minútu&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Ako rozloženie som si vybrala &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;colemakmods.github.io&#x2F;mod-dh&#x2F;&quot;&gt;Colemak-DH&lt;&#x2F;a&gt;. Začala som sa učiť písmená zo stredného radu ešte kým som čakala na doručenie novej klávesnice. Zvyšok písmen sa mi podarilo dostať do pamäte za víkend. Prvotný test rýchlosti ukázal to, čo mnohým ostatným - hodnota podstatne klesla, v mojom prípade na cca &lt;strong&gt;10 slov&#x2F;min&lt;&#x2F;strong&gt;. Po 2 dňoch cvičenia som sa dostala na takmer &lt;strong&gt;20&lt;&#x2F;strong&gt;. Ukázal sa problém - síce som sa pri tréningu zrýchľovala, ale akonáhle som na obrazovke nevidela slová a písala som voľne, išlo to stále pomaly. Mozog mal toho na starosti zrazu veľa, rozmýšľať nielen ako písať, ale aj čo písať. Pracujem ďalej na presnosti a rýchlosti a dostaní rozloženia do svalovej pamäte, aby som nad tým, čo majú robiť prsty, nemusela uvažovať. Po mesiaci a dokopy 10 hodinách tréningu na keybr som na &lt;strong&gt;33 slovách&#x2F;min&lt;&#x2F;strong&gt;. Už nie som ďaleko od svojej pôvodnej rýchlosti, ďalší cieľ bude presiahnuť 50 slov&#x2F;min.&lt;br &#x2F;&gt;
+&lt;strong&gt;Aktualizácia 5. nov.:&lt;&#x2F;strong&gt; aj vo voľnom písaní vidím pokrok, praxou sa to poddáva. Určité skupiny znakov už mám zautomatizované a je naozaj radosť naťukať ich (napr. rst alebo anglická koncovka tion).&lt;&#x2F;p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1467 &#x2F; 1467&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;keybr10h.df679f1b61b81994.avif&quot;
+     alt=&quot;Keybr&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1250 &#x2F; 1250&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;monkeytype.29b81aa0071600ca.avif&quot;
+     alt=&quot;monkeytype&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;&#x2F;p&gt;
+&lt;p&gt;Ladenie rozmiestnenia ostatných klávesov, vrstiev a podsvietenia zabralo tiež nejaký čas a ešte nie je ukončené. Možnosti sú nespočetné, na začiatku ohromujúce, ale úžasné a s nástrojom na konfiguráciu sa ľahko pracuje. Príjemne prekvapili klávesy na pohyb kurzora, takže pre jednoduchú navigáciu nemusím prekladať ruku na myš.&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;3943 &#x2F; 3943&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;moonlander2.db1de9fb7bc079cc.avif&quot;
+     alt=&quot;Moonlander2&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;h2 id=&quot;ucenie-a-trening&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ucenie-a-trening&quot; aria-label=&quot;Anchor link for: ucenie-a-trening&quot;&gt;Učenie a tréning&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Ak by ste chceli potrénovať rýchlosť písania alebo naučiť sa nové rozloženie aj Vy, zhrnula som pár zdrojov:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;jednoduché lekcie na učenie sa rozloženia Colemak a iných: &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.colemak.academy&quot;&gt;https:&#x2F;&#x2F;www.colemak.academy&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;rozsiahly kurz na učenie sa rozloženia Colemak a iných: &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.edclub.com&#x2F;library?page=1&amp;amp;ordering=learners_count&amp;amp;locale=en_US&amp;amp;limit=12&amp;amp;subject__in=1&quot;&gt;https:&#x2F;&#x2F;www.edclub.com&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;tréning písania (slová generované na základe algoritmu a osobných štatistík): &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.keybr.com&quot;&gt;https:&#x2F;&#x2F;www.keybr.com&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;tréning rýchlosti písania: &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;monkeytype.com&quot;&gt;https:&#x2F;&#x2F;monkeytype.com&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;tréning písania častých skupín znakov: &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;ranelpadon.github.io&#x2F;ngram-type&quot;&gt;https:&#x2F;&#x2F;ranelpadon.github.io&#x2F;ngram-type&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;tréning zameraný na znaky používané pri programovaní: &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;typing.io&quot;&gt;https:&#x2F;&#x2F;typing.io&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;co-dalej&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#co-dalej&quot; aria-label=&quot;Anchor link for: co-dalej&quot;&gt;Čo ďalej?&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Ostáva asi posledný väčší výdavok - polohovateľný stôl. Cieľom je častá zmena polohy pri práci, nie predĺžené státie. Kolega bol donútený si ho zadovážiť kvôli problémom s krížami.&lt;br &#x2F;&gt;
+Stolička mi zatiaľ vyhovuje, ešte by sa dala v budúcnosti pridať ďalšia poloha na kľakačke.&lt;&#x2F;p&gt;
+&lt;p&gt;A čo Vy? Dbáte na ergonómiu, máte nejaké tipy?&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Budovanie druhého mozgu</title>
+          <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/pkm-logseq/</link>
+          <guid>https://monikajassova.github.io/blog/pkm-logseq/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/pkm-logseq/">&lt;p&gt;&lt;em&gt;O potrebe personal knowledge managementu a mojich začiatkoch s nástrojom Logseq&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;V poslednej dobe čítam veľa náučných kníh a článkov, počúvam náučné videá a podcasty. Veľakrát ma informácie v nich zaujali a hovorila som si: „to si musím zapamätať, je to zaujímavé&#x2F;užitočné.“ Samozrejme, že mi vyfučali z hlavy, predsa len ľudský mozog má limity, a tak som začala uvažovať, že si začnem robiť poznámky a zapisovať dôležité myšlienky. V správnej chvíli mi LinkedIn zobrazil vo feede &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.linkedin.com&#x2F;posts&#x2F;artem-grygorenko_notetaking-effectiveness-system-activity-6939909127817076736-Aorf&quot;&gt;príspevok&lt;&#x2F;a&gt;, ktorý ma priviedol k heslu &lt;mark&gt;personal knowledge management&lt;&#x2F;mark&gt; (PKM) a systémom robenia poznámok.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;co-je-pkm&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#co-je-pkm&quot; aria-label=&quot;Anchor link for: co-je-pkm&quot;&gt;Čo je PKM&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;PKM je druhý mozog, externá pamäť, niekde nájdete aj pojem osobná wikipédia&lt;&#x2F;li&gt;
+&lt;li&gt;ide o dlhodobú investíciu času a úsilia do zachytenia a organizovania informácií. Zahŕňa veci, čo prežívame, čítame, počúvame. Je to premyslený a systematický zber informácií.&lt;&#x2F;li&gt;
+&lt;li&gt;PKM teda zahŕňa aj poznámky z mítingov, osobné dáta, nápady na darčeky, nákupné zoznamy, cestovné itineráre atď. Hocičo, čo si chceme pamätať a čo považujeme za užitočné pre budúcnosť. Uložením týchto vecí na centralizovanom digitálnom mieste mimo zábudlivý mozog môžeme využiť benefity vyhľadávania, zálohy, synchronizácie medzi zariadeniami a zdieľania s ostatnými (pripomínam šifrovanie, ak ide o poznámky osobného charakteru).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;preco-pkm-pouzivat&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#preco-pkm-pouzivat&quot; aria-label=&quot;Anchor link for: preco-pkm-pouzivat&quot;&gt;Prečo PKM používať&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;všetko, čo chceme v živote dokázať, vyžaduje hľadanie a využívanie správnych informácií. Profesionálny úspech a kvalita života závisí od schopnosti manažovať informácie okolo nás (v súčasnosti ich je kvantum a sme nimi zahltení). Nemôžeme použiť hlavu na uloženie všetkého, čo potrebujeme vedieť, pomôžme si technológiou.&lt;&#x2F;li&gt;
+&lt;li&gt;poznámkovanie je zároveň intelektuálnym cvičením:
+&lt;ul&gt;
+&lt;li&gt;parafrázovanie, zhrnutie vlastnými slovami vedie k lepšiemu pochopeniu, učeniu a zapamätaniu si danej informácie. Naše myšlienky dávajú zmysel.&lt;&#x2F;li&gt;
+&lt;li&gt;konfrontovanie s existujúcimi poznatkami prispieva k rozvoju kritického myslenia a schopnosti riešiť problémy&lt;&#x2F;li&gt;
+&lt;li&gt;zvyšuje kreativitu a pomáha v procese rozhodovania. Môžete objaviť nové nečakané prepojenia a generovať nové myšlienky&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;zabraňuje zahlteniu, dáva pokoj mysli, šetrí mentálnu kapacitu a energiu
+&lt;ul&gt;
+&lt;li&gt;ak používame na všetky poznámky jeden nástroj, eliminuje to problém x súborov&#x2F;aplikácií&#x2F;papierov (kam som si konkrétnu vec poznačila? bola tá pracovná požiadavka v emaili, Slacku, na Confluence alebo v nejakom zdieľanom dokumente?), zvýraznené pasáže v knihách takisto nie sú používateľsky prívetivé (v ktorej knihe som o danej veci čítala a kde presne to bolo?)&lt;&#x2F;li&gt;
+&lt;li&gt;ak sú informácie uložené v sieti, prepojenia uľahčujú prácu
+&lt;ul&gt;
+&lt;li&gt;nemusíte sa zaoberať tým, ako danú informáciu kategorizovať, do ktorého adresára ju uložiť&lt;&#x2F;li&gt;
+&lt;li&gt;zároveň je jednoduchšie nejakú informáciu nájsť a objaviť súvisiace prepojenia. Štruktúra podobná mozgu umožňuje, že sa k jednej zásuvke dá dôjsť viacerými cestami.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;PKM je obzvlášť nápomocný ľuďom z oblasti výskumu, na písanie odborných prác - budujete základy, na ktorých v budúcnosti môžete stavať, viete, ako sa vaše poznanie rozvíjalo a máte k dispozícii zdroje&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Dômyselné a produktívne robenie poznámok a PKM umožňujú aplikácie ako napr. &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;roamresearch.com&#x2F;&quot;&gt;Roam Research&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;obsidian.md&#x2F;&quot;&gt;Obsidian&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.athensresearch.org&#x2F;&quot;&gt;Athens&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;workflowy.com&#x2F;&quot;&gt;Workflowy&lt;&#x2F;a&gt;, ja som si vybrala open-source alternatívu &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;logseq.com&#x2F;&quot;&gt;Logseq&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Existuje viacero metód robenia poznámok a ich organizácie ako napr. &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Zettelkasten&quot;&gt;Zettelkasten&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;notes.andymatuschak.org&#x2F;Evergreen_notes&quot;&gt;Evergreen Notes&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;fortelabs.co&#x2F;blog&#x2F;para&#x2F;&quot;&gt;P.A.R.A. - Projects, Areas, Resources, Archives&lt;&#x2F;a&gt; a &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@nickmilo22&#x2F;in-what-ways-can-we-form-useful-relationships-between-notes-9b9ec46973c6&quot;&gt;IMF - Index, Maps of Content, and Other Fluid Frameworks&lt;&#x2F;a&gt;. Každému môže lepšie fungovať niečo iné, odporúča sa brať ohľad na osobné ciele, ktoré chceme s PKM dosiahnuť a špecifické okolnosti.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;logseq&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#logseq&quot; aria-label=&quot;Anchor link for: logseq&quot;&gt;Logseq&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;open-source desktopová a Android aplikácia na vytváranie, organizáciu a zdieľanie osobných znalostí&lt;&#x2F;li&gt;
+&lt;li&gt;pracuje s lokálnymi súbormi vo formáte Markdown alebo Org-mode&lt;&#x2F;li&gt;
+&lt;li&gt;je postavená na odkazoch a tagoch. Je veľmi jednoduché vytvoriť novú stránku a nalinkovať ju - je to záležitosť napísania &lt;code&gt;[[Názov novej stránky]]&lt;&#x2F;code&gt;
+&lt;ul&gt;
+&lt;li&gt;zároveň umožňuje stránky ukladať aj v hierarchickej štruktúre (ak v ich názve je &quot;&#x2F;&quot; na oddelenie jednotlivých adresárov), takže je flexibilná a môžete ju používať rôznymi spôsobmi&lt;&#x2F;li&gt;
+&lt;li&gt;vytvorené stránky a ich prepojenia vidíte pekne v grafe&lt;&#x2F;li&gt;
+&lt;li&gt;obsahuje tiež journal (denník) - stránku pre každý deň&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;dá sa použiť aj na manažment úloh&lt;&#x2F;li&gt;
+&lt;li&gt;môžete definovať šablóny - napr. ak vytvárate stránku pre knihu, ponúkne polia, aké chcete (autor, názov, tagy a pod.)&lt;&#x2F;li&gt;
+&lt;li&gt;dotazy (v Clojure) napr. na zobrazenie všetkých šablón, ktoré máte; zobrazenie úloh s termínom v najbližšom týždni...&lt;&#x2F;li&gt;
+&lt;li&gt;vstavaná podpora pre pomoc so zapamätaním si faktov prostredníctvom kartičiek na princípe &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Spaced_repetition&quot;&gt;spaced repetition&lt;&#x2F;a&gt; (často sa používa na učenie slovíčok&#x2F;fráz v cudzom jazyku)&lt;&#x2F;li&gt;
+&lt;li&gt;vstavaná podpora PDF - ak vložíte PDF súbor a zvýrazňujete si v ňom pasáže, tieto sa nalinkujú na stránke&lt;&#x2F;li&gt;
+&lt;li&gt;množstvo pluginov a tém od komunity - napr. na zobrazenie stránky ako myšlienkovej mapy, vloženie tituliek z linkovaného YouTube videa...&lt;&#x2F;li&gt;
+&lt;li&gt;ďalšie nástroje integrované s Logseqom a uľahčujúce prácu:
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.snipd.com&#x2F;&quot;&gt;Snipd&lt;&#x2F;a&gt; na uloženie momentov z podcastov&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;readwise.io&#x2F;&quot;&gt;Readwise&lt;&#x2F;a&gt; importuje zvýraznené pasáže z ebookov a článkov&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.shortform.com&#x2F;&quot;&gt;Shortform&lt;&#x2F;a&gt; poskytuje sumáre kníh a analýzy ich myšlienok&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;užitočné zdroje k základom i pokročilým technikám používania Logsequ:
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;c&#x2F;OneStutteringMind&#x2F;featured&quot;&gt;https:&#x2F;&#x2F;www.youtube.com&#x2F;c&#x2F;OneStutteringMind&#x2F;featured&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;c&#x2F;ToolsonTech&#x2F;featured&quot;&gt;https:&#x2F;&#x2F;www.youtube.com&#x2F;c&#x2F;ToolsonTech&#x2F;featured&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;moje-zaciatky-s-pkm&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#moje-zaciatky-s-pkm&quot; aria-label=&quot;Anchor link for: moje-zaciatky-s-pkm&quot;&gt;Moje začiatky s PKM&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Pre konkrétny systém robenia poznámok som sa ešte nerozhodla, začala som jednoducho, určila som si pár konvencií ako si stránky zorganizovať. Nemal by byť problém systém neskôr upraviť, môže sa postupom času vyvíjať. Zatiaľ používam denník ako defaultné miesto na zachytenie poznámok, mám aj domovskú stránku, šablónu pre knihy, stránku so všetkými úlohami a doslovné citácie linkujem k jednej stránke a uvádzam ich zdroj. V budúcnosti sa chcem posunúť na systém postupného spracovávania citácií na krátke a výstižné poznámky vlastnými slovami.&lt;&#x2F;p&gt;
+&lt;p&gt;Časť môjho grafu na ukážku:&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1366 &#x2F; 1366&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;logseq-graf.a58aca5469728949.avif&quot;
+     alt=&quot;Graf v Logsequ&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Separátny graf som si vytvorila pre pracovné záležitosti, do ktorého migrujem existujúce poznámky rozhodené po textových súboroch a iných dokumentoch.&lt;&#x2F;p&gt;
+&lt;p&gt;Koncept PKM ma očaril a ľutujem, že som ho neobjavila skôr, ušetril by mi mnoho starostí. Teraz sa vraciam k prečítaným knihám, aby som si ich spoznámkovala 😄. Je to vedomá práca, nie je to zadarmo, ale viem, že prinesie benefity v budúcnosti. Už tento príspevok vznikol na základe mojich poznámok o Logsequ a o knihe &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.martinus.sk&#x2F;?uItem=913673&quot;&gt;How to Take Smart Notes&lt;&#x2F;a&gt; 🙂.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Testovanie ETL</title>
+          <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/testovanie-etl/</link>
+          <guid>https://monikajassova.github.io/blog/testovanie-etl/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/testovanie-etl/">&lt;p&gt;&lt;em&gt;Cieľom tohto článku je zosumarizovať postupy, ktoré som implementovala pri testovaní ETL procesov a s ktorými som sa stretla v rámci big data&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;uvod-do-big-data-a-etl&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#uvod-do-big-data-a-etl&quot; aria-label=&quot;Anchor link for: uvod-do-big-data-a-etl&quot;&gt;Úvod do big data a ETL&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Veľké dáta (ďalej big data) sú charakterizované troma V:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;volume - veľký objem dát,&lt;&#x2F;li&gt;
+&lt;li&gt;velocity - rýchlosť s akou sú produkované (gigabajty nových dát denne),&lt;&#x2F;li&gt;
+&lt;li&gt;variety - dáta prichádzajú z rôznych zdrojov a v rôznej forme.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Sú to také veľké súbory dát, že ich nie je možné uchovávať, spravovať a spracovávať bežne používanými softvérovými prostriedkami v rozumnom čase.&lt;br &#x2F;&gt;
+Úlohou dátových inžinierov je spracovanie big data a ich príprava do požadovanej podoby pre ďalších používateľov dát - spravidla dátových analytikov, dátových vedcov.&lt;&#x2F;p&gt;
+&lt;p&gt;Jeden z procesov, ktorým sa to deje, sa nazýva &lt;mark&gt;ETL&lt;&#x2F;mark&gt; (extract-transform-load).&lt;br &#x2F;&gt;
+V prvej fáze ETL sa dáta extrahujú zo zdrojov - sťahujú sa z FTP serverov, cloudových úložísk, dotazujú sa cez REST API a pod. Surové dáta môžu mať rôznu štruktúru - tabuľky v relačných databázach, záznamy v NoSQL databázach, súbory formátu CSV, XML, JSON atď.&lt;br &#x2F;&gt;
+Počas fázy transformácie sa dáta upravujú podľa požadovaných pravidiel, filtrujú, očisťujú, spájajú s inými dátami, prevádzajú sa nad nimi agregácie alebo iné výpočty. Tieto medzivýsledky sa držia v oblasti staged.&lt;br &#x2F;&gt;
+V záverečnej fáze sa finálne dáta publikujú na dohodnutom mieste, spravidla v dátovom sklade (data warehouse - DWH), kde ich priamo alebo cez connectory vedia používatelia dotazovať, pracovať s nimi, využiť ako podklad pre analytické a BI (business intelligence) nástroje.&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;686 &#x2F; 686&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;etl.1f7fc3bfc7095f9b.avif&quot;
+     alt=&quot;ETL proces&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Novším prístupom je &lt;mark&gt;ELT&lt;&#x2F;mark&gt; (extract-load-transform) proces, pri ktorom sa surové dáta nahrajú na cieľový systém a transformácie sa vykonávajú až tam, napr. s pomocou nástroja &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.getdbt.com&quot;&gt;dbt&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;ETL procesy môžu prebiehať:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;dávkovo - &lt;mark&gt;batch processing&lt;&#x2F;mark&gt;, kedy sú spúšťané periodicky, riadené orchestrátorom&lt;&#x2F;li&gt;
+&lt;li&gt;ako &lt;mark&gt;streaming&lt;&#x2F;mark&gt;, kedy sú dáta spracúvané v reálnom čase ako prichádzajú do systému&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Na našom projekte sme uplatňovali batch processing a ako orchestrátor pre definovanie workflowow a plánovanie ich behov sme používali &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;oozie.apache.org&quot;&gt;Oozie&lt;&#x2F;a&gt; a neskôr aj &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;airflow.apache.org&quot;&gt;Airflow&lt;&#x2F;a&gt;. Ukážka ako taký workflow môže vyzerať (&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.aakashpydi.com&#x2F;jetstream-architecture&#x2F;&quot;&gt;zdroj obrázka&lt;&#x2F;a&gt;):&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1097 &#x2F; 1097&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;airflow.70bfbe8fcfa85d73.avif&quot;
+     alt=&quot;Workflow v Airflow&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Na samotné spracúvanie dát sme používali Apache Spark, o ktorom som písala &lt;a href=&quot;https:&#x2F;&#x2F;monikajassova.github.io&#x2F;blog&#x2F;spark&#x2F;&quot;&gt;v tomto príspevku&lt;&#x2F;a&gt;. Pre predstavu na akom HW Spark a Hadoop bežal, išlo o Oracle BDA&#x2F;HDFS cluster o 12 uzloch (každý s procesorom Intel XEON), ktorý dokopy disponoval 1 TB RAM a 900 TB HDD.&lt;&#x2F;p&gt;
+&lt;p&gt;Testovanie a zabezpečenie kvality ETL procesov bolo náplňou mojej práce v DAZN. Keď som nastúpila, big data boli pre mňa nové a netušila som, ako to budem testovať. Online zdrojov k téme testovania dát je poskromne aj teraz a keď som začínala, nachádzala som len odkazy na platené nástroje, ale máločo o konkrétnych metódach. Názvy testov v nasledujúcom texte sú interné označenia, nejde o odbornú terminológiu.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;datove-e2e-testy&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#datove-e2e-testy&quot; aria-label=&quot;Anchor link for: datove-e2e-testy&quot;&gt;Dátové E2E testy&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Prvým krokom pri zavedení automatizovaného testovania jednotlivých ETL procesov bolo vytvorenie niečoho ako E2E testov nad fixnými dátami. V prostredí som vytvorila osobitné priečinky, kde som si pripravila súbory s testovacími dátami po vzore reálnych. Malú vzorku, tak aby som mala kontrolu nad tým, čo v nej je a čo sa s ňou deje. Pripravila som dáta pre rôzne testovacie prípady, tzv. happy path aj okrajové prípady, či sa do výsledku dostávajú skutočne tie dáta, ktoré majú.&lt;br &#x2F;&gt;
+Nad týmito dátami som púšťala workflowy, ktoré ich spracovali a na konci sa výsledné dáta porovnali s očakávaným výsledkom. Automatizovaný test alebo pomocný skript na záver všetky výsledné dáta aj medzivýsledky ETL procesu zmazal a pripravil prostredie na ďalší beh celého testovacieho workflowu.&lt;br &#x2F;&gt;
+Ak bol ETL proces jednoduchý a napr. zabezpečoval len, aby sa v published držala najnovšia verzia záznamu, automatizované testy bežali na produkčných dátach a porovnávali vstupné dáta s výstupnými.&lt;&#x2F;p&gt;
+&lt;p&gt;E2E testy pomohli vyriešiť záhadný bug - mala som podozrenie, že občas majú niektoré záznamy isté hodnoty dvojnásobné ako by mali byť, ale nevedeli sme kedy a prečo sa tak deje. Až keď som sa dostala k nasimulovaniu celého procesu a dát, tak som zistila, že v špecifickom prípade, keď dáta spadali do dvoch kategórií, tieto sa započítali dvakrát.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;testy-konzistentnosti&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#testy-konzistentnosti&quot; aria-label=&quot;Anchor link for: testy-konzistentnosti&quot;&gt;Testy konzistentnosti&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Ďalšou skupinou automatizovaných testov boli testy, ktoré zisťovali, či sú produkčné dáta konzistentné z hľadiska logiky domény. Príklad z digitálneho marketingu: počet kliknutí na reklamu musí byť menší ako počet videní a ten zas menší ako počet požiadaviek o reklamu odoslaných serveru.&lt;&#x2F;p&gt;
+&lt;p&gt;Testy konzistentnosti sme vo veľkom využili pri implementácii produktu single customer view v grafovej databáze Neo4j. Grafová databáza je koncept umožňujúci jednoducho modelovať vzťahy reálne existujúce v doméne. Ukážka vzťahov medzi rôznymi uzlami a dopytovacieho jazyka Cypher:&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1313 &#x2F; 1313&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;cypher.2e92ad76e5de7ef8.avif&quot;
+     alt=&quot;Neo4j&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Testy overovali, či skutočný stav zodpovedá navrhnutému dátovému modelu grafu - či sú správne vlastnosti uzlov a vzťahov, či nie sú vzťahy duplicitné, či sa v grafe nenachádzajú entity po TTL (time-to-live). Testy konzistentnosti nám pomohli nájsť chyby v implementácii grafu, identifikovať veci, ktoré sme doposiaľ pri implementácii neošetrili a tiež skryté zlyhania workflowov.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;monitoring&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#monitoring&quot; aria-label=&quot;Anchor link for: monitoring&quot;&gt;Monitoring&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Tretím pilierom, ktorý nám veľmi pomohol odhaľovať problémy a anomálie a zvýšiť dôveru vo fungovanie našich ETL procesov, bolo nastavenie monitoringu metrík týkajúcich sa dát a samotných ETL procesov. Použili sme na to &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.elastic.co&#x2F;kibana&quot;&gt;Kibanu&lt;&#x2F;a&gt; od Elasticu (existuje veľa alternatív, napr. open-source &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;grafana.com&quot;&gt;Grafana&lt;&#x2F;a&gt;). Vytypovali sme metriky, ktoré sa opäť periodicky spúšťali ako Spark aplikácie (metriky týkajúce sa súborov na HDFS a tabuliek v Hive), Scala aplikácie (metriky týkajúce sa grafu v Neo4j a workflowov v Oozie) alebo bash skripty (metriky týkajúce sa tabuliek v BigQuery) a zaznamenávali hodnoty v logoch pre Kibanu.&lt;&#x2F;p&gt;
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;&#x2F;metric.png&quot; alt=&quot;Metrika v Kibane&quot;&#x2F;&gt;
+&lt;&#x2F;p&gt;
+&lt;p&gt;Išlo napr. o počet modifikovaných uzlov v daný deň (na obrázku vyššie); veľkosť surových dát, ktoré sa stiahli daný deň; sumy záznamov vo výsledných dátach; dĺžku trvania ETL procesu.&lt;br &#x2F;&gt;
+Do Kibany reportovali výsledky aj testy, ktoré kontrolovali, či sú prítomné dáta z každej hodiny dňa, či boli všetky surové dáta spracované, či všetky staged dáta boli publikované a či sa na HDFS nenachádzajú staré súbory, ktoré mali byť vymazané po uplynutí doby retencie dát. Nastavila som alerty, aby sme boli o takýchto udalostiach notifikovaní emailom.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;kvalita-dat-katalog-dat-a-spol&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#kvalita-dat-katalog-dat-a-spol&quot; aria-label=&quot;Anchor link for: kvalita-dat-katalog-dat-a-spol&quot;&gt;Kvalita dát, katalóg dát a spol.&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Testy boli hotové - vyžadovali len údržbu, monitoring fičal, tak som začala rešeršovať, aké vychytávky by sa ešte dali zaradiť a tým dvihnúť kvalitu našich ETL procesov na ešte vyššiu úroveň. Bohužiaľ, k skúsenostiam s nasledovnými nástrojmi z prvej ruky som sa už nedostala, keďže priority na projekte sa presunuli smerom od big data a neskôr som zmenila pôsobisko.&lt;&#x2F;p&gt;
+&lt;p&gt;Profilovanie dát je proces skúmania zdrojových dát a porozumenia ich štruktúre, obsahu a vzájomných vzťahov s cieľom identifikovania potenciálu pre dátové projekty. Výsledky testovania, monitoringu a profilovania a ich sprievodné vizualizácie môžu pomôcť identifikovať vzory v dátach a príležitosti prepojenia datasetov, značkovania a pridania metadát s cieľom lepšie identifikovať a kategorizovať informácie v organizácii.&lt;&#x2F;p&gt;
+&lt;p&gt;Nástroje na kvalitu dát umožňujú analýzu datasetu, validáciu dát, profilovanie dát, odhalenie nevalidných (napr. duplicitné záznamy, hodnoty v stĺpci nezodpovedajúce dátovému typu alebo rozsahu hodnôt, v akom by mali byť), chýbajúcich alebo neobvyklých dát. Nastavujú sa prahy akceptovaných parametrov pre dáta s dobrou kvalitou, oproti ktorým sa dáta testujú a pravidelne kontrolujú, či spĺňajú vopred definované pravidlá a štandardy kvality. Zámerom bolo zapojiť takéto testy do workflowu a zastaviť ďalšie spracovávanie datasetu, ak by obsahoval zlé dáta a tým zabrániť zavedeniu zlých dát do published.&lt;br &#x2F;&gt;
+Pre tieto účely som našla knižnicu &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;greatexpectations.io&quot;&gt;Great Expectations&lt;&#x2F;a&gt;, nemohli sme ju však použiť kvôli nekompatibilnej verzii Pythonu na našom clusteri. Great Expectations umožňuje tiež automatickú dokumentáciu dát. Až neskôr som objavila alternatívy pre Scalu ako &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;awslabs&#x2F;deequ&quot;&gt;Deequ&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;FRosner&#x2F;drunken-data-quality&quot;&gt;DDQ&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;databrickslabs&#x2F;dataframe-rules-engine&quot;&gt;DataFrame Rules Engine&lt;&#x2F;a&gt; a &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;griffin.apache.org&quot;&gt;Apache Griffin&lt;&#x2F;a&gt;. &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sodadata&#x2F;soda-sql&quot;&gt;Soda SQL&lt;&#x2F;a&gt; operuje nad dátami prístupnými SQL, podporuje Amazon Redshift, Apache Hive a Spark, Snowflake a niekoľko DB a pravidlá sa definujú v YAML formáte. Umožňuje aj používanie vlastných metrík.&lt;&#x2F;p&gt;
+&lt;p&gt;Zaujímavo sa javili aj nástroje na vytvorenie katalógu dát &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.amundsen.io&quot;&gt;Amundsen&lt;&#x2F;a&gt; a na pôvod dát a vizualizáciu procesov &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;absaoss.github.io&#x2F;spline&quot;&gt;Apache Spline&lt;&#x2F;a&gt;. Katalóg dát slúži ako organizovaný inventár dát pre dátových inžinierov a používateľov dát, kde môžu na jednom mieste vyhľadávať dáta vhodné pre svoje potreby.&lt;&#x2F;p&gt;
+&lt;p&gt;Pomocou môžu byť aj riešenia založené na strojovom učení (ML), ktoré by sa natrénovali na historických dátach a odhaľovali anomálie v novopríchodzích.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;zaver&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#zaver&quot; aria-label=&quot;Anchor link for: zaver&quot;&gt;Záver&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;ETL procesy a ich testovanie sú menšinová oblasť IT, ale majú svoje čaro. Postupom času zistíte, kde všade môže nastať problém. Niekoľko takých tipov na čo si dať pozor:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;prehodenie hodnôt medzi dvoma stĺpcami rovnakého dátového typu&lt;&#x2F;li&gt;
+&lt;li&gt;náhle zastavenie dodávania dát od tretej strany&lt;&#x2F;li&gt;
+&lt;li&gt;náhla zmena schémy surových dát&lt;&#x2F;li&gt;
+&lt;li&gt;hodiny dát naviac a menej v dňoch prechodu na letný čas a späť&lt;&#x2F;li&gt;
+&lt;li&gt;uistite sa, že sťahujete naozaj všetky surové dáta z ich zdroja&lt;&#x2F;li&gt;
+&lt;li&gt;uistite sa, že nahrávate naozaj všetky spracované dáta na cieľový systém&lt;&#x2F;li&gt;
+&lt;li&gt;pravidelne zálohujte dáta, môže sa stať, že workflow vymaže&#x2F;pokazí časť dát&lt;&#x2F;li&gt;
+&lt;li&gt;dobré je aj pravidelne sledovať historické dáta v cieľovom systéme, môže sa stať, že workflow vymaže časť dát, nahrá dáta viackrát alebo prepíše inú partíciu ako má a takto to môžete zistiť&lt;&#x2F;li&gt;
+&lt;li&gt;pozor na upgrady používaných nástrojov. Spark 2.4 zmenil ako sa ukladajú prázdne reťazce z CSV (null&#x2F;prázdny reťazec), čo malo vplyv na spájanie datasetov na dotknutom stĺpci&lt;&#x2F;li&gt;
+&lt;li&gt;ak beh workflowu prechádza cez polnoc (alebo inú pre Vás relevantnú časovú hranicu), uistite sa, že všetky kroky workflowu pracujú s tými batchmi dát, s ktorými majú&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+      </item>
+      <item>
+          <title>Apache Spark</title>
+          <pubDate>Sat, 21 May 2022 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/spark/</link>
+          <guid>https://monikajassova.github.io/blog/spark/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/spark/">&lt;p&gt;&lt;em&gt;Zbežný prehľad fungovania Apache Spark&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;spark.apache.org&quot;&gt;Apache Spark&lt;&#x2F;a&gt; je jedným z najpoužívanejších nástrojov pre analýzu dát vo veľkej škále (big data), rieši situáciu, keď sú dáta také veľké, že ich uloženie a spracovanie nedokáže jeden počítač. Zvláda dávkové (batch) spracovávanie dát, spracovávanie dát v reálnom čase (streaming), interaktívne dotazovanie, výpočty a operácie s grafom a strojové učenie (machine learning).&lt;br &#x2F;&gt;
+Ide o open-source framework na spracovanie dát, ktorý dokáže rýchlo vykonávať procesovacie úlohy nad veľmi veľkými množinami dát a tiež dokáže tieto úlohy distribuovať medzi viacero počítačov, ktoré ich paralelne a nezávisle od seba spracúvajú. Pre svoje fungovanie vyžaduje manažér clustera počítačov (napr. Hadoop YARN - Yet Another Resource Negotiator) a distribuovaný systém súborov (napr. HDFS - Hadoop Distributed File System).&lt;&#x2F;p&gt;
+&lt;p&gt;Obrázok znázorňuje 4 knižnice pre rôzne účely a programovacie jazyky, ktoré podporuje základné API:&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;701 &#x2F; 701&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;SparkEcosystem.fee7e630793de3d3.avif&quot;
+     alt=&quot;Spark Ecosystem&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Spark je napísaný v programovacom jazyku &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.scala-lang.org&quot;&gt;Scala&lt;&#x2F;a&gt;, prvá verzia vyšla v roku 2010 (od 2014 pod hlavičkou firmy Apache) a najnovšia verzia je 3.2.1 z januára 2022.&lt;br &#x2F;&gt;
+Spočiatku sa Spark využíval na vlastnom &quot;železe&quot; - firmy vlastnili a starali sa o svoje Hadoop clustere, v dnešnej dobe cloudu sa už poskytuje ako manažovaná alebo serverless služba, menovite &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;aws.amazon.com&#x2F;emr&quot;&gt;Amazon EMR&lt;&#x2F;a&gt;, &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;azure.microsoft.com&#x2F;en-us&#x2F;services&#x2F;databricks&quot;&gt;Azure Databricks&lt;&#x2F;a&gt; alebo &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;cloud.google.com&#x2F;solutions&#x2F;spark&quot;&gt;Spark on Google Cloud&lt;&#x2F;a&gt;, takže používateľom odpadá starosť o manažovanie clustera.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;spark-core&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#spark-core&quot; aria-label=&quot;Anchor link for: spark-core&quot;&gt;Spark Core&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Je základným kameňom Sparku a ide o rozhranie pre programovanie aplikácií sústredené okolo abstrakcie nazývanej RDD.
+Najprv však priblížim 2 procesy, ktoré naštartuje Spark cluster po spustení Spark aplikácie:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;mark&gt;driver&lt;&#x2F;mark&gt; je hlavný, riadiaci proces zodpovedný za vytvorenie Spark contextu, preklad kódu Spark aplikácie na logický plán DAG a následne na výpočtové jednotky, úlohy, ktoré sú distribuované medzi pracovné uzly (worker nodes). Taktiež koordinuje rozvrhnutie úloh a orchestráciu na každom exekútore.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;mark&gt;exekútory&lt;&#x2F;mark&gt; bežia na pracovných uzloch clustra a sú zodpovedné za výkon im pridelených výpočtových úloh, vrátenie výsledkov driveru a tiež poskytnutie úložiska pre RDD. Medzivýsledky jednotlivých operácií sa držia v distribuovanej pamäti, neukladajú sa na disk (len ak sa nevojdú do RAM), preto sú veľmi rýchle.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Práve pre sprostredkovanie medzi týmito procesmi je potrebná nejaká forma cluster manažéra - okrem spomínaného YARNu sa novšie používa &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;spark.apache.org&#x2F;docs&#x2F;latest&#x2F;running-on-kubernetes.html&quot;&gt;Kubernetes&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;spark-rdd&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#spark-rdd&quot; aria-label=&quot;Anchor link for: spark-rdd&quot;&gt;Spark RDD&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Resilient Distributed Dataset (RDD) je abstrakcia reprezentujúca nemennú kolekciu objektov, ktorá môže byť rozdistribuovaná medzi výpočtový cluster. Operácie nad RDD sa tiež dajú rozdeliť medzi uzly clustera a sú vykonávané v paralelnom dávkovom procese, čo vedie k rýchlemu a škálovateľnému procesovaniu.&lt;&#x2F;p&gt;
+&lt;p&gt;Spark RDD API uvádza niekoľko transformácií a akcií pre manipuláciu s RDD:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Transformácie RDD vracajú vždy nový RDD a umožňujú vytvoriť závislosti medzi RDD. Každý RDD v reťazi závislostí má funkciu na výpočet svojich dát a smerník na svoj rodičovský RDD. Transformácia RDD je krok v programe hovoriaci Sparku ako získať dáta a čo s nimi robiť.&lt;&#x2F;li&gt;
+&lt;li&gt;Akcie nad RDD vracajú samotný výsledok, hodnotu (napr. reduce, count, collect). Výsledok môže byť uložený na disk, zapísaný do databázy alebo vypísaný do konzoly. RDD sú vyhodnocované odložene (lenivo - lazy evaluation), vyhodnotenie sa nezačne, kým nie je zavolaná nejaká akcia.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Resilient - odolný alebo schopný obnoviť činnosť - znamená, že ak v niektorom kroku procesu operácia&#x2F;exekútor spadne, nie je to žiaden problém a potrebný RDD sa obnoví zo vstupných dát a danou reťazou závislostí a transformácií. Beh Spark aplikácie môže pokračovať, celkové spracovanie dát nie je ohrozené a je teda odolné voči zlyhaniam.&lt;&#x2F;p&gt;
+&lt;p&gt;Prvotný RDD sa vytvorí paralelným načítaním dát do zvláštnych partícií na jednotlivých pracovných uzloch. Takto má každý uzol inú podmnožinu dát - logickú časť veľkej distribuovanej množiny dát. Exekútory obdržia na spracovanie jednu alebo viac partícií. Exekútor vykonáva v danom čase vždy len jednu úlohu pre danú partíciu. Rozhodovanie o počte partícií je hľadanie kompromisu: ak rozdelíme RDD na veľa menších partícií, rozvrhovanie úloh môže zabrať viac času ako samotný výpočet a na druhej strane málo veľkých partícií môže znamenať, že nedôjde k vyťaženiu všetkých pracovných uzlov a nevyužijú sa tak výhody paralelizmu.&lt;&#x2F;p&gt;
+&lt;p&gt;RDD môžu byť vytvorené dvomi spôsobmi:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;odkazovaním sa na súbor dát v externom úložnom systéme, ako je zdieľaný súborový systém, HDFS, HBase, jednoduchý textový súbor, SQL databáza, NoSQL sklad (ako Cassandra a MongoDB), bucket na úložisku Amazon S3 a veľa iných,&lt;&#x2F;li&gt;
+&lt;li&gt;paralelizovaním existujúcej kolekcie v programe drivera - aplikovaním transformácií na existujúcich RDD. Okrem tradičnej map and reduce funkcionality má Spark tiež vstavanú podporu pre spájanie data setov, filtrovanie a agregácie.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;dag&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#dag&quot; aria-label=&quot;Anchor link for: dag&quot;&gt;DAG&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Druhou hlavnou abstrakciou v Sparku je DAG (directed acyclic graph). Spark definuje úlohy, ktoré môžu byť paralelne vypočítané nad partíciami dát v clusteri. Zostrojí logický tok operácií, ktorý je reprezentovaný ako riadený acyklický graf, kde uzly predstavujú RDD partície a hrany transformácie dát.&lt;br &#x2F;&gt;
+Logický plán DAGu sa podľa povahy transformácií skonvertuje na &lt;mark&gt;fyzický exekučný plán&lt;&#x2F;mark&gt; pozostávajúci z etáp (stages). Úlohy v každej etape sa zbalia spolu a pošlú exekútorom. Príklad takého plánu:&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;691 &#x2F; 691&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;plan.8f5d05d8714abae8.avif&quot;
+     alt=&quot;Príklad plánu&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Na etapu 1 nadväzuje etapa 2, etapa 3 je nezávislá na nich a môže bežať paralelne, v etape 4 sa spoja RDD z etáp 2 a 3.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;spark-sql&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#spark-sql&quot; aria-label=&quot;Anchor link for: spark-sql&quot;&gt;Spark SQL&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Spark SQL priniesol dátovú abstrakciu nazývanú DataFrame, táto poskytuje podporu pre štruktúrované a semištruktúrované dáta (JSON).
+DataFrame je distribuovaná kolekcia objektov typu Row organizovaná do pomenovaných stĺpcov, koncepčne zodpovedá tabuľke v relačnej databáze.&lt;br &#x2F;&gt;
+DataFramy sú takisto ako RDD nemenné.&lt;br &#x2F;&gt;
+Spark SQL poskytuje štandardné rozhranie pre čítanie dát z a zapisovanie do rôznych dátových úložísk vrátane JSON a CSV súborov, Apache Hive, JDBC, Apache Avro, Apache Parquet, existujú aj connectory pre MongoDB atď.
+Spark SQL umožňuje dotazovať dáta v rámci Spark aplikácií s použitím DataFrame API alebo SQL dotazov (slúži ako distribuovaný SQL query engine).&lt;&#x2F;p&gt;
+&lt;p&gt;Ukážka DataFrame API vs SQL:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;spark.read.table(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;published_mediabi.clicks&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  .where(col(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;dt&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #94E2D5;&quot;&gt; ===&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt; &amp;quot;2020-12-08&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  .agg(sum(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;clicks&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;spark.sql(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;SELECT SUM(clicks) FROM published_mediabi.clicks WHERE dt = &amp;#39;2020-12-08&amp;#39;&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h1 id=&quot;spark-shell&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#spark-shell&quot; aria-label=&quot;Anchor link for: spark-shell&quot;&gt;Spark Shell&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Na rýchle ad-hoc analýzy, prototypovanie a testovanie sa používa Spark shell.
+Ak si chcete Spark prakticky vyskúšať na lokálnom počítači, je to možné práve v tejto konzole (stačí mať nainštalovanú Javu), po &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;spark.apache.org&#x2F;downloads.html&quot;&gt;stiahnutí&lt;&#x2F;a&gt; ju spustíte z rozbaleného adresára príkazom&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #89B4FA;font-style: italic;&quot;&gt;.&#x2F;bin&#x2F;spark-shell&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;v rámci konzoly funguje automatické dokončovanie pomocou &lt;code&gt;TAB&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;pomoc zobrazíme &lt;code&gt;:help&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;históriu príkazov &lt;code&gt;:history&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;do paste módu pre vloženie viacriadkového kusu kódu sa dostaneme &lt;code&gt;:paste&lt;&#x2F;code&gt; (a von z neho &lt;code&gt;CTRL&lt;&#x2F;code&gt;+&lt;code&gt;D&lt;&#x2F;code&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;Scala skript môžeme načítať &lt;code&gt;:load &amp;lt;cesta k súboru&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;prácu v konzole ukončíme &lt;code&gt;:quit&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Spark shell pri spustení vytvorí:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;premennú &lt;mark&gt;sc&lt;&#x2F;mark&gt; pre prístup k SparkContextu (vstupný bod Spark Core funkcionality)&lt;&#x2F;li&gt;
+&lt;li&gt;premennú &lt;mark&gt;spark&lt;&#x2F;mark&gt; pre prístup k SparkSession (vstupný bod Spark SQL funkcionality)&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Príklady načítania dát:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #CDD6F4; background-color: #1E1E2E;&quot;&gt;&lt;code data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;spark.read.parquet(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;&#x2F;data&#x2F;staged&#x2F;ott&#x2F;mediabi&#x2F;googledfp&#x2F;NetworkImpressions&#x2F;dt=20201209&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;spark.read.option(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;header&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color: #F38BA8;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;).csv(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;&#x2F;data&#x2F;staged&#x2F;media&#x2F;scv&#x2F;bluekai_insights_categories&#x2F;dt=20201209&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;spark.read.table(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A6E3A1;&quot;&gt;&amp;quot;staged_mediabi.dfp_etl_status&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Spustenie príkladov pribalených k inštalácii Sparku a celú dokumentáciu nájdete na &lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;spark.apache.org&#x2F;docs&#x2F;latest&#x2F;#running-the-examples-and-shell&quot;&gt;https:&#x2F;&#x2F;spark.apache.org&#x2F;docs&#x2F;latest&#x2F;#running-the-examples-and-shell&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Užitočné zdroje</title>
+          <pubDate>Mon, 04 Apr 2022 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/uzitocne-zdroje/</link>
+          <guid>https://monikajassova.github.io/blog/uzitocne-zdroje/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/uzitocne-zdroje/">&lt;p&gt;&lt;em&gt;Na tomto mieste nájdete zoznam rôznych užitočných odkazov, ktorý budem aktualizovať&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;kurzy-a-vyuka&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#kurzy-a-vyuka&quot; aria-label=&quot;Anchor link for: kurzy-a-vyuka&quot;&gt;Kurzy a výuka&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.freecodecamp.org&quot;&gt;https:&#x2F;&#x2F;www.freecodecamp.org&lt;&#x2F;a&gt; Bezplatné tutoriály rôzneho druhu vo forme článkov a videí, dajú sa nájsť aj rozsiahle do hĺbky spracované témy&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;testautomationu.applitools.com&quot;&gt;https:&#x2F;&#x2F;testautomationu.applitools.com&lt;&#x2F;a&gt; Bezplatné kurzy zamerané na automatizovaný testing, aj okrajové témy&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.baeldung.com&quot;&gt;https:&#x2F;&#x2F;www.baeldung.com&lt;&#x2F;a&gt; Jednohubky aj dlhšie návody hlavne z JVM sveta: Java, Spring, Scala, Kotlin a tiež Linux a počítačová veda&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;skillmea.sk&quot;&gt;https:&#x2F;&#x2F;skillmea.sk&lt;&#x2F;a&gt; Bývalý learn2code - taký zlatý štandard kurzov v slovenskom jazyku - od programovania cez testing a grafiku až po marketing a iné&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;acloudguru.com&quot;&gt;https:&#x2F;&#x2F;acloudguru.com&lt;&#x2F;a&gt; Kurzy zamerané hlavne na cloudové technológie (AWS, GCP, Azure), Linux, DevOps a pár ďalších okruhov. Súčasťou sú tzv. laby v účte na študijné účely, kde si môžete prakticky vyskúšať úlohy. Počula som ale, že odkedy ich kúpil Pluralsight, tak išli dole vodou.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;checkmarx.com&#x2F;try-codebashing&quot;&gt;https:&#x2F;&#x2F;checkmarx.com&#x2F;try-codebashing&lt;&#x2F;a&gt; Školenie aplikačnej bezpečnosti, interaktívne lekcie pekne vysvetlia jednotlivé typy zraniteľností, ako prebiehajú ich zneužitia a útoky a ako im predísť&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.oreilly.com&quot;&gt;https:&#x2F;&#x2F;www.oreilly.com&lt;&#x2F;a&gt; Vydavateľstvo odbornej literatúry známe knihami s ohrozenými živočíšnymi druhmi na obálke, poskytuje tiež prístup k videám, interaktívnym kurzom a školeniam naživo&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;roadmap.sh&quot;&gt;https:&#x2F;&#x2F;roadmap.sh&lt;&#x2F;a&gt; Študijné roadmapy pre rôzne smery v IT (dobré pre prehľad čo všetko smery obnášajú, ale môžu pôsobiť ohromujúco a zahlcujúco pre začiatočníka)&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;junior.guru&quot;&gt;https:&#x2F;&#x2F;junior.guru&lt;&#x2F;a&gt; Výborne spracovaný český web pre záujemcov o IT, v príručke rozoberá, čo si predstaviť pod programovaním, čo naňho potrebujete, ako sa učiť, ako zohnať prvú prácu aj ako sa posunúť od juniora ďalej&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;youtube-kanaly&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#youtube-kanaly&quot; aria-label=&quot;Anchor link for: youtube-kanaly&quot;&gt;YouTube kanály&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@TechWorldwithNana&quot;&gt;TechWorldWithNana&lt;&#x2F;a&gt; DevOps a Cloud, vynikajúco vysvetľujúca lektorka&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@mischavandenburg&quot;&gt;mischavandenburg&lt;&#x2F;a&gt; Kubernetes, DevOps a produktivita (poznámkovanie, workflow)&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@professorpatterns&quot;&gt;professorpatterns&lt;&#x2F;a&gt; AI, Data Science a Machine Learning, veľa videí k Open WebUI&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@DevOpsToolkit&quot;&gt;DevOpsToolkit&lt;&#x2F;a&gt; Novinky zo sveta DevOps a AI technológií, recenzie z praxe&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@GeekleOfficial&quot;&gt;GeekleOfficial&lt;&#x2F;a&gt; Záznamy z konferencií rôzneho zamerania&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@DATAMINERLT&quot;&gt;DATAMINERLT&lt;&#x2F;a&gt; Ďalšie konferencie&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@Computerphile&quot;&gt;Computerphile&lt;&#x2F;a&gt; Počítače, algoritmy a spol, pohľad na nižšie levely&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@davidbombal&quot;&gt;davidbombal&lt;&#x2F;a&gt; Sieťarina, cybersecurity&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@_JohnHammond&quot;&gt;_JohnHammond&lt;&#x2F;a&gt; Cybersecurity, etický hacking&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@lauriewired&quot;&gt;lauriewired&lt;&#x2F;a&gt; Reverse engineering&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@NetworkChuck&quot;&gt;NetworkChuck&lt;&#x2F;a&gt; Sieťarina a iné tipy&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;podcasty-a-novinky&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#podcasty-a-novinky&quot; aria-label=&quot;Anchor link for: podcasty-a-novinky&quot;&gt;Podcasty a novinky&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;plectrum.engineering&#x2F;en&#x2F;podcasts.html&quot;&gt;https:&#x2F;&#x2F;plectrum.engineering&#x2F;en&#x2F;podcasts.html&lt;&#x2F;a&gt; Podcast o DevOps, cloude a IT všeobecne&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;modernafirma.podbean.com&quot;&gt;https:&#x2F;&#x2F;modernafirma.podbean.com&lt;&#x2F;a&gt; Podcast Grishiho zo štúdia Wezeo a web inštruktora Yablka na témy v 3 oblastiach: premena na modernú firmu, budovanie digitálneho produktu, skúsenosti úspešných lídrov&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;thenewstack.io&quot;&gt;https:&#x2F;&#x2F;thenewstack.io&lt;&#x2F;a&gt; Novinky a články z celého prierezu vývoja SW od architektúry, cez programovanie a inžinierstvo po prevádzku&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;unknow.news&quot;&gt;https:&#x2F;&#x2F;unknow.news&lt;&#x2F;a&gt; Poľský týždenný newsletter zaujímavostí z IT&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;pracovne-zalezitosti&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#pracovne-zalezitosti&quot; aria-label=&quot;Anchor link for: pracovne-zalezitosti&quot;&gt;Pracovné záležitosti&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.techinterviewhandbook.org&quot;&gt;https:&#x2F;&#x2F;www.techinterviewhandbook.org&lt;&#x2F;a&gt; Príprava na pohovory na vývojára&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.glassdoor.com&quot;&gt;https:&#x2F;&#x2F;www.glassdoor.com&lt;&#x2F;a&gt; Anonymné recenzie firiem, informácie o platoch, hodnotenia pohovorov a otázky z nich&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.levels.fyi&quot;&gt;https:&#x2F;&#x2F;www.levels.fyi&lt;&#x2F;a&gt; Informácie o platoch v top firmách v IT odvetví&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.cwjobs.co.uk&#x2F;salary-checker&#x2F;salary-calculator&quot;&gt;https:&#x2F;&#x2F;www.cwjobs.co.uk&#x2F;salary-checker&#x2F;salary-calculator&lt;&#x2F;a&gt; Štatistiky o platoch v IT odvetví v UK&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;linkedin&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#linkedin&quot; aria-label=&quot;Anchor link for: linkedin&quot;&gt;LinkedIn&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Bonusový tip: užitočné veci sa dozvedám aj prostredníctvom LinkedInu (aj keď už je to horšie ako pred pár rokmi a často mi tlačí balast). Zapojte sa do skupín, sledujte organizátorov meetupov, nájdite si ľudí, ktorí tvoria dobrý obsah. Za mňa napr.:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;sk.linkedin.com&#x2F;in&#x2F;zdenkovrabel&quot;&gt;Zdenko Vrabel&lt;&#x2F;a&gt; - platform engineer, píše o kontajneroch, Kubernete a infraštruktúre&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;sk.linkedin.com&#x2F;in&#x2F;jbednar&quot;&gt;Juraj Bednár&lt;&#x2F;a&gt; - etický hacker, autor kurzov a kníh, venuje sa najmä slobode, kryptomenám, biohackingu a lepšiemu životu&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external&quot; rel=&quot;noopener external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;sk.linkedin.com&#x2F;in&#x2F;filip-hric-11a5b1126&quot;&gt;Filip Hric&lt;&#x2F;a&gt; - ambasádor Cypress (testovacieho frameworku pre weby) na Slovensku a autor kurzov&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+      </item>
+      <item>
+          <title>Moja cesta do sveta IT</title>
+          <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/blog/moja-cesta/</link>
+          <guid>https://monikajassova.github.io/blog/moja-cesta/</guid>
+          <description xml:base="https://monikajassova.github.io/blog/moja-cesta/">&lt;p&gt;&lt;em&gt;V prvom príspevku svojho blogu začínam zľahka a osobnejšie&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Pracujem ako softvérový tester a tento vzrušujúci a pestrý svet milujem. Do IT som sa však dostala okľukou. Keď som si na strednej v Turbo Pascale naprogramovala &quot;Matrix&quot; (rozumej vypisovanie náhodných reťazcov v zelenej farbe na čiernom pozadí), cítila som sa ako majster sveta 😄. Pre zaujímavosť, zhruba v tom čase vznikol YouTube a prvé videá sme pozerali práve na hodine informatiky. Keď prišlo na rozhodovanie čo po gymnáziu, zvažovala som aj informatiku, no pred elektrotechnikou a fyzikou som mala priveľký rešpekt. V mojom okolí sa nenašiel nikto, kto by tento smer schvaľoval a navrhol aspoň to skúsiť. Vybrala som si teda bežnejšiu a istejšiu cestu a išla na ekonómiu.&lt;&#x2F;p&gt;
+&lt;p&gt;Po vysokej škole som sa zamestnala ako účtovníčka a keď sa vrátila pani, ktorú som zastupovala počas materskej dovolenky, musela som sa porúčať. Dlho sa mi nedarilo nájsť nové zamestnanie, dokonca ani magentové Téčko, kam vraj berú každého, kto ovláda angličtinu, ma nikdy nepozvalo na pohovor. Až mi raz Facebook ukázal príspevok spolužiaka, že IT firma, v ktorej pracuje, otvára v spolupráci s SOŠ trojročné nadstavbové štúdium s garantovaným pracovným miestom pre absolventov. Tak som si povedala, že kedy, keď nie teraz a prihlásila sa.&lt;&#x2F;p&gt;
+&lt;p&gt;Zasadla som opäť do školských lavíc, v 28 rokoch ako najstaršia v ročníku a ako jediná žena. Čakal ma rok a pol denného štúdia a potom prax vo firme (po 3mes. skúšobnej dobe zmluva na TPP), všetko som zvládla bez problému a úspešne štúdium dokončila.
+Vo firme som bola pridelená na projekty, kde sa manuálne testovali webstránky, mobilné a desktopové aplikácie. Ja som však chcela kódiť a keď tá možnosť neprichádzala, zmenila som zamestnávateľa.&lt;&#x2F;p&gt;
+&lt;p&gt;V novej firme som sa dostala do čerstvo sformovaného big data tímu, kde som mala zastrešiť automatizovaný testing. Bola som sám tester v tíme, o doméne big data som nevedela nič a programovací jazyk Scala bol pre mňa tiež nový. Kolegovia developeri boli na tom podobne a nikto iný vo firme sa big data nevenoval, takže nebolo s kým konzultovať. Začiatky teda boli ťažké, ale chytila som sa, big data sa mi zapáčili a veľa som sa naučila. Posledný rok môjho pôsobenia vo firme som dostávala developerské úlohy, keďže som si chcela skúsiť aj rolu developera.&lt;&#x2F;p&gt;
+&lt;p&gt;Počas korony prišla ponuka z domény blockchainu, ktorá ma osobne zaujíma a rozhodla som sa ju prijať. Znamenala hneď niekoľko zmien naraz: prácu na kontrakt, pre zahraničnú firmu s vlastným produktom, 100% remote a vo sfére open source. Verím, že sa tu opäť veľa naučím a posuniem odborne 🙂.&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;3000 &#x2F; 3000&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;monikajassova.github.io&amp;#x2F;processed_images&amp;#x2F;journey.4663ab3e80540538.avif&quot;
+     alt=&quot;Cesta&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;h1 id=&quot;moje-postrehy-a-odporucania&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#moje-postrehy-a-odporucania&quot; aria-label=&quot;Anchor link for: moje-postrehy-a-odporucania&quot;&gt;Moje postrehy a odporúčania&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;em&gt;Nasledujú subjektívne názory vychádzajúce z osobných skúseností a hlavne z pohľadu testovania a vývoja&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;výhodou IT je, že šancu uplatniť sa máte aj v neskoršom veku. Stačí mať predpoklady (logické myslenie), chuť veľa sa učiť a vedieť po anglicky (aspoň tak, aby ste rozumeli študijným materiálom a dokumentácii). Hodí sa aj záujem o to, ako veci fungujú.&lt;&#x2F;li&gt;
+&lt;li&gt;ak ovládate angličtinu na komunikatívnej úrovni, otvárajú sa Vám formou práce z domu možnosti prakticky po celom svete. IT firmy majú nedostatok ľudí, často stačí, ak máte motiváciu, chýbajúce znalosti získate za pochodu. Aj keď samozrejme záleží na firme, 2 moje pohovory skončili hodnotením, že viac chcem ako viem a raz to znamenalo stopku, druhý raz postup do ďalšieho kola.&lt;&#x2F;li&gt;
+&lt;li&gt;IT je špecifické tým, že na prácu v ňom nepotrebujete formálne vzdelanie a študijné materiály, tutoriály nájdete voľne dostupné na internete. Existujú tiež online kurzy, prezenčná výučba, firmy majú tzv. farmy&#x2F;akadémie, kde si vychovávajú ľudí, prípadne si môžete nájsť mentora. Záleží len na štýle učenia, ktorý Vám najviac vyhovuje a koľko času ste ochotní štúdiu venovať. Čítala som dokonca o panej, čo za 2 dni prešla kurz na automatizovaný testing v Seleniu, na štvrtý deň išla na pohovor a vzali ju.&lt;&#x2F;li&gt;
+&lt;li&gt;nemusíte hneď ovládať zložité koncepty, zložitejšie veci sa naučíte vtedy, keď ich budete potrebovať. Väčšina projektov nie je raketová veda, ale ničím výnimočné webové alebo mobilné aplikácie. V programovaní sa dá cvičením zlepšiť a rozvíjať potrebné myslenie (learning by doing - učenie sa robením). IT je rozsiahle, ľudia sa špecializujú (je lepšie poznať vybranú oblasť do hĺbky ako vedieť z každého rožku trošku). Ale je super, ak máte poznatky aj z príbuzných oblastí a všeobecný IT prehľad.&lt;&#x2F;li&gt;
+&lt;li&gt;je fajn, ak máte skúsenejších kolegov&#x2F;mentorov, ktorí Vám poradia a potiahnu Vás. Podľa môjho názoru sa sami viete dostať len po určitú úroveň a metódou pokus-omyl sa síce poučíte, ale stojí to veľa času a úsilia.&lt;&#x2F;li&gt;
+&lt;li&gt;práca v IT (technická) je vlastne nikdy nekončiace sa štúdium. Neustále prichádzajú nové požiadavky, nové technológie, existujúce technológie sa vyvíjajú a zastarávajú.&lt;&#x2F;li&gt;
+&lt;li&gt;v IT je celá škála profesií, nie všetky sú technické. Okrem developera, testera, DevOps, architekta, databázového administrátora, systémového administrátora sa môžete uplatniť na manažérskych pozíciách (produktový, projektový manažér atď.), ako scrum master, product owner, technical writer (dokumentarista), biznis analytik, UI&#x2F;UX dizajnér...&lt;&#x2F;li&gt;
+&lt;li&gt;je relatívne ľahké zmeniť svoje smerovanie, viete sa v rámci kariérnych ciest posúvať vertikálne aj horizontálne a prechádzať medzi vyššie spomenutými pozíciami&lt;&#x2F;li&gt;
+&lt;li&gt;práca je rôznorodá, projekt sa týka nejakej domény reálneho alebo virtuálneho sveta. Napr. pri SW na vyhotovovanie reportov z glukomeru potrebujete vedieť aj niečo o cukrovke, pri dátach z platformy pre online reklamy sa dozviete čo-to o digitálnom marketingu.&lt;&#x2F;li&gt;
+&lt;li&gt;vývoj SW nie je len o osamelom ťukaní do počítača, zahŕňa aj plánovanie práce, diskusie s kolegami týkajúce sa riešenia úloh, s ostatnými spolupracujúcimi profesiami, so zákazníkom a pod., takže je dôležitá komunikácia&lt;&#x2F;li&gt;
+&lt;li&gt;nie je sranda celé dni sedieť za počítačom (z fyzického ani psychického hľadiska), oplatí sa dbať na ergonómiu, psychohygienu a kompenzovať sedenie pohybom a cvičením, zdravie máme len jedno&lt;&#x2F;li&gt;
+&lt;li&gt;na záver na odľahčenie: nie všetci v IT sú kocky v nemoderných outfitoch a ponožkami v sandáloch 😄. Nájde sa pár takých, ináč sú tu normálni ľudia ako všade inde, introverti aj extroverti, veriaci aj neveriaci, metalisti, hiphoperi, športovci, umelecky založení, manuálne zruční... A že sa ajťáci nevedia baviť so ženami alebo nemajú partnerky je tiež len mýtus.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+      </item>
+      <item>
+          <title>Blog</title>
+          <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+          <author>Monika Jaššová</author>
+          <link>https://monikajassova.github.io/projects/blog/</link>
+          <guid>https://monikajassova.github.io/projects/blog/</guid>
+          <description xml:base="https://monikajassova.github.io/projects/blog/"></description>
+      </item>
+    </channel>
+</rss>
