@@ -5,12 +5,18 @@
 }
 
 :root {
-  --font-size-base: 18px;
-  --line-height: 1.5;
+  --font-size-base: 20px;
+  --line-height: 32px;
 }
 
 :root.dark {
-  --primary-color: #f9c412;
+    --primary-color: #DAA520;
+    --text-0: #fafafa;
+    --text-1: #b5b5b5;
+    --text-2: #828282;
+    --bg-0: #1c1c1c;
+    --bg-1: #292929;
+    --bg-2: #424242;
 }
 
 :root.light {

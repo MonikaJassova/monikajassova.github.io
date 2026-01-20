@@ -15,7 +15,7 @@
 
 
                         {% if page.updated %}
-                            :: Aktualizované <time>{{ page.updated | date(format="%Y-%m-%d") }}</time>
+                            :: Aktualizované <time>{{ page.updated | date(format="%d.%m.%Y") }}</time> 
                         {% endif %}
 
                         {% if page.extra.read_time %}
@@ -56,7 +56,7 @@
 
                         {# Inline display of tags directly after the authors #}
                         {% if page.taxonomies and page.taxonomies.tags %}
-                            <span class="tags-label">::</span>
+                            <span class="tags-label"> ::</span>
                             <span class="tags">
                                 {%- for tag in page.taxonomies.tags %}
                                     <a href="{{ get_taxonomy_url(kind='tags', name=tag, lang=page.lang) }}"
