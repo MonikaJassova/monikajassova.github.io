@@ -6,6 +6,9 @@ updated = "2025-12-31"
 
 [taxonomies]
 tags=["IT", "testovanie", "DevOps"]
+
+[extra]
+comment = true
 +++
 
 *Na tomto mieste nájdete zoznam kníh o testovaní a iných oblastiach IT, ktorý budem aktualizovať*

@@ -8,6 +8,7 @@ tags=["IT", "big data", "testovanie"]
 
 [extra]
 local_image = "etl.png"
+comment = true
 +++
 
 *Cieľom tohto článku je zosumarizovať postupy, ktoré som implementovala pri testovaní ETL procesov a s ktorými som sa stretla v rámci big data*

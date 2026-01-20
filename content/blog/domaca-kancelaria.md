@@ -9,6 +9,7 @@ tags=["osobné"]
 
 [extra]
 local_image = "moonlander.jpg"
+comment = true
 +++
 
 *O zariaďovaní domácej kancelárie a o fascinujúcom svete klávesníc.*

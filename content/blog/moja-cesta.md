@@ -8,6 +8,7 @@ tags=["osobné"]
 
 [extra]
 local_image = "journey.jpg"
+comment = true
 +++
 
 *V prvom príspevku svojho blogu začínam zľahka a osobnejšie* 

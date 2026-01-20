@@ -8,6 +8,7 @@ tags=["osobné"]
 
 [extra]
 local_image = "rescue.jpg"
+comment = true
 +++
 
 *Pri príležitosti odchodu z práce - potrebovala som spracovať dojmy z nej, s odstupom zhodnotiť doterajšie pôsobenie v IT a zamyslieť sa čo ďalej*

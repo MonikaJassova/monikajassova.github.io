@@ -6,6 +6,9 @@ updated = "2025-12-31T13:14:00Z"
 
 [taxonomies]
 tags=["IT", "DevOps"]
+
+[extra]
+comment = true
 +++
 
 *Na tomto mieste nájdete zoznam rôznych užitočných odkazov, ktorý budem aktualizovať*

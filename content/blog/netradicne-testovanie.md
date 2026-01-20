@@ -8,6 +8,7 @@ tags=["IT", "blockchain", "testovanie"]
 
 [extra]
 local_image = "xstate-model-voter.png"
+comment = true
 +++
 
 *Prehľad zaujímavých prístupov k testovaniu, s ktorými som sa stretla na blockchainovom projekte (ako kritický vyžadoval vyššiu mieru istoty a na overenie dizajnu základných kameňov sa využívali aj matematické metódy formálnej verifikácie). Tiež prístupy, ktoré vyzerajú byť dobrým kandidátom na zaradenie do arzenálu. Pôjdeme v smere od unit testov až k E2E testom na produkčnom prostredí.*

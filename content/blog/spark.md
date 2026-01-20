@@ -8,6 +8,7 @@ tags=["IT", "big data"]
 
 [extra]
 local_image = "SparkEcosystem.png"
+comment = true
 +++
 
 *Zbežný prehľad fungovania Apache Spark*

@@ -1,5 +1,5 @@
 +++
-title = "Portfólio"
+title = "Projekty"
 sort_by = "weight"
 template = "cards.html"
 

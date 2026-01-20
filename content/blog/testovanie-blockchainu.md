@@ -5,6 +5,9 @@ date = "2026-01-13"
 
 [taxonomies]
 tags=["IT", "blockchain", "testovanie"]
+
+[extra]
+comment = true
 +++
 
 *Cieľom článku je ukázať, čo všetko obnášala práca na blockchainovom projekte a zosumarizovať skúsenosti, "vojnové historky" a výzvy, s ktorými som sa stretla*

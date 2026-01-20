@@ -7,5 +7,4 @@ insert_anchor_links = "heading"
 
 [extra]
 toc = true
-comment = true
 +++

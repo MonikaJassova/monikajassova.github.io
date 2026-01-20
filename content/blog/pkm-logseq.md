@@ -8,6 +8,7 @@ tags=["osobné"]
 
 [extra]
 local_image = "logseq-graf.png"
+comment = true
 +++
 
 *O potrebe personal knowledge managementu a mojich začiatkoch s nástrojom Logseq*
