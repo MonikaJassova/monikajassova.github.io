@@ -73,6 +73,8 @@ comment = true
 
 [https://www.glassdoor.com](https://www.glassdoor.com) Anonymné recenzie firiem, informácie o platoch, hodnotenia pohovorov a otázky z nich
 
+[https://www.atmoskop.cz](https://www.atmoskop.cz) Anonymné recenzie firiem v Česku
+
 [https://www.levels.fyi](https://www.levels.fyi) Informácie o platoch v top firmách v IT odvetví
 
 [https://www.cwjobs.co.uk/salary-checker/salary-calculator](https://www.cwjobs.co.uk/salary-checker/salary-calculator) Štatistiky o platoch v IT odvetví v UK
@@ -80,6 +82,6 @@ comment = true
 # LinkedIn
 
 Bonusový tip: užitočné veci sa dozvedám aj prostredníctvom LinkedInu (aj keď už je to horšie ako pred pár rokmi a často mi tlačí balast). Zapojte sa do skupín, sledujte organizátorov meetupov, nájdite si ľudí, ktorí tvoria dobrý obsah. Za mňa napr.:  
-- [Zdenko Vrabel](https://sk.linkedin.com/in/zdenkovrabel) - platform engineer, píše o kontajneroch, Kubernete a infraštruktúre
-- [Juraj Bednár](https://sk.linkedin.com/in/jbednar) - etický hacker, autor kurzov a kníh, venuje sa najmä slobode, kryptomenám, biohackingu a lepšiemu životu
-- [Filip Hric](https://sk.linkedin.com/in/filip-hric-11a5b1126) - ambasádor Cypress (testovacieho frameworku pre weby) na Slovensku a autor kurzov
+- [Zdenko Vrabel](https://www.linkedin.com/in/zdenkovrabel) - platform engineer, píše o kontajneroch, Kubernete a infraštruktúre
+- [Juraj Bednár](https://www.linkedin.com/in/jbednar) - etický hacker, autor kurzov a kníh, venuje sa najmä slobode, kryptomenám, biohackingu a lepšiemu životu
+- [Filip Hric](https://www.linkedin.com/in/filip-hric) - ambasádor Cypress (testovacieho frameworku pre weby) na Slovensku a autor kurzov
