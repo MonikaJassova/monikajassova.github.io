@@ -69,29 +69,34 @@ Polovica žiadostí ostala bez akejkoľvek reakcie. 1/5 žiadostí viedla k poho
 
 {{ image(path="sankey-sk.png" alt="Sankey graf job huntingu") }}
 
-14 žiadostí našim susedom neprinieslo ani len screening hovor, zo 6 žiadostí zahraničným firmám sa mi podarilo dostať na 2 pohovory.
+Spolu 14 žiadostí našim susedom neprinieslo ani len screening hovor, zo 6 žiadostí zahraničným firmám sa mi podarilo dostať na 2 pohovory.
 
-{% mermaid() %}
----
-config:
-  theme: 'dark'
----
-pie title Skladba žiadostí podľa krajiny firmy
-    "slovenské" : 20
-    "české" : 6
-    "poľské" : 8
-    "US a iné zahraničné" : 6
-{% end %}
-
-{% mermaid() %}
----
-config:
-  theme: 'dark'
----
-pie title Skladba pohovorov podľa krajiny firmy
-    "slovenské" : 6
-    "US a iné zahraničné" : 2
-{% end %}
+<div style="display: flex; gap: 15px;">
+    <div style="flex: 1; height: 100%;">
+        {% mermaid() %}
+        ---
+        config:
+          theme: 'dark'
+        ---
+        pie title Skladba žiadostí podľa krajiny firmy
+            "slovenské" : 20
+            "české" : 6
+            "poľské" : 8
+            "US a iné zahraničné" : 6
+        {% end %}
+    </div>
+    <div style="flex: 1; height: 100%;">
+        {% mermaid() %}
+        ---
+        config:
+          theme: 'dark'
+        ---
+        pie title Skladba pohovorov podľa krajiny firmy
+            "slovenské" : 6
+            "US a iné zahraničné" : 2
+        {% end %}
+    </div>
+</div>
 
 # IT trh práce a nábor v Q4 2025/Q1 2026
 
