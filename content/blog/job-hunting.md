@@ -69,6 +69,30 @@ Polovica žiadostí ostala bez akejkoľvek reakcie. 1/5 žiadostí viedla k poho
 
 {{ image(path="sankey-sk.png" alt="Sankey graf job huntingu") }}
 
+14 žiadostí našim susedom neprinieslo ani len screening hovor, zo 6 žiadostí zahraničným firmám sa mi podarilo dostať na 2 pohovory.
+
+{% mermaid() %}
+---
+config:
+  theme: 'dark'
+---
+pie title Skladba žiadostí podľa krajiny firmy
+    "slovenské" : 20
+    "české" : 6
+    "poľské" : 8
+    "US a iné zahraničné" : 6
+{% end %}
+
+{% mermaid() %}
+---
+config:
+  theme: 'dark'
+---
+pie title Skladba pohovorov podľa krajiny firmy
+    "slovenské" : 6
+    "US a iné zahraničné" : 2
+{% end %}
+
 # IT trh práce a nábor v Q4 2025/Q1 2026
 
 ## Situácia na trhu
@@ -94,7 +118,7 @@ Polovica žiadostí ostala bez akejkoľvek reakcie. 1/5 žiadostí viedla k poho
 - **pracovné portály**: 
     - **Profesia** je nutné zlo a potrebovala by konkurenciu
     - **LinkedIn** občas zobrazí relevantné inzeráty (a ktoré nie sú na Profesii), filtrovanie sťažuje kopa zle kategorizovaných, najväčší prínos má nastavenie notifikácií na nové joby
-    - **české a poľské portály** nepriniesli ani len screening hovor. Prispeli aspoň k prehľadu o finančnom ohodnotení na týchto trhoch - české platy sú nižšie, čo je zreteľné, ak firma inzeruje pozíciu v oboch krajinách. Pri slovenskej daňovej rezidencii sa teda veľmi neoplatí hľadať v ČR.
+    - **české a poľské portály** prispeli aspoň k prehľadu o finančnom ohodnotení na týchto trhoch - české platy sa mi zdali v priemere nižšie, čo je zreteľné, ak firma inzeruje pozíciu v oboch krajinách (ale sú aj opačné prípady). Pri slovenskej daňovej rezidencii sa teda veľmi neoplatí hľadať v ČR.
     - [**Remote Rocketship**](https://www.remoterocketship.com/) sa sústredí na remote pozície na firemných stránkach a pomáha nájsť ponuky nenachádzajúce sa na LI. Práve reakcie na pozície na neprefláknutých miestach, kde sa nehlási pol krajiny/sveta, boli úspešnejšie (v rámci SK vyzerá, že hlavná je Profesia a na LI ešte nie je taká konkurencia).
 
 - **AI**: niektoré zahraničné pracovné portály majú zabudovanú funkcionalitu vyhodnotenia zhody CV s inzerátom pomocou AI. Vyrojila sa kopa platených a neplatených AI nástrojov, ktoré majú pomôcť s hľadaním inzerátov, tvorbou CV, evidenciou žiadostí, analýzou trhu a pod. (napr. [https://slayapply.com](https://slayapply.com) na odhalenie potenciálnych fejkov a scamov)
