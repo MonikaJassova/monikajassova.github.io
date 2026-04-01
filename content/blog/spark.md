@@ -1,6 +1,6 @@
 +++
 title = "Apache Spark"
-description = "Prehľad Apache Spark"
+description = "Prehľad Apache Spark."
 date = "2022-05-21"
 
 [taxonomies]
