@@ -8,6 +8,7 @@ tags=["osobné"]
 
 [extra]
 comment = true
+local_image = "/static/sankey-sk.png"
 +++
 
 *Sumár môjho hľadania práce od posledného kvartálu 2025 a prehľad zistení o trhu a náborovom procese. Hľadala som primárne remote DevOps a QA (automation/SDET) pozície na Slovensku, v Česku, Poľsku a zahraničí (+ hybrid v Košiciach) a hlásila som sa do rôznych typov firiem od korporátov, cez SW domy rôznej veľkosti po produktové firmy a startupy. Ide o anekdotickú skúsenosť, ale myslím, že každá správa "z frontu" sa hodí.*
