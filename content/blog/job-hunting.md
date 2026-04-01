@@ -40,7 +40,7 @@ timeline
 
     section Október 2025
         8.10. : Pokračovanie bootcampu po pauze
-        20.10. : Reakcia na inzerát, ktorá viedla k prvému pohovoru
+        20.10. : Reakcia vedúca k prvému pohovoru
 
     section November 2025
         18.11. : Prvý pohovor
@@ -79,7 +79,7 @@ Spolu 14 žiadostí našim susedom neprinieslo ani len screening hovor, zo 6 ži
         config:
           theme: 'dark'
         ---
-        pie title Skladba žiadostí podľa krajiny firmy
+        pie showData title Skladba žiadostí podľa krajiny firmy
             "slovenské" : 20
             "české" : 6
             "poľské" : 8
@@ -92,7 +92,7 @@ Spolu 14 žiadostí našim susedom neprinieslo ani len screening hovor, zo 6 ži
         config:
           theme: 'dark'
         ---
-        pie title Skladba pohovorov podľa krajiny firmy
+        pie showData title Skladba pohovorov podľa krajiny firmy
             "slovenské" : 6
             "US a iné zahraničné" : 2
         {% end %}
