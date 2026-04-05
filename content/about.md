@@ -3,6 +3,8 @@ title = "O mne"
 path = "about"
 +++
 
-Som softvérový tester so zameraním na automatizovaný testing. Zaujíma ma, ako veci fungujú aj spôsob, akým sa vyrábajú a testujú, prevádzkujú, monitorujú a zlepšujú. Mojím najnovším záujmom je práve DevOps a infraštruktúra.
+Som softvérový tester so zameraním na automatizované testovanie. Zaujíma ma, **či a ako systémy fungujú aj spôsob, akým sa vyrábajú** - od plánovania, dizajnu a implementácie cez testovanie, nasadenie a prevádzku po monitorovanie a optimalizáciu (celý SDLC).
 
-Začínala som ako asi skoro všetci testovaním webových a mobilných aplikácií. Potom som 3,5 roka strávila na projekte, ktorý sa zaoberal big data. Ďalších 3,5 roka som sa venovala blockchainovému projektu.
+Od začiatkov pri testovaní webových a mobilných aplikácií som sa dostala k zaujímavým a komplexným projektom v oblasti **big data a blockchainu**. Mojím najnovším záujmom je **DevOps a infraštruktúra**.
+
+S radosťou sa podelím o svoje poznatky a postrehy na tieto a ďalšie témy prostredníctvom tohto blogu.
