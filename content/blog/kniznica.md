@@ -2,7 +2,7 @@
 title = "IT knižnica"
 description = "Zoznam kníh, ktoré som prečítala a odporúčam."
 date = "2025-07-01"
-updated = "2025-12-31"
+updated = "2026-04-14"
 
 [taxonomies]
 tags=["IT", "testovanie", "DevOps"]
@@ -22,6 +22,8 @@ comment = true
 [A Practical Guide to Testing in DevOps](https://www.goodreads.com/book/show/35904152-a-practical-guide-to-testing-in-devops) - čo znamená DevOps metodológia pre rolu testera, testovanie v produkcii, testovanie samotných DevOps komponentov (CI/CD, infraštruktúry, monitorovania a výstrah), použitie monitorovania ako testovania, obsahuje aj príklady testovania v DevOps z praxe u známych firiem. Páčila sa mi analógia DevOps bug filtra a testovacieho kyvadla medzi hlbokým a plytkým testovaním.
 
 [Effective Software Testing: A developer's guide](https://www.goodreads.com/book/show/59796908-effective-software-testing) - kniha sa hodí, ak chcete byť SDET,  snažíte sa testy posúvať na nižšie úrovne, alebo hľadáte spoločný náhľad s developermi, je tu aj kapitola venovaná väčším systémovým testom, ktoré typicky píšu testeri
+
+[Testing Web APIs](https://www.goodreads.com/book/show/59694557-testing-web-apis) - holistická stratégia testovania webových API na základe rizika a jej implementácia rôznymi činnosťami - testovanie API dizajnu, exploratory testing API, automatizované testovanie (regresné, akceptačné, mocking, contract testing), performance, security a testovanie v produkcii
 
 [Contract Testing in Action](https://www.goodreads.com/book/show/213798717-contract-testing-in-action) - ako uvádza titulok, v akcii je framework Pact, pokiaľ viem, pred ňou neexistovalo nič ucelené na túto tému
 

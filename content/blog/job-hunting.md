@@ -1,6 +1,6 @@
 +++
 date = "2026-04-01"
-updated = "2026-04-05"
+updated = "2026-04-14"
 description = "Sumár môjho hľadania práce od posledného kvartálu 2025 a zistení o trhu a nábore."
 title = "Hľadanie práce"
 
