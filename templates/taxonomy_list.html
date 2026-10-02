@@ -21,11 +21,11 @@
                             <a href={{ term.permalink }}>{{ term.name }}</a>
                         </h1>
                         {% if term.page_count == 1 %}
-                            <small class="meta">{{ term.page_count }} článok</small>
-                        {% elif term.page_count >= 2 and term.page_count <= 4%}
-                            <small class="meta">{{ term.page_count }} články</small>
+                            <small class="meta">{{ term.page_count }} {{ trans(key="tag_count_one", lang=lang) }}</small>
+                        {% elif term.page_count >= 2 and term.page_count <= 4 %}
+                            <small class="meta">{{ term.page_count }} {{ trans(key="tag_count_few", lang=lang) }}</small>
                         {% else %}
-                            <small class="meta">{{ term.page_count }} článkov</small>
+                            <small class="meta">{{ term.page_count }} {{ trans(key="tag_count_many", lang=lang) }}</small>
                         {% endif %}
                         <!-- <small class="meta">{{ term.page_count }} článkov{{ term.page_count | pluralize }}</small> -->
                         <!-- <small class="meta">{{ term.page_count }} článkov</small> -->

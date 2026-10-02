@@ -3,6 +3,6 @@
 {% block main_content %}
     <main class="not-found-header">
         {{ post_macros::page_header(title="404") }}
-        <span>Stránka sa nenašla :(</span>
+        <span>{{ trans(key="not_found", lang=lang) }}</span>
     </main>
 {% endblock main_content %}

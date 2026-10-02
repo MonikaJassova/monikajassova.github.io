@@ -1,11 +1,12 @@
 <nav>
     <div class="left-nav">
+        {% set home_url = get_url(path="/", lang=lang) %}
         {% if config.extra.logo %}
-            <a href={{ config.base_url }} class="logo">
+            <a href="{{ home_url | safe }}" class="logo">
                 <img alt="{{ config.title }}" src="{{ get_url(path=config.extra.logo) }}" />
             </a>
         {% else %}
-            <a href={{ config.base_url }}>{{ config.title }}</a>
+            <a href="{{ home_url | safe }}">{{ config.title }}</a>
         {% endif %}
 
 
@@ -26,7 +27,7 @@
 
     <div class="right-nav">
         {% for menu in config.extra.menu %}
-            <a href={{ get_url(path=menu.url) }} style="margin-right: 0.5em">{{ menu.name }}</a>
+            <a href={{ get_url(path=menu.url, lang=lang) }} style="margin-right: 0.5em">{{ trans(key=menu.name, lang=lang) }}</a>
         {% endfor %}
 
         {% if config.build_search_index %}
@@ -44,7 +45,7 @@
                  aria-labelledby="modalTitle">
                 <div id="modal-content">
                     <h1 id="modalTitle" class="page-header">
-                        Vyhľadávanie
+                        {{ trans(key="search_title", lang=lang) }}
                     </h1>
                     <div id="searchBar">
                         <input id="searchInput"
@@ -53,7 +54,7 @@
                                spellcheck="false"
                                aria-expanded="false"
                                aria-controls="results-container"
-                               placeholder="Hľadať..." />
+                               placeholder="{{ trans(key="search_placeholder", lang=lang) }}" />
                         <button id="clear-search" class="clear-button" title="Clear Search">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                 <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
@@ -62,9 +63,9 @@
                     </div>
                     <div id="results-container">
                         <div id="results-info">
-                            <span id="zero_results" style="display: none;">Žiadne výsledky</span>
-                            <span id="one_result" style="display: none;">1 výsledok</span>
-                            <span id="many_results" style="display: none;">$NUMBER výsledkov</span>
+                            <span id="zero_results" style="display: none;">{{ trans(key="search_zero", lang=lang) }}</span>
+                            <span id="one_result" style="display: none;">{{ trans(key="search_one", lang=lang) }}</span>
+                            <span id="many_results" style="display: none;">{{ trans(key="search_many", lang=lang) }}</span>
                         </div>
                         <div id="results" role="listbox">
                         </div>
@@ -93,5 +94,43 @@
                 updateItemToggleTheme()
             </script>
         {% endif %}
+
+        {% set languages = ["sk", "en"] %}
+        <div class="language-switcher" aria-label="Language">
+            {% for l in languages %}
+                {% if l == lang %}
+                    <span class="lang-active">{{ l | upper }}</span>
+                {% else %}
+                    {% set_global lang_switch_url = get_url(path="/", lang=l) %}
+                    {% set sl = "/" %}
+                    {% set enprefix = "/en/" %}
+                    {% if section is defined %}
+                        {% set stripped_en = section.path | trim_start_matches(pat=enprefix) %}
+                        {% if lang == "en" and stripped_en != section.path %}
+                            {% set rel = stripped_en | trim_end_matches(pat=sl) %}
+                        {% else %}
+                            {% set rel = section.path | trim_start_matches(pat=sl) | trim_end_matches(pat=sl) %}
+                        {% endif %}
+                        {% if rel != "" %}
+                            {% set_global lang_switch_url = get_url(path=rel, lang=l) %}
+                        {% endif %}
+                    {% elif term is defined %}
+                        {% set_global lang_switch_url = get_url(path="tags", lang=l) %}
+                    {% elif current_path is defined and current_path == "/tags/" %}
+                        {% set_global lang_switch_url = get_url(path="tags", lang=l) %}
+                    {% elif current_path is defined and current_path == "/en/tags/" %}
+                        {% set_global lang_switch_url = get_url(path="tags", lang=l) %}
+                    {% else %}
+                        {% for t in page.translations | default(value=[]) %}
+                            {% if t.lang == l %}
+                                {% set_global lang_switch_url = t.permalink %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <a href="{{ lang_switch_url | safe }}" lang="{{ l }}">{{ l | upper }}</a>
+                {% endif %}
+                {% if not loop.last %}<span class="lang-sep">|</span>{% endif %}
+            {% endfor %}
+        </div>
     </div>
 </nav>

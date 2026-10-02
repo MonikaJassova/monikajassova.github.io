@@ -3,11 +3,11 @@
 {% macro list_tag_posts(pages, tag_name=false) %}
     {% if tag_name %}
         <div class="page-header">
-            Články označené :: {{ tag_name }}
+            {{ trans(key="tagged_articles", lang=lang) }} :: {{ tag_name }}
         </div>
     {% else %}
         <div class="page-header">
-            All articles
+            {{ trans(key="all_articles", lang=lang) }}
         </div>
     {% endif %}
 
