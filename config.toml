@@ -4,12 +4,17 @@ base_url = "https://monikajassova.github.io"
 title = "Monikin ITinerár"
 description = "Moje zápisky z cesty po svete IT"
 
+default_language = "sk"
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
 
 minify_html = true
 
-# Whether to build a search index to be used later on by a JavaScript library
+# Whether to build a search index to be used later on by a JavaScript library.
+# Uses the `fuse` backend (index_format = "fuse_json") because the elasticlunr
+# backend does not support Slovak. fuse is language-agnostic, so both the
+# Slovak (default) and English indexes are built.
 build_search_index = true
 
 theme = "apollo"
@@ -21,6 +26,64 @@ generate_feeds = true
 feed_filenames = ["atom.xml", "rss.xml"]
 
 author = "Monika Jaššová"
+
+[languages.en]
+title = "Monika's ITinerary"
+generate_feeds = true
+build_search_index = true
+feed_filenames = ["atom.xml", "rss.xml"]
+taxonomies = [{ name = "tags" }]
+search = { include_title = true, include_description = true, include_path = true, include_content = true, index_format = "fuse_json" }
+
+# --- Slovak (default) UI strings ---
+[translations]
+menu_blog = "/blog"
+menu_projects = "/projekty"
+menu_tags = "/tagy"
+menu_about = "/o mne"
+latest_posts = "Najnovšie príspevky"
+search_title = "Vyhľadávanie"
+search_placeholder = "Hľadať..."
+search_zero = "Žiadne výsledky"
+search_one = "1 výsledok"
+search_many = "$NUMBER výsledkov"
+pub_date = "Publikované"
+upd_date = "Aktualizované"
+read_min = "min"
+back = "Naspäť"
+next = "Ďalej"
+contents = "Obsah"
+not_found = "Stránka sa nenašla :("
+tag_count_one = "článok"
+tag_count_few = "články"
+tag_count_many = "článkov"
+tagged_articles = "Články označené"
+all_articles = "Všetky články"
+
+# --- English UI strings ---
+[languages.en.translations]
+menu_blog = "/blog"
+menu_projects = "/projects"
+menu_tags = "/tags"
+menu_about = "/about me"
+latest_posts = "Latest posts"
+search_title = "Search"
+search_placeholder = "Search..."
+search_zero = "No results"
+search_one = "1 result"
+search_many = "$NUMBER results"
+pub_date = "Published"
+upd_date = "Updated"
+read_min = "min"
+back = "Back"
+next = "Next"
+contents = "Contents"
+not_found = "Page not found :("
+tag_count_one = "article"
+tag_count_few = "articles"
+tag_count_many = "articles"
+tagged_articles = "Articles tagged"
+all_articles = "All articles"
 
 [markdown]
 external_links_target_blank = true
@@ -35,7 +98,7 @@ include_title = true
 include_description = true
 include_path = true
 include_content = true
-index_format = "elasticlunr_json"
+index_format = "fuse_json"
 
 [extra]
 theme = "toggle"
@@ -44,10 +107,10 @@ socials = [
   { name = "github", url = "https://github.com/MonikaJassova/", icon = "github" },
 ]
 menu = [
-  { name = "/blog", url = "/blog", weight = 1 },
-  { name = "/projekty", url = "/projects", weight = 2 },
-  { name = "/tagy", url = "/tags", weight = 3 },
-  { name = "/o mne", url = "/about", weight = 4 },
+  { name = "menu_blog", url = "blog", weight = 1 },
+  { name = "menu_projects", url = "projects", weight = 2 },
+  { name = "menu_tags", url = "tags", weight = 3 },
+  { name = "menu_about", url = "about", weight = 4 },
 ]
 stylesheets = [
   "custom.css",           # static/custom.css

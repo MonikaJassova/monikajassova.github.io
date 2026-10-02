@@ -10,16 +10,16 @@
 
                     <div class="meta">
                         {% if page.date %}
-                            Publikované <time>{{ page.date | date(format="%d.%m.%Y") }}</time>
+                            {{ trans(key="pub_date", lang=lang) }} <time>{{ page.date | date(format="%d.%m.%Y") }}</time>
                         {% endif %}
 
 
                         {% if page.updated %}
-                            :: Aktualizované <time>{{ page.updated | date(format="%d.%m.%Y") }}</time> 
+                            :: {{ trans(key="upd_date", lang=lang) }} <time>{{ page.updated | date(format="%d.%m.%Y") }}</time>
                         {% endif %}
 
                         {% if page.extra.read_time %}
-                            :: <time>{{ page.reading_time }}</time> Min Read
+                            :: <time>{{ page.reading_time }}</time> {{ trans(key="read_min", lang=lang) }}
                         {% endif %}
 
                         {% if config.extra.word_count and page.word_count %}

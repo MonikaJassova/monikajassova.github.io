@@ -14,9 +14,9 @@
 {% block main_content %}
     {{ self::home_page(section=section) }}
 
-    <h1>Najnovšie príspevky</h1>
+    <h1>{{ trans(key="latest_posts", lang=lang) }}</h1>
     <main class="post-list">
-        {% set section = get_section(path="blog/_index.md") %}
+        {% set section = get_section(path="blog/_index.md", lang=lang) %}
         {{ post_macros::list_posts(pages=section.pages | slice(end=5)) }}
     </main>
 {% endblock main_content %}

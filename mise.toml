@@ -1,0 +1,2 @@
+[tools]
+zola = "0.22.1" # 0.23 not compatible with the theme

@@ -54,9 +54,25 @@ nav .left-nav {
   font-size: 1.25rem;
 }
 
-nav .left-nav .socials .social img, 
-.search-button .search-icon, 
+nav .left-nav .socials .social img,
+.search-button .search-icon,
 nav .right-nav #dark-mode-toggle>img {
   width: 24px;
   height: 24px;
+}
+
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-left: 0.5em;
+  white-space: nowrap;
+}
+
+.language-switcher .lang-active {
+  font-weight: 700;
+}
+
+.language-switcher .lang-sep {
+  color: var(--text-2);
 }

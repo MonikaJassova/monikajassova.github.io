@@ -267,8 +267,8 @@
                     src="{{ get_url(path='search_index.' ~ lang ~ '.js', cachebust=true) | safe }}"></script>
         {%- endif -%}
 
-        {# Main search script #}
+        {# Main search script (fuse) #}
         <script defer
-                src="{{ get_url(path='js/searchElasticlunr.min.js', cachebust=true) | safe }}"></script>
+                src="{{ get_url(path='js/searchFuse.js', cachebust=true) | safe }}"></script>
     {%- endif -%}
 </head>
